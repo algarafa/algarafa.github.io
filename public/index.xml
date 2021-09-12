@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rafael Álvarez García</title>
+    <link>https://algarafa.com/</link>
+    <description>Recent content on Rafael Álvarez García</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 15 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://algarafa.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>https://algarafa.com/about/</link>
+      <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://algarafa.com/about/</guid>
+      
+        <description>I am PhD student in theoretical physics at the Cluster of Excellence Quantum Universe, a joint project of Universität Hamburg and DESY.</description>
+      
+    </item>
+    
+    <item>
+      <title>Swampland Conjectures for an Almost Topological Gravity Theory</title>
+      <link>https://algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</link>
+      <pubDate>Thu, 15 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</guid>
+      
+        <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Ralph Blumenhagen, Christian Kneißl, Andriana Makridou and Lorenz Schlechter.&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
+&lt;p&gt;We analyze AdS and dS swampland conjectures in a three-dimensional higher spin theory with self-interacting matter, which contains conformal gravity and is almost topological. A theory of a similar type was proposed as the effective theory in the high energy phase of non-critical M-theory in 3D. With some details differing from the usual string theory story, it is found that the resulting effective theory, namely topologically massive gravity, fits well into the web of the proposed swampland conjectures. Supporting a recent proposal, in particular we find that this 3D theory gives rise to a quantum break time that scales like \(t_Q\sim H^{-1}\).&lt;/p&gt;</description>
+      
+    </item>
+    
+    <item>
+      <title>Small Flux Superpotentials for Type IIB Flux Vacua Close to a Conifold</title>
+      <link>https://algarafa.com/publications/small-flux-superpotentials-conifold/</link>
+      <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://algarafa.com/publications/small-flux-superpotentials-conifold/</guid>
+      
+        <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Ralph Blumenhagen, Max Brinkmann and Lorenz Schlechter.&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
+&lt;p&gt;We generalize the recently proposed mechanism by Demirtas, Kim, McAllister and Moritz &lt;a href=&#34;https://arxiv.org/abs/1912.10047&#34;&gt;arXiv:1912.10047&lt;/a&gt; for the explicit construction of type IIB flux vacua with \(|W_0|\ll 1\) to the region close to the conifold locus in the complex structure moduli space. For that purpose tools are developed to determine the periods and the resulting prepotential close to such a codimension one locus with all the remaining moduli still in the large complex structure regime. As a proof of principle we present a working example for the Calabi-Yau manifold \(\mathbb{P}_{1,1,2,8,12}[24]\).&lt;/p&gt;</description>
+      
+    </item>
+    
+  </channel>
+</rss>
