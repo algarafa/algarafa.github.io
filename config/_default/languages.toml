@@ -1,0 +1,14 @@
+[en]
+title = "Rafael Álvarez García"
+weight = 1
+LanguageName = "EN"
+contentDir = "content/english"
+
+[es]
+title = "Rafael Álvarez García"
+description = """
+¡Hola! Soy estudiante de doctorado en física teórica en la Universität Hamburg. Trabajo en aspectos de la teoría de cuerdas y de la gravedad cuántica. Estoy interesado en lo que la teoría de cuerdas puede enseñarnos sobre las propiedades que una teoría de la gravedad cuántica ha de tener.
+"""
+contentDir = "content/spanish" 
+weight = 2
+LanguageName = "ES"

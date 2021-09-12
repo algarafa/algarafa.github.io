@@ -1,0 +1,61 @@
+title = "Rafael Álvarez García"
+author = "Rafael Álvarez García"
+#copyright = "2020-2021"
+description = """
+Hi! I am a PhD student in theoretical physics at Universität Hamburg working on aspects of string theory and quantum gravity. I am interested in what string theory can teach us about the properties a theory of quantum gravity must have.
+"""
+profilePicture = "images/profile.jpg"
+keywords = ""
+favicon = "favicons/"
+# example ["css/custom.css"]
+customCss = []
+# example ["js/custom.js"]
+customJs = [] 
+#mainSections = ["post"]
+mainSections = ["publications"]
+#images = ["images/site-feature-image.png"]
+doNotLoadAnimations = true
+# Form Spree Contact Form
+#contactFormAction = "https://formspree.io/f/your-form-hash-here"
+# Google Site Verify
+#googleSiteVerify = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+singleDateFormat = "2/1/2006"
+indexDateFormat = "2/1/2006"
+listDateFormat = "2/1/2006"
+# Commento Comments
+# CommentoURL = "https://commento.example.com/js/commento.js"
+# Read More links for truncated summaries
+# readMore = true
+# postSectionName = "blog"
+
+
+[simpleAnalytics]
+# enable = true
+# customurl = "https://analytics.example.com"
+
+## Math settings
+[math]
+enable = true  # options: true, false. Enable math support globally, default: false. You can always enable math on per page.
+use = "katex"  # options: "katex", "mathjax". default is "katex".
+
+## Social links
+# use 'fab' when brand icons, use 'fas' when standard solid icons.
+[[socialIcons]]
+icon = "ai ai-inspire"
+title = "INSPIRE"
+url = "https://inspirehep.net/authors/1815980"
+
+[[socialIcons]]
+icon = "ai ai-orcid"
+title = "ORCID"
+url = "https://orcid.org/0000-0002-8927-2656"
+
+#[[socialIcons]]
+#icon = "fab fa-github"
+#title = "GitHub"
+#url = "https://github.com/"
+
+[[socialIcons]]
+icon = "fas fa-envelope"
+title = "e-mail"
+url = "mailto:rafael.alvarez.garcia@desy.de"

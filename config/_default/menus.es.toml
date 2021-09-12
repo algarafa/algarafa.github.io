@@ -1,0 +1,17 @@
+  [[main]]
+  name = "Inicio"
+  identifier = "main"
+  weight = 100
+  url = "/es/"
+
+  [[main]]
+  name = "Publicaciones"
+  weight = 200
+  identifier = "publications"
+  url = "/es/publications/"
+
+  [[main]]
+  name = "Sobre mí"
+  weight = 300
+  identifier = "about"
+  url = "/es/about/"
