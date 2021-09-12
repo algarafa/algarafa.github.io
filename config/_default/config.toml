@@ -6,6 +6,7 @@ theme = "anatole-mod"
 summarylength = 10
 enableEmoji = true
 enableRobotsTXT = true
+publishDir = "docs"
 
 # Enable Disqus
 #disqusShortname = ""
