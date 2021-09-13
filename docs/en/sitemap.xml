@@ -2,117 +2,117 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://algarafa.com/about/</loc>
+    <loc>https://www.algarafa.com/about/</loc>
     <lastmod>2021-09-12T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/about/"
+                href="https://www.algarafa.com/es/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/about/"
+                href="https://www.algarafa.com/about/"
                 />
   </url><url>
-    <loc>https://algarafa.com/</loc>
+    <loc>https://www.algarafa.com/</loc>
     <lastmod>2021-07-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/"
+                href="https://www.algarafa.com/es/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/"
+                href="https://www.algarafa.com/"
                 />
   </url><url>
-    <loc>https://algarafa.com/publications/</loc>
+    <loc>https://www.algarafa.com/publications/</loc>
     <lastmod>2021-07-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/publications/"
+                href="https://www.algarafa.com/es/publications/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/publications/"
+                href="https://www.algarafa.com/publications/"
                 />
   </url><url>
-    <loc>https://algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</loc>
+    <loc>https://www.algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</loc>
     <lastmod>2021-07-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/publications/swampland-conjectures-almost-topological-gravity/"
+                href="https://www.algarafa.com/es/publications/swampland-conjectures-almost-topological-gravity/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/publications/swampland-conjectures-almost-topological-gravity/"
+                href="https://www.algarafa.com/publications/swampland-conjectures-almost-topological-gravity/"
                 />
   </url><url>
-    <loc>https://algarafa.com/publications/small-flux-superpotentials-conifold/</loc>
+    <loc>https://www.algarafa.com/publications/small-flux-superpotentials-conifold/</loc>
     <lastmod>2020-09-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/publications/small-flux-superpotentials-conifold/"
+                href="https://www.algarafa.com/es/publications/small-flux-superpotentials-conifold/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/publications/small-flux-superpotentials-conifold/"
+                href="https://www.algarafa.com/publications/small-flux-superpotentials-conifold/"
                 />
   </url><url>
-    <loc>https://algarafa.com/categories/</loc>
+    <loc>https://www.algarafa.com/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/categories/"
+                href="https://www.algarafa.com/es/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/categories/"
+                href="https://www.algarafa.com/categories/"
                 />
   </url><url>
-    <loc>https://algarafa.com/tags/index/</loc>
+    <loc>https://www.algarafa.com/tags/index/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/tags/index/"
+                href="https://www.algarafa.com/es/tags/index/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/tags/index/"
+                href="https://www.algarafa.com/tags/index/"
                 />
   </url><url>
-    <loc>https://algarafa.com/series/</loc>
+    <loc>https://www.algarafa.com/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/series/"
+                href="https://www.algarafa.com/es/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/series/"
+                href="https://www.algarafa.com/series/"
                 />
   </url><url>
-    <loc>https://algarafa.com/tags/</loc>
+    <loc>https://www.algarafa.com/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
-                href="https://algarafa.com/es/tags/"
+                href="https://www.algarafa.com/es/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://algarafa.com/tags/"
+                href="https://www.algarafa.com/tags/"
                 />
   </url>
 </urlset>

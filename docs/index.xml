@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rafael Álvarez García</title>
-    <link>https://algarafa.com/</link>
+    <link>https://www.algarafa.com/</link>
     <description>Recent content on Rafael Álvarez García</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 15 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://algarafa.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
-      <link>https://algarafa.com/about/</link>
+      <link>https://www.algarafa.com/about/</link>
       <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://algarafa.com/about/</guid>
+      <guid>https://www.algarafa.com/about/</guid>
       
         <description>I am PhD student in theoretical physics at the Cluster of Excellence Quantum Universe, a joint project of Universität Hamburg and DESY.</description>
       
@@ -20,10 +20,10 @@
     
     <item>
       <title>Swampland Conjectures for an Almost Topological Gravity Theory</title>
-      <link>https://algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</link>
+      <link>https://www.algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</link>
       <pubDate>Thu, 15 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</guid>
+      <guid>https://www.algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Ralph Blumenhagen, Christian Kneißl, Andriana Makridou and Lorenz Schlechter.&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
@@ -33,10 +33,10 @@
     
     <item>
       <title>Small Flux Superpotentials for Type IIB Flux Vacua Close to a Conifold</title>
-      <link>https://algarafa.com/publications/small-flux-superpotentials-conifold/</link>
+      <link>https://www.algarafa.com/publications/small-flux-superpotentials-conifold/</link>
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://algarafa.com/publications/small-flux-superpotentials-conifold/</guid>
+      <guid>https://www.algarafa.com/publications/small-flux-superpotentials-conifold/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Ralph Blumenhagen, Max Brinkmann and Lorenz Schlechter.&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
