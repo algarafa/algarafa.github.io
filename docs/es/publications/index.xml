@@ -6,7 +6,20 @@
     <description>Recent content in Publicaciones on Rafael Álvarez García</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 15 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/es/publications/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/es/publications/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Analytic Periods via Twisted Symmetric Squares</title>
+      <link>https://www.algarafa.com/es/publications/analytic-periods-twisted-symmetric-squares/</link>
+      <pubDate>Wed, 06 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.algarafa.com/es/publications/analytic-periods-twisted-symmetric-squares/</guid>
+      
+        <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Lorenz Schlechter.&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
+&lt;p&gt;We study the symmetric square of Picard-Fuchs operators of genus one curves and the thereby induced generalized Clausen identities. This allows the computation of analytic expressions for the periods of all one-parameter K3 manifolds in terms of elliptic integrals. The resulting expressions are globally valid throughout the moduli space and allow the explicit inversion of the mirror map and the exact computation of distances, useful for checks of the Swampland Distance Conjecture. We comment on the generalization to multi-parameter models and provide a two-parameter example.&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>Swampland Conjectures for an Almost Topological Gravity Theory</title>
       <link>https://www.algarafa.com/es/publications/swampland-conjectures-almost-topological-gravity/</link>

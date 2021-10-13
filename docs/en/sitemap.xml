@@ -2,21 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.algarafa.com/about/</loc>
-    <lastmod>2021-09-12T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://www.algarafa.com/es/about/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.algarafa.com/about/"
-                />
-  </url><url>
     <loc>https://www.algarafa.com/</loc>
-    <lastmod>2021-07-15T00:00:00+00:00</lastmod>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
@@ -28,8 +15,21 @@
                 href="https://www.algarafa.com/"
                 />
   </url><url>
+    <loc>https://www.algarafa.com/publications/analytic-periods-twisted-symmetric-squares/</loc>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://www.algarafa.com/es/publications/analytic-periods-twisted-symmetric-squares/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.algarafa.com/publications/analytic-periods-twisted-symmetric-squares/"
+                />
+  </url><url>
     <loc>https://www.algarafa.com/publications/</loc>
-    <lastmod>2021-07-15T00:00:00+00:00</lastmod>
+    <lastmod>2021-10-06T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="es"
@@ -39,6 +39,19 @@
                 rel="alternate"
                 hreflang="en"
                 href="https://www.algarafa.com/publications/"
+                />
+  </url><url>
+    <loc>https://www.algarafa.com/about/</loc>
+    <lastmod>2021-09-12T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://www.algarafa.com/es/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.algarafa.com/about/"
                 />
   </url><url>
     <loc>https://www.algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</loc>
