@@ -6,7 +6,20 @@
     <description>Recent content on Rafael Álvarez García</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/es/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/es/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Membrane Limits in Quantum Gravity</title>
+      <link>https://www.algarafa.com/es/publications/membrane-limits-quantum-gravity/</link>
+      <pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.algarafa.com/es/publications/membrane-limits-quantum-gravity/</guid>
+      
+        <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Daniel Kläwer and Timo Weigand.&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
+&lt;p&gt;It is expected that infinite distance limits in the moduli space of quantum gravity are accompanied by a tower of light states. In view of the Emergent String Conjecture, this tower must either induce a decompactification or correspond to the emergence of a tensionless critical string. We study the consistency conditions implied by this conjecture on the asymptotic behaviour of quantum gravity under dimensional reduction. If the emergent string descends from a (2+1)-dimensional membrane in a higher-dimensional theory, we find that such a membrane must parametrically decouple from the Kaluza-Klein scale. We verify this censorship against emergent membrane limits, where the membrane would sit at the Kaluza-Klein scale, in the hypermultiplet moduli space of Calabi-Yau threefold compactifications of string/M-theory. At the classical level, a putative membrane limit arises, up to duality, from an M5-brane wrapping the asymptotically shrinking special Lagrangian 3-cycle corresponding to the SYZ fibre of the Calabi-Yau. We show how quantum corrections in the moduli space obstruct such a limit and instead lead to a decompactification to eleven dimensions, where the role of the M5- and M2-branes are interchanged.&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>Analytic Periods via Twisted Symmetric Squares</title>
       <link>https://www.algarafa.com/es/publications/analytic-periods-twisted-symmetric-squares/</link>
