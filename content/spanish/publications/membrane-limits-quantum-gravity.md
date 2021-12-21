@@ -33,5 +33,4 @@ It is expected that infinite distance limits in the moduli space of quantum grav
     month = "12",
     year = "2021"
 }
-
 ```

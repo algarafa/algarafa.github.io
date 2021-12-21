@@ -33,5 +33,4 @@ We analyze AdS and dS swampland conjectures in a three-dimensional higher spin t
     month = "7",
     year = "2021"
 }
-
 ```

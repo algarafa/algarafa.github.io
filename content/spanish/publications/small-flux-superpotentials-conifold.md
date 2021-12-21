@@ -36,5 +36,4 @@ We generalize the recently proposed mechanism by Demirtas, Kim, McAllister and M
     month = "9",
     year = "2020"
 }
-
 ```

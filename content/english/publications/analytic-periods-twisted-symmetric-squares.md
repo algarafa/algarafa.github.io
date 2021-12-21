@@ -33,5 +33,4 @@ We study the symmetric square of Picard-Fuchs operators of genus one curves and 
     month = "10",
     year = "2021"
 }
-
 ```
