@@ -18,6 +18,7 @@ We analyze AdS and dS swampland conjectures in a three-dimensional higher spin t
 <ul class="fa-ul">
   <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-arxiv ai-2x"></i></span><a href="https://arxiv.org/abs/2107.07546">arXiv:2107.07546</a>
   <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-inspire ai-2x"></i></span><a href="https://inspirehep.net/literature/1886534">INSPIRE</a>
+  <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-elsevier ai-2x"></i></span><a href="https://doi.org/10.1016/j.physletb.2021.136861">Physics Letters B</a>
 </ul>
 
 #### BibTex Citation
@@ -25,12 +26,15 @@ We analyze AdS and dS swampland conjectures in a three-dimensional higher spin t
 ```
 @article{Alvarez-Garcia:2021hzz,
     author = "\'Alvarez-Garc\'\i{}a, Rafael and Blumenhagen, Ralph and Kneissl, Christian and Makridou, Andriana and Schlechter, Lorenz",
-    title = "{Swampland Conjectures for an Almost Topological Gravity Theory}",
+    title = "{Swampland conjectures for an almost topological gravity theory}",
     eprint = "2107.07546",
     archivePrefix = "arXiv",
     primaryClass = "hep-th",
     reportNumber = "MPP-2021-110",
-    month = "7",
-    year = "2021"
+    doi = "10.1016/j.physletb.2021.136861",
+    journal = "Phys. Lett. B",
+    volume = "825",
+    pages = "136861",
+    year = "2022"
 }
 ```
