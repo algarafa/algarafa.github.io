@@ -2,6 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://www.algarafa.com/talks/</loc>
+    <lastmod>2022-03-19T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://www.algarafa.com/es/talks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.algarafa.com/talks/"
+                />
+  </url><url>
     <loc>https://www.algarafa.com/</loc>
     <lastmod>2021-12-16T00:00:00+00:00</lastmod>
     <xhtml:link
