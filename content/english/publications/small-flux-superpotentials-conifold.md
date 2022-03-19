@@ -33,7 +33,9 @@ We generalize the recently proposed mechanism by Demirtas, Kim, McAllister and M
     primaryClass = "hep-th",
     reportNumber = "MPP-2020-165",
     doi = "10.1002/prop.202000088",
-    month = "9",
+    journal = "Fortsch. Phys.",
+    volume = "68",
+    pages = "2000088",
     year = "2020"
 }
 ```
