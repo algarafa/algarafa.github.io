@@ -20,6 +20,10 @@ It is expected that infinite distance limits in the moduli space of quantum grav
   <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-inspire ai-2x"></i></span><a href="https://inspirehep.net/literature/1992926">INSPIRE</a>
 </ul>
 
+#### Swampland Seminar Talk (31/01/2021)
+
+{{< youtube id="pPi8DDnuLEk" title="Membrane Limits in Quantum Gravity" >}}
+
 #### BibTex Citation
 
 ```
