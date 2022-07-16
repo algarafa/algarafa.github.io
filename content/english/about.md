@@ -21,7 +21,7 @@ As an undergraduate I had the chance to take part in the [DESY Summer Student Pr
 
 #### Personal
 
-I come from Asturias, a small region situated in the northwest of Spain. Below you can find a collection of photographs that give you a taste of what Asturias is like. I hope you like it and you can visit some day!
+I come from Asturias, a small region situated in the northwest of Spain. Below you can find a collection of photographs that give you a taste of what Asturias is like. I hope that you like it and that you can visit some day!
 
 {{< gallery >}}
   {{< figure src="/asturias/asturcones.jpg" caption="Asturcones | Getty Images">}}
