@@ -1,6 +1,6 @@
 title = "Rafael Álvarez García"
 author = "Rafael Álvarez García"
-#copyright = "2020-2021"
+copyright = "Rafael Álvarez García 2021–{{ YEAR }}"
 description = """
 Hi! I am a PhD student in theoretical physics at Universität Hamburg working on aspects of string theory and quantum gravity. I am interested in what string theory can teach us about the properties a theory of quantum gravity must have.
 """
