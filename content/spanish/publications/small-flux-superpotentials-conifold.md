@@ -5,7 +5,7 @@ date = 2020-09-07
 math = true
 +++
 
- <font size="4"> *with Ralph Blumenhagen, Max Brinkmann and Lorenz Schlechter.* </font>
+ <font size="4"> *with Ralph Blumenhagen, Max Brinkmann and Lorenz Schlechter* </font>
 
 #### Abstract
 

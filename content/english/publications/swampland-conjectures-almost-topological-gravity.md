@@ -5,7 +5,7 @@ date = 2021-07-15
 math = true
 +++
 
- <font size="4"> *with Ralph Blumenhagen, Christian Kneißl, Andriana Makridou and Lorenz Schlechter.* </font>
+ <font size="4"> *with Ralph Blumenhagen, Christian Kneißl, Andriana Makridou and Lorenz Schlechter* </font>
 
 #### Abstract
 

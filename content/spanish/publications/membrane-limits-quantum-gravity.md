@@ -5,7 +5,7 @@ date = 2021-12-16
 math = true
 +++
 
- <font size="4"> *with Daniel Kläwer and Timo Weigand.* </font>
+ <font size="4"> *with Daniel Kläwer and Timo Weigand* </font>
 
 #### Abstract
 

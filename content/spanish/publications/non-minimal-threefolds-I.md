@@ -5,7 +5,7 @@ date = 2023-10-11
 math = true
 +++
 
- <font size="4"> *with Seung-Joo Lee and Timo Weigand.* </font>
+ <font size="4"> *with Seung-Joo Lee and Timo Weigand* </font>
 
 #### Abstract
 

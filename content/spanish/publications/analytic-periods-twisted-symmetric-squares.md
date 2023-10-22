@@ -5,7 +5,7 @@ date = 2021-10-06
 math = true
 +++
 
- <font size="4"> *with Lorenz Schlechter.* </font>
+ <font size="4"> *with Lorenz Schlechter* </font>
 
 #### Abstract
 
