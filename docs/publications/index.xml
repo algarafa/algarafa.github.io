@@ -6,7 +6,20 @@
     <description>Recent content in Publications on Rafael Álvarez García</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 11 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/publications/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/publications/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Non-minimal Elliptic Threefolds at Infinite Distance II: Asymptotic Physics</title>
+      <link>https://www.algarafa.com/publications/non-minimal-threefolds-ii/</link>
+      <pubDate>Mon, 18 Dec 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.algarafa.com/publications/non-minimal-threefolds-ii/</guid>
+      
+        <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Seung-Joo Lee and Timo Weigand&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
+&lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
+&lt;p&gt;We interpret infinite-distance limits in the complex structure moduli space of F-theory compactifications to six dimensions in the light of general ideas in quantum gravity. The limits we focus on arise from non-minimal singularities in the elliptic fiber over curves in a Hirzebruch surface base, which do not admit a crepant resolution. Such degenerations take place along infinite directions in the non-perturbative brane moduli space in F-theory. A blow-up procedure, detailed generally in Part I of this project, gives rise to an internal space consisting of a union of log Calabi-Yau threefolds glued together along their boundaries. We geometrically classify the resulting configurations for genus-zero single infinite-distance limits. Special emphasis is put on the structure of singular fibers in codimension zero and one. As our main result, we interpret the central fiber of these degenerations as endpoints of a decompactification limit with six-dimensional defects. The conclusions rely on an adiabatic limit to gain information on the asymptotically massless states from the structure of vanishing cycles. We also compare our analysis to the heterotic dual description where available. Our findings are in agreement with general expectations from quantum gravity and provide further evidence for the Emergent String Conjecture.&lt;/p&gt;</description>
+      
+    </item>
+    
     <item>
       <title>Non-minimal Elliptic Threefolds at Infinite Distance I: Log Calabi-Yau Resolutions</title>
       <link>https://www.algarafa.com/publications/non-minimal-threefolds-i/</link>
