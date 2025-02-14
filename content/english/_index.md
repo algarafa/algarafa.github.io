@@ -24,4 +24,4 @@ Don't forget to check the README.md file!
 Remember that you can also specify a section header for the posts below by configuring the `mainSectionsTitle` parameter in the front matter of this file.
 -->
 
-Welcome to my personal homepage! In this website you can learn a bit more [about me]({{<ref "/about">}}) or have a look at a complete list of my [publications]({{<ref "/publications/">}}). My most recent papers are presented below. You can always [send me an email](mailto:rafael.alvarez.garcia@desy.de) for more information.
+Welcome to my personal homepage! In this website you can learn a bit more [about me]({{<ref "/about">}}) or have a look at a complete list of my [publications]({{<ref "/publications/">}}). My most recent papers are presented below. You can always [send me an email](mailto:ralvarezgarcia@fas.harvard.edu) for more information.
