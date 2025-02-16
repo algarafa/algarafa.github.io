@@ -199,4 +199,14 @@
   
   <!-- Academicons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <!-- Tables CSS -->
+  {{ $tableStyles := resources.Get "css/tables.css" | resources.Minify | resources.Fingerprint }}
+  <link
+    rel="stylesheet"
+    href="{{ $tableStyles.RelPermalink }}"
+    integrity="{{ $tableStyles.Data.Integrity }}"
+    crossorigin="anonymous"
+    media="screen"
+  />
 </head>

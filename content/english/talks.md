@@ -6,6 +6,16 @@ aliases = ["talks"]
 author = "Rafael Álvarez García"
 +++
 
-#### [Membrane Limits in Quantum Gravity]({{<ref "/publications/membrane-limits-quantum-gravity.md">}}) - Swampland Seminar, Harvard University (31/01/2022)
+<!--
+Sources:
+https://zwbetz.com/style-a-markdown-table-with-bootstrap-classes-in-hugo/
+https://matt-thornton.net/tech/bootstrap-style-tables-in-hugo-without-bootstrap/
+-->
 
-{{< youtube id="pPi8DDnuLEk" title="Membrane Limits in Quantum Gravity" >}}
+{{< bootstrap-table "table table-striped" >}}
+| Date       |Title                                                                  | Institution                                                                             | Links  |
+| :---       |:---                                                                   | :---                                                                                    | :---   |
+| DD/MM/YYYY | Talk Title                                                            | Seminar Series<br> **Institution**, Location                                            | Slides |
+| DD/MM/YYYY | Talk Title                                                            | Seminar Series<br> **Institution**, Location                                            | Video  |
+| DD/MM/YYYY | Talk Title                                                            | Seminar Series<br> **Institution**, Location                                            |        |
+{{< /bootstrap-table >}}
