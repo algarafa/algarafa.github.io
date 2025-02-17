@@ -2,6 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://www.algarafa.com/es/talks/</loc>
+    <lastmod>2025-02-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.algarafa.com/talks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="https://www.algarafa.com/es/talks/"
+                />
+  </url><url>
     <loc>https://www.algarafa.com/es/</loc>
     <lastmod>2023-12-18T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -52,19 +65,6 @@
                 rel="alternate"
                 hreflang="es"
                 href="https://www.algarafa.com/es/publications/non-minimal-threefolds-i/"
-                />
-  </url><url>
-    <loc>https://www.algarafa.com/es/talks/</loc>
-    <lastmod>2022-03-19T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.algarafa.com/talks/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="es"
-                href="https://www.algarafa.com/es/talks/"
                 />
   </url><url>
     <loc>https://www.algarafa.com/es/publications/membrane-limits-quantum-gravity/</loc>

@@ -8,6 +8,17 @@
     <language>en</language>
     <lastBuildDate>Mon, 18 Dec 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/es/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Charlas</title>
+      <link>https://www.algarafa.com/es/talks/</link>
+      <pubDate>Sun, 16 Feb 2025 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.algarafa.com/es/talks/</guid>
+      
+        <description>Fecha Título Institución Enlaces     2024-10-29 The Distance Conjecture, Semi-stable Degenerations and F-theory Northeastern High Energy Theory Seminar</description>
+      
+    </item>
+    
+    <item>
       <title>Non-minimal Elliptic Threefolds at Infinite Distance II: Asymptotic Physics</title>
       <link>https://www.algarafa.com/es/publications/non-minimal-threefolds-ii/</link>
       <pubDate>Mon, 18 Dec 2023 00:00:00 +0000</pubDate>
@@ -30,17 +41,6 @@
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Seung-Joo Lee and Timo Weigand&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
 &lt;p&gt;We study infinite-distance limits in the complex structure moduli space of elliptic Calabi-Yau threefolds. In F-theory compactifications to six dimensions, such limits include infinite-distance trajectories in the non-perturbative open string moduli space. The limits are described as degenerations of elliptic threefolds whose central elements exhibit non-minimal elliptic fibers, in the Kodaira sense, over curves on the base. We show how these non-crepant singularities can be removed by a systematic sequence of blow-ups of the base, leading to a union of log Calabi-Yau spaces glued together along their boundaries. We identify criteria for the blow-ups to give rise to open chains or more complicated trees of components and analyse the blow-up geometry. While our results are general and applicable to all non-minimal degenerations of Calabi-Yau threefolds in codimension one, we exemplify them in particular for elliptic threefolds over Hirzebruch surface base spaces. We also explain how to extract the gauge algebra for F-theory probing such reducible asymptotic geometries. This analysis is the basis for a detailed F-theory interpretation of the associated infinite-distance limits that will be provided in a companion paper.&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>Charlas</title>
-      <link>https://www.algarafa.com/es/talks/</link>
-      <pubDate>Sat, 19 Mar 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.algarafa.com/es/talks/</guid>
-      
-        <description>Membrane Limits in Quantum Gravity - Swampland Seminar, Harvard University (31/01/2022)   </description>
       
     </item>
     
