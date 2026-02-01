@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rafael Álvarez García</title>
-    <link>http://localhost:1313/</link>
+    <link>https://www.algarafa.com/</link>
     <description>Recent content on Rafael Álvarez García</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 16 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Feb 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://www.algarafa.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Talks</title>
-      <link>http://localhost:1313/talks/</link>
+      <link>https://www.algarafa.com/talks/</link>
       <pubDate>Sun, 16 Feb 2025 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/talks/</guid>
+      <guid>https://www.algarafa.com/talks/</guid>
       
         <description>Talks</description>
       
@@ -20,10 +20,10 @@
     
     <item>
       <title>Non-minimal Elliptic Threefolds at Infinite Distance II: Asymptotic Physics</title>
-      <link>http://localhost:1313/publications/non-minimal-threefolds-ii/</link>
+      <link>https://www.algarafa.com/publications/non-minimal-threefolds-ii/</link>
       <pubDate>Mon, 18 Dec 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publications/non-minimal-threefolds-ii/</guid>
+      <guid>https://www.algarafa.com/publications/non-minimal-threefolds-ii/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Seung-Joo Lee and Timo Weigand&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
@@ -33,10 +33,10 @@
     
     <item>
       <title>Non-minimal Elliptic Threefolds at Infinite Distance I: Log Calabi-Yau Resolutions</title>
-      <link>http://localhost:1313/publications/non-minimal-threefolds-i/</link>
+      <link>https://www.algarafa.com/publications/non-minimal-threefolds-i/</link>
       <pubDate>Wed, 11 Oct 2023 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publications/non-minimal-threefolds-i/</guid>
+      <guid>https://www.algarafa.com/publications/non-minimal-threefolds-i/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Seung-Joo Lee and Timo Weigand&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
@@ -46,10 +46,10 @@
     
     <item>
       <title>Membrane Limits in Quantum Gravity</title>
-      <link>http://localhost:1313/publications/membrane-limits-quantum-gravity/</link>
+      <link>https://www.algarafa.com/publications/membrane-limits-quantum-gravity/</link>
       <pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publications/membrane-limits-quantum-gravity/</guid>
+      <guid>https://www.algarafa.com/publications/membrane-limits-quantum-gravity/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Daniel Kläwer and Timo Weigand&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
@@ -59,10 +59,10 @@
     
     <item>
       <title>Analytic Periods via Twisted Symmetric Squares</title>
-      <link>http://localhost:1313/publications/analytic-periods-twisted-symmetric-squares/</link>
+      <link>https://www.algarafa.com/publications/analytic-periods-twisted-symmetric-squares/</link>
       <pubDate>Wed, 06 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publications/analytic-periods-twisted-symmetric-squares/</guid>
+      <guid>https://www.algarafa.com/publications/analytic-periods-twisted-symmetric-squares/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Lorenz Schlechter&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
@@ -72,10 +72,10 @@
     
     <item>
       <title>About</title>
-      <link>http://localhost:1313/about/</link>
+      <link>https://www.algarafa.com/about/</link>
       <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/about/</guid>
+      <guid>https://www.algarafa.com/about/</guid>
       
         <description>About</description>
       
@@ -83,10 +83,10 @@
     
     <item>
       <title>Swampland Conjectures for an Almost Topological Gravity Theory</title>
-      <link>http://localhost:1313/publications/swampland-conjectures-almost-topological-gravity/</link>
+      <link>https://www.algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</link>
       <pubDate>Thu, 15 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publications/swampland-conjectures-almost-topological-gravity/</guid>
+      <guid>https://www.algarafa.com/publications/swampland-conjectures-almost-topological-gravity/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Ralph Blumenhagen, Christian Kneißl, Andriana Makridou and Lorenz Schlechter&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
@@ -96,10 +96,10 @@
     
     <item>
       <title>Small Flux Superpotentials for Type IIB Flux Vacua Close to a Conifold</title>
-      <link>http://localhost:1313/publications/small-flux-superpotentials-conifold/</link>
+      <link>https://www.algarafa.com/publications/small-flux-superpotentials-conifold/</link>
       <pubDate>Mon, 07 Sep 2020 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/publications/small-flux-superpotentials-conifold/</guid>
+      <guid>https://www.algarafa.com/publications/small-flux-superpotentials-conifold/</guid>
       
         <description>&lt;p&gt;&lt;font size=&#34;4&#34;&gt; &lt;em&gt;with Ralph Blumenhagen, Max Brinkmann and Lorenz Schlechter&lt;/em&gt; &lt;/font&gt;&lt;/p&gt;
 &lt;h4 id=&#34;abstract&#34;&gt;Abstract&lt;/h4&gt;
