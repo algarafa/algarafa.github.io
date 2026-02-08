@@ -18,35 +18,47 @@ html, body {
 }
 
 .sidebar__introduction-description p {
-  margin: 0% 10%;  /* Centers and constrains width like production */
+  margin: 0% 10%;
 }
 
-/* Change 3: Fix sidebar and main content positioning */
+/*
+ * Change 3: Fix sidebar and main content positioning
+ *
+ * APPROACH: Match production exactly.
+ * - .wrapper__sidebar KEEPS its 40% width (flex placeholder)
+ * - .sidebar is position:fixed, overlaying from left
+ * - .wrapper__main KEEPS its 60% width
+ * - Flex layout naturally positions them: 40% + 60% = 100%
+ * - NO margin-left hack needed
+ */
 @media screen and (min-width: 961px) {
   .sidebar {
-    top: 0 !important;
-    left: 0 !important;
-    width: 40% !important;        /* Explicit width for fixed sidebar */
-    z-index: 4 !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100vh;
+    z-index: 4;
+    box-sizing: border-box;
   }
 
-  .wrapper__sidebar {
-    width: 0 !important;          /* Remove from flex flow */
-    padding: 0 !important;
-    overflow: visible;            /* Allow sidebar to extend */
+  .theme--light .sidebar {
+    background-color: #fff;
+  }
+  .theme--dark .sidebar {
+    background-color: #152028;
   }
 
   .wrapper__main {
-    box-sizing: border-box;       /* CRITICAL: Include padding in width */
-    margin-left: 40%;             /* Position at 40% from left */
-    width: 60%;                   /* Content width (includes padding) */
-    max-width: 60%;               /* Prevent content expansion */
-    padding-top: 70px;            /* Space for fixed header */
-    overflow-x: hidden;           /* Contain any overflowing content */
+    padding-top: 70px;
+    overflow-x: hidden;
   }
 }
 
-/* Change 4: Fix header positioning to match production */
+/*
+ * Change 4: Fix header positioning to match production
+ * Production: header { width: var(--content-width); position: fixed; right: 0; }
+ */
 @media screen and (min-width: 961px) {
   .header {
     position: fixed;
@@ -54,27 +66,17 @@ html, body {
     right: 0;
     width: 60%;
     z-index: 3;
-    background-color: var(--bg-color);
-    border-bottom: 1px solid var(--border-color);
   }
 }
 
-/* Change 5: Widescreen layout (1921px+) */
+/* Change 5: Widescreen layout (1921px+) - match production padding */
 @media screen and (min-width: 1921px) {
   .sidebar {
     padding-left: 17%;
     padding-right: 3%;
-    width: 20% !important;        /* Reduced for widescreen centering */
   }
 
-  .wrapper__sidebar {
-    width: 0 !important;
-  }
-
-  .wrapper__main {
-    box-sizing: border-box;       /* CRITICAL: Include padding in width */
-    margin-left: 32%;             /* Position for widescreen */
-    width: 68%;                   /* Width now INCLUDES padding-right */
+  .content {
     padding-right: 20%;
   }
 }
