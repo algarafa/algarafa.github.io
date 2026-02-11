@@ -65,6 +65,9 @@ html, body {
   .wrapper__main {
     width: 60%;
   }
+  .wrapper__main > :not(.header) {
+    max-width: calc(48vw - 60px);
+  }
   .sidebar {
     padding-left: 17%;
     padding-right: 3%;
