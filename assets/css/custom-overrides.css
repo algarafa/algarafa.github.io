@@ -50,34 +50,24 @@ html, body {
   }
 
   .wrapper__main {
-    padding-top: 70px;
-    overflow-x: hidden;
-  }
-}
-
-/*
- * Change 4: Fix header positioning to match production
- * Production: header { width: var(--content-width); position: fixed; right: 0; }
- */
-@media screen and (min-width: 961px) {
-  .header {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 60%;
-    z-index: 3;
+    overflow-x: clip;
   }
 }
 
 /* Change 5: Widescreen layout (1921px+) - match production padding */
 @media screen and (min-width: 1921px) {
+  .wrapper {
+    justify-content: flex-start;
+  }
+  .wrapper__sidebar {
+    width: 40%;
+  }
+  .wrapper__main {
+    width: 60%;
+  }
   .sidebar {
     padding-left: 17%;
     padding-right: 3%;
-  }
-
-  .content {
-    padding-right: 20%;
   }
 }
 
@@ -120,3 +110,4 @@ h3 {
 .archive__list-item {
   padding-bottom: 2px !important;
 }
+

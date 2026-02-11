@@ -11,7 +11,6 @@
 >
   {{- partial "head.html" . -}}
   <body class="body">
-    <header class="header">{{ partial "navbar.html" . }}</header>
     <div class="wrapper">
       <aside
         {{ if (and (or (eq .Site.Params.hidesidebar true) (eq .Params.hidesidebar true)) (not .IsHome)) }}
@@ -29,6 +28,7 @@
           class="wrapper__main"
         {{ end }}
       >
+        <header class="header">{{ partial "navbar.html" . }}</header>
         {{- block "main" . }}{{- end }}
       </main>
     </div>
