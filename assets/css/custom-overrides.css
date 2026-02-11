@@ -124,3 +124,9 @@ h3 {
   margin-top: -0.6em;
 }
 
+/* Change 11: Restore original vertical spacing around sidebar name */
+.sidebar__introduction-title {
+  margin-top: 2.2rem;
+  margin-bottom: 2.2rem;
+}
+
