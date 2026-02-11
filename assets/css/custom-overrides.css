@@ -130,3 +130,7 @@ h3 {
   margin-bottom: 2.2rem;
 }
 
+/* Change 12: Restore original theme toggle icon size */
+.themeswitch {
+  font-size: 1.75rem;
+}
