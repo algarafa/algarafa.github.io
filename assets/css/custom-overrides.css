@@ -114,3 +114,8 @@ h3 {
   padding-bottom: 2px !important;
 }
 
+/* Change 10: Equalize spacing above/below nav divider */
+.wrapper__main > .header + * {
+  margin-top: 24px;
+}
+
