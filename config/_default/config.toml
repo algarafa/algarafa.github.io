@@ -17,12 +17,17 @@ publishDir = "docs"
 # Syntax highlighting
 pygmentsUseClasses = true   
 pygmentsCodeFences = true
-pygmentsCodefencesGuessSyntax = true
+pygmentsCodefencesGuessSyntax = false
 
 [markup]
     [markup.goldmark]
         [markup.goldmark.renderer]
         unsafe=true
+        [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+            block = [['\\[', '\\]'], ['$$', '$$']]
+            inline = [['\\(', '\\)']]
 
 [taxonomies]
     category = "categories"

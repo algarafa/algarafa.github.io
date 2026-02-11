@@ -8,7 +8,8 @@ profilePicture = "images/profile.jpg"
 keywords = ""
 favicon = "favicons/"
 # example ["css/custom.css"]
-customCss = []
+customCss = ["css/tables.css", "css/custom-overrides.css"]
+disableArchiveTitleStyling = true
 # example ["js/custom.js"]
 customJs = [] 
 #mainSections = ["post"]

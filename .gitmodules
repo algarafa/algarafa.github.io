@@ -1,3 +1,3 @@
-[submodule "themes/anatole"]
-	path = themes/anatole
+[submodule "themes/anatole-mod"]
+	path = themes/anatole-mod
 	url = https://github.com/lxndrblz/anatole.git
