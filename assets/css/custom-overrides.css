@@ -119,3 +119,8 @@ h3 {
   margin-top: 24px;
 }
 
+/* Change 10a: Remove top half-leading on first archive year heading */
+.archive > .archive__heading:first-child {
+  margin-top: -0.6em;
+}
+
