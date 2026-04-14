@@ -1,0 +1,14 @@
+{{- $css := resources.Get "css/cicy-explorer.css" | resources.Minify | resources.Fingerprint -}}
+<link
+  rel="stylesheet"
+  href="{{ $css.RelPermalink }}"
+  integrity="{{ $css.Data.Integrity }}"
+  crossorigin="anonymous"
+/>
+{{- $js := resources.Get "js/cicy-explorer.js" | resources.Fingerprint -}}
+<script
+  type="module"
+  src="{{ $js.RelPermalink }}"
+  integrity="{{ $js.Data.Integrity }}"
+  crossorigin="anonymous"
+></script>

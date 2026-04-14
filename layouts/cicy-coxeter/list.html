@@ -1,0 +1,112 @@
+{{ define "main" }}
+  <div class="post {{ with .Site.Params.doNotLoadAnimations }}{{ else }}animated fadeInDown{{ end }}">
+    <div class="post__content">
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+
+      <section id="cicy-explorer" class="cicy-explorer" aria-label="CICY Coxeter database explorer">
+        <div class="cicy-explorer__status" role="status" aria-live="polite">
+          Loading database &hellip;
+        </div>
+
+        <form class="cicy-explorer__facets" autocomplete="off" aria-label="Filter the database">
+          <fieldset class="cicy-explorer__field cicy-explorer__field--lookup">
+            <legend>Look up by number</legend>
+            <label>
+              <span class="cicy-explorer__label">Num</span>
+              <input type="number" name="num" min="1" max="7890" step="1" placeholder="e.g. 6771">
+            </label>
+            <p class="cicy-explorer__hint">When set, all other filters are ignored.</p>
+          </fieldset>
+
+          <fieldset class="cicy-explorer__field">
+            <legend>Hodge numbers</legend>
+            <label>
+              <span class="cicy-explorer__label">h<sup>1,1</sup> min</span>
+              <input type="number" name="h11_min" min="1" max="19" step="1">
+            </label>
+            <label>
+              <span class="cicy-explorer__label">h<sup>1,1</sup> max</span>
+              <input type="number" name="h11_max" min="1" max="19" step="1">
+            </label>
+            <label>
+              <span class="cicy-explorer__label">h<sup>2,1</sup> min</span>
+              <input type="number" name="h21_min" min="0" max="101" step="1">
+            </label>
+            <label>
+              <span class="cicy-explorer__label">h<sup>2,1</sup> max</span>
+              <input type="number" name="h21_max" min="0" max="101" step="1">
+            </label>
+          </fieldset>
+
+          <fieldset class="cicy-explorer__field">
+            <legend>Flags</legend>
+            <label>
+              <span class="cicy-explorer__label">Kähler-favourable</span>
+              <select name="kahler_pos">
+                <option value="">Any</option>
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
+            </label>
+            <label>
+              <span class="cicy-explorer__label">Direct product</span>
+              <select name="is_product">
+                <option value="">Any</option>
+                <option value="true">True</option>
+                <option value="false">False</option>
+              </select>
+            </label>
+            <label>
+              <span class="cicy-explorer__label">Coxeter rank</span>
+              <select name="coxeter_rank">
+                <option value="">Any</option>
+                <option value="0">0 (no iso-flops)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </label>
+          </fieldset>
+
+          <div class="cicy-explorer__actions">
+            <button type="reset" class="cicy-explorer__reset">Reset filters</button>
+            <button type="button" class="cicy-explorer__export" data-action="export-csv" disabled>Download matches as CSV</button>
+          </div>
+        </form>
+
+        <div class="cicy-explorer__summary" role="status" aria-live="polite"></div>
+
+        <div class="cicy-explorer__table-wrap">
+          <table class="cicy-explorer__table">
+            <thead>
+              <tr>
+                <th scope="col" data-sort="Num">#</th>
+                <th scope="col" data-sort="H11">h<sup>1,1</sup></th>
+                <th scope="col" data-sort="H21">h<sup>2,1</sup></th>
+                <th scope="col" data-sort="KahlerPos">Kähler-fav.</th>
+                <th scope="col" data-sort="IsProduct">Product</th>
+                <th scope="col" data-sort="IsoFlopRank">Rank(W)</th>
+                <th scope="col" data-sort="CoxeterSummary">Coxeter</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <noscript>
+          <p class="cicy-explorer__noscript">
+            The interactive explorer requires JavaScript. You can still
+            download the raw database from the links above, or browse
+            individual entries by visiting
+            <code>/cicy-coxeter/&lt;Num&gt;/</code>.
+          </p>
+        </noscript>
+      </section>
+    </div>
+  </div>
+
+  {{ partial "cicy-explorer-assets.html" . }}
+{{ end }}
