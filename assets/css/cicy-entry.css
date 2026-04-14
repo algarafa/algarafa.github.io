@@ -1,0 +1,27 @@
+.cicy-entry__matrix {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 0.75rem 0;
+  padding: 0.25rem 0;
+}
+
+.cicy-entry__matrix .katex-display {
+  margin: 0.5rem 0;
+  padding: 0 0.5rem;
+}
+
+.cicy-entry__matrix .katex-display > .katex {
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .cicy-entry__matrix .katex-display {
+    font-size: 0.9em;
+  }
+}
+
+.cicy-entry__breadcrumb {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}

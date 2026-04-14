@@ -1,0 +1,3 @@
+{{- $opts := dict "displayMode" true -}}
+{{- .Page.Store.Set "hasMath" true -}}
+<div class="cicy-entry__matrix">{{ transform.ToMath (trim .Inner "\n\t ") $opts }}</div>
