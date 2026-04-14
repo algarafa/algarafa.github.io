@@ -2,3 +2,5 @@ resources/
 .hugo_build.lock
 .claude/
 scripts/.sample-runs/
+__pycache__/
+*.pyc
