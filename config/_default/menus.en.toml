@@ -17,6 +17,12 @@
   url = "/talks/"
 
   [[main]]
+  name = "CICY Coxeter DB"
+  weight = 350
+  identifier = "cicy-coxeter"
+  url = "/cicy-coxeter/"
+
+  [[main]]
   name = "About"
   weight = 400
   identifier = "about"

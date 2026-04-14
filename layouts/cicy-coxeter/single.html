@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <div class="post {{ with .Site.Params.doNotLoadAnimations }}{{ else }}animated fadeInDown{{ end }}">
+    <div class="post__content">
+      <p class="cicy-entry__breadcrumb">
+        <a href="{{ "/cicy-coxeter/" | relURL }}">&larr; CICY Coxeter Database</a>
+      </p>
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+    </div>
+  </div>
+{{ end }}
