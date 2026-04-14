@@ -43,6 +43,7 @@ SOURCE_TXT = ROOT / "static" / "cicy-coxeter" / "CICY-Coxeter-Database.txt"
 PARQUET_OUT = ROOT / "static" / "cicy-coxeter" / "cicy-coxeter.parquet"
 SCHEMA_OUT = ROOT / "static" / "cicy-coxeter" / "cicy-coxeter.schema.json"
 ENGLISH_CONTENT_DIR = ROOT / "content" / "english" / "cicy-coxeter"
+GALLERY_OUT = ROOT / "data" / "cicy_coxeter" / "diagram_gallery.json"
 SAMPLE_DIR = ROOT / "scripts" / ".sample-runs"
 
 EXPECTED_KEYS = (
@@ -260,6 +261,56 @@ def write_schema(out_path: Path) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(
         json.dumps(SCHEMA, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def build_diagram_gallery(records: list[Record]) -> dict:
+    """Deduplicate CoxeterMat shapes across all Kahler-favourable CICYs and
+    return a grouped-by-rank gallery ready to be rendered on the landing page."""
+    from collections import defaultdict
+
+    counts: dict[tuple, dict] = {}
+    for r in records:
+        if not r.KahlerPos or r.CoxeterMat is None or not r.CoxeterMat:
+            continue
+        rank = len(r.CoxeterMat)
+        key = tuple(tuple(row) for row in r.CoxeterMat)
+        if key not in counts:
+            counts[key] = {
+                "rank": rank,
+                "mat": [list(row) for row in key],
+                "count": 0,
+                "example_num": r.Num,
+            }
+        counts[key]["count"] += 1
+        if r.Num < counts[key]["example_num"]:
+            counts[key]["example_num"] = r.Num
+
+    by_rank: dict[int, list] = defaultdict(list)
+    for key, info in counts.items():
+        info["svg"] = coxeter_diagram_svg(info["mat"], info["example_num"])
+        info["latex"] = latex_coxeter_matrix(info["mat"]) if info["mat"] else ""
+        by_rank[info["rank"]].append(info)
+
+    groups = []
+    for rank in sorted(by_rank.keys()):
+        shapes = sorted(by_rank[rank], key=lambda x: (-x["count"], x["example_num"]))
+        groups.append({"rank": rank, "shapes": shapes})
+    total_shapes = sum(len(g["shapes"]) for g in groups)
+    return {
+        "groups": groups,
+        "total_shapes": total_shapes,
+        "total_models": sum(s["count"] for g in groups for s in g["shapes"]),
+    }
+
+
+def write_gallery(records: list[Record], out_path: Path) -> None:
+    gallery = build_diagram_gallery(records)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        json.dumps(gallery, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
         newline="\n",
     )
@@ -660,19 +711,22 @@ def run_build(target_root: Path) -> None:
     parquet = target_root / PARQUET_OUT.relative_to(ROOT)
     schema = target_root / SCHEMA_OUT.relative_to(ROOT)
     content = target_root / ENGLISH_CONTENT_DIR.relative_to(ROOT)
+    gallery = target_root / GALLERY_OUT.relative_to(ROOT)
     write_parquet(records, parquet)
     write_schema(schema)
     write_markdown_stubs(records, content)
+    write_gallery(records, gallery)
 
 
 def check_mode() -> int:
-    if not PARQUET_OUT.exists() or not SCHEMA_OUT.exists():
+    if not PARQUET_OUT.exists() or not SCHEMA_OUT.exists() or not GALLERY_OUT.exists():
         print("ERROR: expected outputs are missing; run the script without --check first.")
         return 1
     with tempfile.TemporaryDirectory() as tmp:
         tmp_root = Path(tmp)
         (tmp_root / "static" / "cicy-coxeter").mkdir(parents=True)
         (tmp_root / "content" / "english" / "cicy-coxeter").mkdir(parents=True)
+        (tmp_root / "data" / "cicy_coxeter").mkdir(parents=True)
         # Make source reachable relative to tmp_root without copying 4 MB.
         (tmp_root / "static" / "cicy-coxeter" / SOURCE_TXT.name).write_bytes(
             SOURCE_TXT.read_bytes()
@@ -682,6 +736,7 @@ def check_mode() -> int:
         for rel in (
             PARQUET_OUT.relative_to(ROOT),
             SCHEMA_OUT.relative_to(ROOT),
+            GALLERY_OUT.relative_to(ROOT),
         ):
             committed = sha256(ROOT / rel)
             fresh = sha256(tmp_root / rel)
@@ -741,6 +796,7 @@ def main(argv: list[str]) -> int:
     print(f"Wrote {PARQUET_OUT.relative_to(ROOT)}")
     print(f"Wrote {SCHEMA_OUT.relative_to(ROOT)}")
     print(f"Wrote {ENGLISH_CONTENT_DIR.relative_to(ROOT)}/<Num>.md (7890 files)")
+    print(f"Wrote {GALLERY_OUT.relative_to(ROOT)}")
     return 0
 
 

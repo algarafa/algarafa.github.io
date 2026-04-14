@@ -105,6 +105,32 @@
           </p>
         </noscript>
       </section>
+
+      {{ with .Site.Data.cicy_coxeter.diagram_gallery }}
+        <section class="cicy-gallery" aria-label="Every Coxeter diagram in the database">
+          <h2>Coxeter diagram gallery</h2>
+          <p>
+            {{ .total_shapes }} distinct Coxeter-matrix shapes occur across the
+            {{ .total_models }} Kähler-favourable CICYs with a non-trivial Coxeter
+            action. Each tile shows one shape, the number of models sharing it,
+            and a link to the smallest CICY index in that class.
+          </p>
+          {{ range .groups }}
+            <h3>Rank {{ .rank }} &mdash; {{ len .shapes }} shape{{ if ne (len .shapes) 1 }}s{{ end }}</h3>
+            <div class="cicy-gallery__grid">
+              {{ range .shapes }}
+                <figure class="cicy-gallery__tile">
+                  {{ .svg | safeHTML }}
+                  <figcaption>
+                    <a href="/cicy-coxeter/{{ .example_num }}/">#{{ .example_num }}</a>
+                    &middot; {{ .count }} model{{ if ne .count 1 }}s{{ end }}
+                  </figcaption>
+                </figure>
+              {{ end }}
+            </div>
+          {{ end }}
+        </section>
+      {{ end }}
     </div>
   </div>
 

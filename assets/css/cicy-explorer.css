@@ -143,3 +143,44 @@
   border: 1px solid #c0392b;
   border-radius: 4px;
 }
+
+.cicy-gallery {
+  margin-top: 2.5rem;
+}
+
+.cicy-gallery h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.cicy-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.cicy-gallery__tile {
+  margin: 0;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
+  border-radius: 6px;
+  background: transparent;
+}
+
+.cicy-gallery__tile svg {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  color: inherit;
+}
+
+.cicy-gallery__tile figcaption {
+  font-size: 0.8rem;
+  text-align: center;
+  opacity: 0.85;
+}
