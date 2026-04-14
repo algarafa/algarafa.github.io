@@ -9,8 +9,8 @@ Rafael Álvarez-García and Fabian Ruehle. It augments the favourable-CICY
 dataset of [Anderson–Gray–Lukas–Palti](https://arxiv.org/abs/1707.01214) with
 Coxeter-group data arising from **isomorphic flops**.
 
-Indices run $1,\dots,7890$, matching the original CICY list of
-Candelas–Dale–Lütken–Schimmrigk; the $4874$ Kähler-favourable entries carry a
+Indices run \\(1,\dots,7890\\), matching the original CICY list of
+Candelas–Dale–Lütken–Schimmrigk; the \\(4874\\) Kähler-favourable entries carry a
 full Coxeter-data record, and the rest hold `NonKahlerPos` sentinels.
 
 The explorer below streams a Parquet view of the database into your browser
