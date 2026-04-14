@@ -1,0 +1,4 @@
+resources/
+.hugo_build.lock
+.claude/
+scripts/.sample-runs/

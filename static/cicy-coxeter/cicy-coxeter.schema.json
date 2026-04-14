@@ -1,0 +1,71 @@
+{
+  "columns": [
+    {
+      "name": "Num",
+      "type": "INTEGER",
+      "description": "CICY index, 1..7890."
+    },
+    {
+      "name": "H11",
+      "type": "INTEGER",
+      "description": "Hodge number h^{1,1}."
+    },
+    {
+      "name": "H21",
+      "type": "INTEGER",
+      "description": "Hodge number h^{2,1}."
+    },
+    {
+      "name": "C2",
+      "type": "INTEGER[]",
+      "description": "c2(X).D_i in the favourable basis."
+    },
+    {
+      "name": "Conf",
+      "type": "INTEGER[][]",
+      "description": "Configuration matrix in the favourable presentation."
+    },
+    {
+      "name": "Favour",
+      "type": "BOOLEAN",
+      "description": "Favourable (projective-product) presentation exists."
+    },
+    {
+      "name": "KahlerPos",
+      "type": "BOOLEAN",
+      "description": "Kahler-favourable."
+    },
+    {
+      "name": "IsProduct",
+      "type": "BOOLEAN",
+      "description": "Direct product of lower-dim Calabi-Yaus."
+    },
+    {
+      "name": "IsoFlopRows",
+      "type": "STRUCT(row INTEGER, type VARCHAR)[]",
+      "description": "Config-matrix rows yielding iso-flop walls; NULL when non-Kahler-pos."
+    },
+    {
+      "name": "KahlerRefGens",
+      "type": "INTEGER[][][]",
+      "description": "Simple reflections in the Kahler representation; NULL when non-Kahler-pos."
+    },
+    {
+      "name": "CoxeterMat",
+      "type": "VARCHAR[][]",
+      "description": "Coxeter matrix entries as strings; \"P\"/\"H\" denote infinite orders; NULL when non-Kahler-pos."
+    },
+    {
+      "name": "IsoFlopRank",
+      "type": "INTEGER",
+      "description": "Derived: len(IsoFlopRows); NULL when non-Kahler-pos."
+    },
+    {
+      "name": "CoxeterSummary",
+      "type": "VARCHAR",
+      "description": "Derived one-liner (\"Z2\", \"I2(H)\", \"NonKahlerPos\", \"\" for empty, etc.)."
+    }
+  ],
+  "row_count": 7890,
+  "kahler_favourable_count": 4874
+}
