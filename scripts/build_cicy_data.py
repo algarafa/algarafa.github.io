@@ -281,6 +281,29 @@ def latex_coxeter_matrix(mat: list[list[str]]) -> str:
     return "\\begin{pmatrix}\n" + body + "\n\\end{pmatrix}"
 
 
+def latex_configuration_matrix(conf: list[list[int]], h11: int, h21: int, num: int) -> str:
+    """Paper-style augmented CICY configuration matrix with P^{n_i} prefix,
+    Hodge-number superscript, and Euler-characteristic subscript."""
+    num_cols = len(conf[0])
+    col_spec = "c|" + "c" * num_cols
+    chi = 2 * (h11 - h21)
+    body_lines = []
+    for row in conf:
+        n = sum(row) - 1
+        cells = [f"\\mathbb{{P}}^{{{n}}}"] + [str(v) for v in row]
+        body_lines.append(" & ".join(cells))
+    body = " \\\\\n".join(body_lines)
+    return (
+        f"X_{{{num}}} = \\left[\\begin{{array}}{{{col_spec}}}\n"
+        + body
+        + "\n\\end{array}\\right]^{"
+        + f"{h11},{h21}"
+        + "}_{"
+        + f"{chi}"
+        + "}"
+    )
+
+
 def serialise_field(field: str, value: Any) -> str:
     """Round-trip a parsed value back into the source .txt layout for review."""
     if value is None:
@@ -367,7 +390,17 @@ def render_markdown_stub(r: Record) -> str:
 
     lines.append("## Configuration matrix")
     lines.append("")
-    lines.extend(_matrix_shortcode(latex_pmatrix(r.Conf)))
+    lines.append(
+        "Rows are ordered as in the source database (the i-th ambient factor "
+        "\\\\(\\mathbb{P}^{n_i}\\\\) has \\\\(n_i = \\sum_j q_{ij} - 1\\\\)). "
+        "Top-right superscript is \\\\((h^{1,1}, h^{2,1})\\\\); "
+        "bottom-right subscript is the Euler characteristic "
+        "\\\\(\\chi = 2(h^{1,1} - h^{2,1})\\\\)."
+    )
+    lines.append("")
+    lines.extend(_matrix_shortcode(
+        latex_configuration_matrix(r.Conf, r.H11, r.H21, r.Num)
+    ))
 
     if r.KahlerPos:
         if r.KahlerRefGens:
@@ -478,7 +511,11 @@ def write_sample(
             "```latex\n" + f"c_2(X)\\cdot D_i = {latex_row_vector(r.C2)}" + "\n```\n"
         )
         parts.append("**Conf:**\n")
-        parts.append("```latex\n" + latex_pmatrix(r.Conf) + "\n```\n")
+        parts.append(
+            "```latex\n"
+            + latex_configuration_matrix(r.Conf, r.H11, r.H21, r.Num)
+            + "\n```\n"
+        )
         if r.KahlerPos and r.KahlerRefGens:
             parts.append("**KahlerRefGens:**\n")
             for idx, (mat, iso) in enumerate(zip(r.KahlerRefGens, r.IsoFlopRows), start=1):
