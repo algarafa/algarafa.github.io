@@ -264,6 +264,23 @@ def write_schema(out_path: Path) -> None:
     )
 
 
+def latex_pmatrix(rows: list[list[int]]) -> str:
+    body = " \\\\\n".join(" & ".join(str(v) for v in row) for row in rows)
+    return "\\begin{pmatrix}\n" + body + "\n\\end{pmatrix}"
+
+
+def latex_row_vector(values: list[int]) -> str:
+    body = " & ".join(str(v) for v in values)
+    return "\\begin{pmatrix} " + body + " \\end{pmatrix}"
+
+
+def latex_coxeter_matrix(mat: list[list[str]]) -> str:
+    def cell(v: str) -> str:
+        return f"\\text{{{v}}}" if v in ("P", "H") else v
+    body = " \\\\\n".join(" & ".join(cell(v) for v in row) for row in mat)
+    return "\\begin{pmatrix}\n" + body + "\n\\end{pmatrix}"
+
+
 def serialise_field(field: str, value: Any) -> str:
     """Round-trip a parsed value back into the source .txt layout for review."""
     if value is None:
@@ -295,6 +312,34 @@ def _mma_list(value: Any) -> str:
     return str(value)
 
 
+def _matrix_shortcode(latex: str) -> list[str]:
+    return ["{{< matrix >}}", latex, "{{< /matrix >}}", ""]
+
+
+def _iso_flop_reflections_section(r: Record) -> list[str]:
+    lines: list[str] = ["## Iso-flop reflections", ""]
+    for idx, (mat, iso) in enumerate(zip(r.KahlerRefGens, r.IsoFlopRows), start=1):
+        lines.append(
+            f"**Generator {idx}** — iso-flop row {iso['row']}, {iso['type']}:"
+        )
+        lines.append("")
+        lines.extend(_matrix_shortcode(f"M_{idx} = {latex_pmatrix(mat)}"))
+    return lines
+
+
+def _coxeter_matrix_section(r: Record) -> list[str]:
+    lines: list[str] = ["## Coxeter matrix", ""]
+    lines.extend(_matrix_shortcode(latex_coxeter_matrix(r.CoxeterMat)))
+    flat = [v for row in r.CoxeterMat for v in row]
+    if "P" in flat or "H" in flat:
+        lines.append(
+            "Entries `P` and `H` both denote order \u221e; the distinction is "
+            "parabolic vs hyperbolic (see \u00a74.1 of the paper)."
+        )
+        lines.append("")
+    return lines
+
+
 def render_markdown_stub(r: Record) -> str:
     lines: list[str] = []
     lines.append("+++")
@@ -306,11 +351,36 @@ def render_markdown_stub(r: Record) -> str:
     lines.append("")
     lines.append(f"**CICY number:** {r.Num}")
     lines.append("")
-    lines.append(f"- Hodge numbers: $h^{{1,1}} = {r.H11}$, $h^{{2,1}} = {r.H21}$")
+    lines.append(f"- Hodge numbers: \\\\(h^{{1,1}} = {r.H11}\\\\), \\\\(h^{{2,1}} = {r.H21}\\\\)")
     lines.append(f"- Favourable presentation: `{r.Favour}`")
     lines.append(f"- Kahler-favourable: `{r.KahlerPos}`")
     lines.append(f"- Direct product: `{r.IsProduct}`")
     lines.append("")
+
+    lines.append("## Second Chern class")
+    lines.append("")
+    lines.append("Intersections \\\\(c_2(X)\\cdot D_i\\\\) in the favourable divisor basis:")
+    lines.append("")
+    lines.extend(_matrix_shortcode(
+        f"c_2(X)\\cdot D_i = {latex_row_vector(r.C2)}"
+    ))
+
+    lines.append("## Configuration matrix")
+    lines.append("")
+    lines.extend(_matrix_shortcode(latex_pmatrix(r.Conf)))
+
+    if r.KahlerPos:
+        if r.KahlerRefGens:
+            lines.extend(_iso_flop_reflections_section(r))
+        else:
+            lines.append("## Iso-flop reflections")
+            lines.append("")
+            lines.append("_No iso-flop walls; the Coxeter group is trivial._")
+            lines.append("")
+
+        if r.CoxeterMat:
+            lines.extend(_coxeter_matrix_section(r))
+
     lines.append("## Database record")
     lines.append("")
     lines.append("```")
@@ -394,13 +464,43 @@ def write_sample(
     ]
     for num in nums:
         src = extract_source_block(text, num)
-        parsed = render_parsed_block(by_num[num])
+        r = by_num[num]
+        parsed = render_parsed_block(r)
         match = "match" if src.strip() == parsed.strip() else "DIFFERS"
         parts.append(f"\n## CICY #{num} — {match}\n")
         parts.append("### Source (raw .txt)\n")
         parts.append("```\n" + src + "```\n")
         parts.append("### Parsed (re-serialised from Parquet row)\n")
         parts.append("```\n" + parsed + "```\n")
+        parts.append("### Rendered LaTeX (what the per-entry page will ship)\n")
+        parts.append("**C2:**\n")
+        parts.append(
+            "```latex\n" + f"c_2(X)\\cdot D_i = {latex_row_vector(r.C2)}" + "\n```\n"
+        )
+        parts.append("**Conf:**\n")
+        parts.append("```latex\n" + latex_pmatrix(r.Conf) + "\n```\n")
+        if r.KahlerPos and r.KahlerRefGens:
+            parts.append("**KahlerRefGens:**\n")
+            for idx, (mat, iso) in enumerate(zip(r.KahlerRefGens, r.IsoFlopRows), start=1):
+                parts.append(
+                    f"_Generator {idx} — iso-flop row {iso['row']}, {iso['type']}_\n"
+                )
+                parts.append(
+                    "```latex\n" + f"M_{idx} = {latex_pmatrix(mat)}" + "\n```\n"
+                )
+        elif r.KahlerPos:
+            parts.append("**KahlerRefGens:** _(empty — no iso-flop walls)_\n")
+        else:
+            parts.append("**KahlerRefGens:** _(NonKahlerPos — section omitted on page)_\n")
+        if r.KahlerPos and r.CoxeterMat:
+            parts.append("**CoxeterMat:**\n")
+            parts.append(
+                "```latex\n" + latex_coxeter_matrix(r.CoxeterMat) + "\n```\n"
+            )
+        elif r.KahlerPos:
+            parts.append("**CoxeterMat:** _(empty)_\n")
+        else:
+            parts.append("**CoxeterMat:** _(NonKahlerPos — section omitted on page)_\n")
     out.write_text("\n".join(parts), encoding="utf-8", newline="\n")
     return out
 
