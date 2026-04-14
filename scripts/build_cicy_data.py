@@ -28,6 +28,7 @@ import argparse
 import ast
 import hashlib
 import json
+import math
 import random
 import re
 import shutil
@@ -281,6 +282,93 @@ def latex_coxeter_matrix(mat: list[list[str]]) -> str:
     return "\\begin{pmatrix}\n" + body + "\n\\end{pmatrix}"
 
 
+def _svg_coord(v: float) -> str:
+    return f"{v:.1f}" if abs(v - round(v)) > 1e-9 else f"{int(round(v))}"
+
+
+def coxeter_diagram_svg(mat: list[list[str]], num: int) -> str:
+    """Render a Coxeter diagram as inline SVG. Standard conventions:
+    no edge for m=2; unlabeled edge for m=3; label `m` for finite m>=4;
+    label `P` or `H` literally for infinite orders (per paper §3)."""
+    rank = len(mat)
+    if rank == 1:
+        w, h = 24, 24
+        node_r = 4
+        cx, cy = w / 2, h / 2
+        body = f'<circle cx="{_svg_coord(cx)}" cy="{_svg_coord(cy)}" r="{node_r}" fill="currentColor"/>'
+        return (
+            f'<svg class="cicy-entry__diagram" viewBox="0 0 {w} {h}" '
+            f'xmlns="http://www.w3.org/2000/svg" role="img" '
+            f'aria-label="Coxeter diagram for CICY {num}: rank 1 (single node)">'
+            f"{body}</svg>"
+        )
+
+    node_r = 4
+    if rank == 2:
+        w, h = 140, 40
+        nodes = [(24.0, h / 2), (w - 24.0, h / 2)]
+        label_offset = (0.0, -10.0)
+    else:
+        w = h = 140.0
+        center = (w / 2, h / 2)
+        radius = min(w, h) / 2 - 24
+        nodes = []
+        for i in range(rank):
+            theta = 2 * math.pi * i / rank - math.pi / 2
+            nodes.append(
+                (center[0] + radius * math.cos(theta),
+                 center[1] + radius * math.sin(theta))
+            )
+        label_offset = None
+
+    parts: list[str] = []
+    for i in range(rank):
+        for j in range(i + 1, rank):
+            m = mat[i][j]
+            if m == "2":
+                continue
+            x1, y1 = nodes[i]
+            x2, y2 = nodes[j]
+            parts.append(
+                f'<line x1="{_svg_coord(x1)}" y1="{_svg_coord(y1)}" '
+                f'x2="{_svg_coord(x2)}" y2="{_svg_coord(y2)}" '
+                'stroke="currentColor" stroke-width="1.2"/>'
+            )
+            if m == "3":
+                continue
+            mx = (x1 + x2) / 2
+            my = (y1 + y2) / 2
+            if rank == 2:
+                tx = mx + label_offset[0]
+                ty = my + label_offset[1]
+            else:
+                dx = mx - center[0]
+                dy = my - center[1]
+                dist = math.hypot(dx, dy) or 1.0
+                tx = mx + 10 * dx / dist
+                ty = my + 10 * dy / dist
+            parts.append(
+                f'<text x="{_svg_coord(tx)}" y="{_svg_coord(ty)}" '
+                'text-anchor="middle" dominant-baseline="central" '
+                'font-family="serif" font-style="italic" font-size="11" '
+                f'fill="currentColor">{m}</text>'
+            )
+    for cx, cy in nodes:
+        parts.append(
+            f'<circle cx="{_svg_coord(cx)}" cy="{_svg_coord(cy)}" '
+            f'r="{node_r}" fill="currentColor"/>'
+        )
+    width = _svg_coord(w)
+    height = _svg_coord(h)
+    return (
+        f'<svg class="cicy-entry__diagram" viewBox="0 0 {width} {height}" '
+        f'xmlns="http://www.w3.org/2000/svg" role="img" '
+        f'aria-label="Coxeter diagram for CICY {num}: rank {rank}">'
+        + "".join(parts)
+        + "</svg>"
+    )
+
+
 def latex_configuration_matrix(conf: list[list[int]], h11: int, h21: int, num: int) -> str:
     """Paper-style augmented CICY configuration matrix with P^{n_i} prefix,
     Hodge-number superscript, and Euler-characteristic subscript."""
@@ -350,6 +438,16 @@ def _iso_flop_reflections_section(r: Record) -> list[str]:
     return lines
 
 
+def _coxeter_diagram_section(r: Record) -> list[str]:
+    svg = coxeter_diagram_svg(r.CoxeterMat, r.Num)
+    return [
+        "## Coxeter diagram",
+        "",
+        f'<div class="cicy-entry__diagram-wrap">{svg}</div>',
+        "",
+    ]
+
+
 def _coxeter_matrix_section(r: Record) -> list[str]:
     lines: list[str] = ["## Coxeter matrix", ""]
     lines.extend(_matrix_shortcode(latex_coxeter_matrix(r.CoxeterMat)))
@@ -412,6 +510,7 @@ def render_markdown_stub(r: Record) -> str:
             lines.append("")
 
         if r.CoxeterMat:
+            lines.extend(_coxeter_diagram_section(r))
             lines.extend(_coxeter_matrix_section(r))
 
     lines.append("## Database record")
@@ -533,6 +632,10 @@ def write_sample(
             parts.append("**CoxeterMat:**\n")
             parts.append(
                 "```latex\n" + latex_coxeter_matrix(r.CoxeterMat) + "\n```\n"
+            )
+            parts.append("**Coxeter diagram SVG (raw):**\n")
+            parts.append(
+                "```xml\n" + coxeter_diagram_svg(r.CoxeterMat, r.Num) + "\n```\n"
             )
         elif r.KahlerPos:
             parts.append("**CoxeterMat:** _(empty)_\n")

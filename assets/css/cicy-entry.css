@@ -25,3 +25,17 @@
   font-size: 0.9rem;
   opacity: 0.8;
 }
+
+.cicy-entry__diagram-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 0.75rem 0;
+}
+
+.cicy-entry__diagram {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+  color: inherit;
+}
