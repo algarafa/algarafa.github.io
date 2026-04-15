@@ -44,6 +44,7 @@ PARQUET_OUT = ROOT / "static" / "cicy-coxeter" / "cicy-coxeter.parquet"
 SCHEMA_OUT = ROOT / "static" / "cicy-coxeter" / "cicy-coxeter.schema.json"
 ENGLISH_CONTENT_DIR = ROOT / "content" / "english" / "cicy-coxeter"
 GALLERY_OUT = ROOT / "data" / "cicy_coxeter" / "diagram_gallery.json"
+CHART_DATA_OUT = ROOT / "data" / "cicy_coxeter" / "chart_data.json"
 SAMPLE_DIR = ROOT / "scripts" / ".sample-runs"
 
 EXPECTED_KEYS = (
@@ -311,6 +312,92 @@ def write_gallery(records: list[Record], out_path: Path) -> None:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(
         json.dumps(gallery, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+_PAIR_M_ORDER = {"2": 0, "3": 1, "4": 2, "P": 3, "H": 4}
+
+
+def _classify_coxeter_kind(mat: list[list[str]]) -> str:
+    """Paper §3 classification of a Coxeter diagram into finite / affine /
+    indefinite. Returns '' for empty (rank-0) input."""
+    if not mat:
+        return ""
+    offs = set()
+    for i in range(len(mat)):
+        for j in range(i + 1, len(mat)):
+            offs.add(mat[i][j])
+    offs.discard("2")
+    if "H" in offs:
+        return "indefinite"
+    if "P" in offs:
+        return "affine"
+    return "finite"
+
+
+def build_chart_data(records: list[Record]) -> dict:
+    """Aggregate the four Explorer-landing charts into one JSON blob."""
+    from collections import Counter
+
+    hodge = Counter()
+    hodge_kahler = Counter()
+    rank_h11 = Counter()
+    summary_bar = Counter()
+    pair_m = Counter()
+
+    for r in records:
+        hodge[(r.H11, r.H21)] += 1
+        if not r.KahlerPos:
+            continue
+        hodge_kahler[(r.H11, r.H21)] += 1
+        mat = r.CoxeterMat or []
+        rank = len(mat)
+        kind = _classify_coxeter_kind(mat)
+        rank_h11[(rank, r.H11, kind)] += 1
+        summary_bar[r.coxeter_summary] += 1
+        if mat:
+            for i in range(rank):
+                for j in range(i + 1, rank):
+                    pair_m[mat[i][j]] += 1
+
+    hodge_scatter = [
+        {
+            "h11": h11,
+            "h21": h21,
+            "count": c,
+            "kahler_fav": hodge_kahler[(h11, h21)],
+        }
+        for (h11, h21), c in sorted(hodge.items())
+    ]
+    rank_h11_table = [
+        {"rank": rank, "h11": h11, "coxeter_kind": kind, "count": c}
+        for (rank, h11, kind), c in sorted(rank_h11.items())
+    ]
+    coxeter_summary_bar = [
+        {"summary": s, "count": c}
+        for s, c in sorted(summary_bar.items(), key=lambda x: (-x[1], x[0]))
+    ]
+    pair_m_bar = [
+        {"m": m, "count": c}
+        for m, c in sorted(
+            pair_m.items(), key=lambda x: _PAIR_M_ORDER.get(x[0], 999)
+        )
+    ]
+    return {
+        "hodge_scatter": hodge_scatter,
+        "rank_h11_table": rank_h11_table,
+        "coxeter_summary_bar": coxeter_summary_bar,
+        "pair_m_bar": pair_m_bar,
+    }
+
+
+def write_chart_data(records: list[Record], out_path: Path) -> None:
+    data = build_chart_data(records)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        json.dumps(data, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
         newline="\n",
     )
@@ -712,14 +799,16 @@ def run_build(target_root: Path) -> None:
     schema = target_root / SCHEMA_OUT.relative_to(ROOT)
     content = target_root / ENGLISH_CONTENT_DIR.relative_to(ROOT)
     gallery = target_root / GALLERY_OUT.relative_to(ROOT)
+    chart_data = target_root / CHART_DATA_OUT.relative_to(ROOT)
     write_parquet(records, parquet)
     write_schema(schema)
     write_markdown_stubs(records, content)
     write_gallery(records, gallery)
+    write_chart_data(records, chart_data)
 
 
 def check_mode() -> int:
-    if not PARQUET_OUT.exists() or not SCHEMA_OUT.exists() or not GALLERY_OUT.exists():
+    if not PARQUET_OUT.exists() or not SCHEMA_OUT.exists() or not GALLERY_OUT.exists() or not CHART_DATA_OUT.exists():
         print("ERROR: expected outputs are missing; run the script without --check first.")
         return 1
     with tempfile.TemporaryDirectory() as tmp:
@@ -737,6 +826,7 @@ def check_mode() -> int:
             PARQUET_OUT.relative_to(ROOT),
             SCHEMA_OUT.relative_to(ROOT),
             GALLERY_OUT.relative_to(ROOT),
+            CHART_DATA_OUT.relative_to(ROOT),
         ):
             committed = sha256(ROOT / rel)
             fresh = sha256(tmp_root / rel)
@@ -797,6 +887,7 @@ def main(argv: list[str]) -> int:
     print(f"Wrote {SCHEMA_OUT.relative_to(ROOT)}")
     print(f"Wrote {ENGLISH_CONTENT_DIR.relative_to(ROOT)}/<Num>.md (7890 files)")
     print(f"Wrote {GALLERY_OUT.relative_to(ROOT)}")
+    print(f"Wrote {CHART_DATA_OUT.relative_to(ROOT)}")
     return 0
 
 
