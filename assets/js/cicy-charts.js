@@ -38,7 +38,7 @@ function showErrorAll(msg) {
   }
 
   const theme = readThemeConfig();
-  const embedOpts = { actions: false, renderer: "canvas" };
+  const embedOpts = { actions: false, renderer: "svg" };
 
   await runRender("cicy-chart-hodge",               () => hodgeSpec(data.hodge_scatter, theme),                     embed, embedOpts);
   await runRender("cicy-chart-rank-h11",            () => rankH11Spec(data.rank_h11_table, theme, null),            embed, embedOpts);
@@ -58,21 +58,36 @@ async function runRender(targetId, specFn, embed, opts) {
 }
 
 function readThemeConfig() {
-  const s = getComputedStyle(document.documentElement);
-  const read = (name, fallback) => (s.getPropertyValue(name).trim() || fallback);
-  const fg = read("--cicy-chart-fg", "#333");
-  const grid = read("--cicy-chart-grid", "rgba(128,128,128,0.25)");
+  // With the SVG renderer, `currentColor` in the Vega config propagates to
+  // `fill="currentColor"` / `stroke="currentColor"` on the emitted SVG
+  // primitives, and the browser resolves it against the nearest cascading
+  // CSS `color`. The charts sit inside `.post__content`, which inherits
+  // Anatole's theme-aware body colour — so axis labels and lines track the
+  // current theme without any JS-side theme detection.
+  const docStyle = getComputedStyle(document.documentElement);
+  const read = (name, fallback) => (docStyle.getPropertyValue(name).trim() || fallback);
   const accent = read("--cicy-chart-accent", "#4a7bd6");
   const bg = read("--cicy-chart-bg", "transparent");
   return {
     background: bg,
     view: { stroke: null },
     axis: {
-      labelColor: fg, titleColor: fg, domainColor: fg, tickColor: fg,
-      gridColor: grid, labelFontSize: 11, titleFontSize: 12,
+      labelColor: "currentColor",
+      titleColor: "currentColor",
+      domainColor: "currentColor",
+      tickColor: "currentColor",
+      gridColor: "currentColor",
+      gridOpacity: 0.15,
+      labelFontSize: 11,
+      titleFontSize: 12,
     },
-    legend: { labelColor: fg, titleColor: fg, labelFontSize: 11, titleFontSize: 12 },
-    title: { color: fg, fontSize: 13 },
+    legend: {
+      labelColor: "currentColor",
+      titleColor: "currentColor",
+      labelFontSize: 11,
+      titleFontSize: 12,
+    },
+    title: { color: "currentColor", fontSize: 13 },
     range: { heatmap: { scheme: "blues" } },
     mark: { color: accent },
   };
