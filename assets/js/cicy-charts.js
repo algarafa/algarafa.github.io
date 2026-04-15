@@ -5,7 +5,7 @@ function showError(targetId, msg) {
   if (!el) return;
   el.innerHTML = "";
   const p = document.createElement("p");
-  p.style.cssText = "color:#c0392b;font-size:0.85rem;margin:0;padding:0.5rem;";
+  p.style.cssText = "color:#c0392b;margin:0;padding:0.5rem;";
   p.textContent = msg;
   el.appendChild(p);
 }
@@ -78,16 +78,16 @@ function readThemeConfig() {
       tickColor: "currentColor",
       gridColor: "currentColor",
       gridOpacity: 0.15,
-      labelFontSize: 11,
-      titleFontSize: 12,
+      labelFontSize: 16,
+      titleFontSize: 16,
     },
     legend: {
       labelColor: "currentColor",
       titleColor: "currentColor",
-      labelFontSize: 11,
-      titleFontSize: 12,
+      labelFontSize: 16,
+      titleFontSize: 16,
     },
-    title: { color: "currentColor", fontSize: 13 },
+    title: { color: "currentColor", fontSize: 16 },
     range: { heatmap: { scheme: "blues" } },
     mark: { color: accent },
   };
@@ -144,7 +144,7 @@ function rankH11Spec(rows, config, kindAllowlist) {
           color: { field: "count", type: "quantitative", title: "models",
                    scale: { scheme: "blues", type: "log" } },
         } },
-      { mark: { type: "text", fontSize: 10 },
+      { mark: { type: "text", fontSize: 16 },
         encoding: {
           x: { field: "h11", type: "ordinal" },
           y: { field: "rank", type: "ordinal", sort: "descending" },
