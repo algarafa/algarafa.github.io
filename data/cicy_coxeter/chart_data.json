@@ -1811,26 +1811,20 @@
     {
       "rank": 3,
       "h11": 3,
-      "coxeter_kind": "affine",
-      "count": 3
-    },
-    {
-      "rank": 3,
-      "h11": 3,
       "coxeter_kind": "indefinite",
-      "count": 13
-    },
-    {
-      "rank": 3,
-      "h11": 4,
-      "coxeter_kind": "affine",
-      "count": 25
+      "count": 16
     },
     {
       "rank": 3,
       "h11": 4,
       "coxeter_kind": "finite",
       "count": 10
+    },
+    {
+      "rank": 3,
+      "h11": 4,
+      "coxeter_kind": "indefinite",
+      "count": 25
     },
     {
       "rank": 3,
@@ -1859,7 +1853,7 @@
     {
       "rank": 4,
       "h11": 4,
-      "coxeter_kind": "affine",
+      "coxeter_kind": "indefinite",
       "count": 14
     },
     {
@@ -1877,7 +1871,7 @@
     {
       "rank": 5,
       "h11": 5,
-      "coxeter_kind": "finite",
+      "coxeter_kind": "indefinite",
       "count": 7
     }
   ],

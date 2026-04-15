@@ -320,21 +320,48 @@ def write_gallery(records: list[Record], out_path: Path) -> None:
 _PAIR_M_ORDER = {"2": 0, "3": 1, "4": 2, "P": 3, "H": 4}
 
 
+_EIGENVALUE_TOL = 1e-9
+
+
+def _mij_cos(m: str) -> float:
+    """Return -cos(π/m) for a Coxeter-matrix off-diagonal label m, where
+    'P' and 'H' both denote m = ∞ (so cos(π/∞) = 1 and the entry is -1)."""
+    if m in ("P", "H"):
+        return -1.0
+    k = int(m)
+    return -math.cos(math.pi / k)
+
+
 def _classify_coxeter_kind(mat: list[list[str]]) -> str:
-    """Paper §3 classification of a Coxeter diagram into finite / affine /
-    indefinite. Returns '' for empty (rank-0) input."""
+    """Classify a Coxeter matrix as finite / affine / indefinite. Uses the
+    eigenvalue signature of the Gram matrix G_{ij} = -cos(π / m_{ij}) with
+    G_{ii} = 1, then overrides to `indefinite` whenever any off-diagonal
+    carries the paper's `H` label — since `P` and `H` both give the same
+    Gram entry but the paper treats `H` as the hyperbolic (indefinite)
+    representation of the same abstract I₂(∞) group. Returns '' for empty
+    input."""
     if not mat:
         return ""
-    offs = set()
-    for i in range(len(mat)):
-        for j in range(i + 1, len(mat)):
-            offs.add(mat[i][j])
-    offs.discard("2")
-    if "H" in offs:
+    rank = len(mat)
+    has_h = any(
+        mat[i][j] == "H" for i in range(rank) for j in range(i + 1, rank)
+    )
+    if has_h:
         return "indefinite"
-    if "P" in offs:
+    import numpy as np
+    g = np.ones((rank, rank), dtype=float)
+    for i in range(rank):
+        for j in range(rank):
+            if i == j:
+                g[i, j] = 1.0
+            else:
+                g[i, j] = _mij_cos(mat[i][j])
+    eigs = np.linalg.eigvalsh(g)
+    if np.all(eigs > _EIGENVALUE_TOL):
+        return "finite"
+    if np.all(eigs > -_EIGENVALUE_TOL):
         return "affine"
-    return "finite"
+    return "indefinite"
 
 
 def build_chart_data(records: list[Record]) -> dict:
