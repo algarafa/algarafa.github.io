@@ -1,3 +1,52 @@
+:root {
+  --cicy-chart-fg: currentColor;
+  --cicy-chart-grid: rgba(128, 128, 128, 0.25);
+  --cicy-chart-accent: #4a7bd6;
+  --cicy-chart-bg: transparent;
+}
+
+.cicy-charts {
+  margin: 1.5rem 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cicy-charts h2 {
+  margin-bottom: 0.5rem;
+}
+
+.cicy-charts__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.cicy-charts figure {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cicy-charts figure > div {
+  width: 100%;
+  min-height: 240px;
+}
+
+.cicy-charts figcaption {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  line-height: 1.35;
+}
+
+.cicy-charts .nowrap {
+  white-space: nowrap;
+}
+
 .cicy-explorer {
   margin-top: 2rem;
   display: flex;

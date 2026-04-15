@@ -4,6 +4,31 @@
       <h1>{{ .Title }}</h1>
       {{ .Content }}
 
+      {{ with .Site.Data.cicy_coxeter.chart_data }}
+        <section class="cicy-charts" id="cicy-charts" aria-label="Dataset overview charts">
+          <h2>At a glance</h2>
+          <div class="cicy-charts__grid">
+            <figure>
+              <div id="cicy-chart-hodge"></div>
+              <figcaption>Hodge-number distribution: one point per <span class="nowrap">(h<sup>1,1</sup>, h<sup>2,1</sup>)</span> pair across all 7890 CICYs, sized by count. Tooltip also shows how many of those are Kähler-favourable.</figcaption>
+            </figure>
+            <figure>
+              <div id="cicy-chart-rank-h11"></div>
+              <figcaption>Kähler-favourable CICYs by rank(<em>W</em>) and h<sup>1,1</sup>. Cells labelled with model counts. Compare with paper Table 3.1.</figcaption>
+            </figure>
+            <figure>
+              <div id="cicy-chart-coxeter"></div>
+              <figcaption>Kähler-favourable CICYs by Coxeter-group summary (empty string = no Coxeter action; rank<em>N</em> lumps higher-rank cases — UI polish pending).</figcaption>
+            </figure>
+            <figure>
+              <div id="cicy-chart-pairs"></div>
+              <figcaption>Edge-label distribution across all unordered pairs of iso-flop walls in Kähler-favourable models. Finite bins (2, 3, 4) match paper Table 3.2; P/H bins count <em>edge labels</em> (parabolic/hyperbolic diagram convention) rather than the <em>subgroup type</em> shown in the paper, so those two bins are legitimately different.</figcaption>
+            </figure>
+          </div>
+          <script id="cicy-chart-data" type="application/json">{{ . | jsonify (dict "indent" "") | safeJS }}</script>
+        </section>
+      {{ end }}
+
       <section id="cicy-explorer" class="cicy-explorer" aria-label="CICY Coxeter database explorer">
         <div class="cicy-explorer__status" role="status" aria-live="polite">
           Loading database &hellip;
