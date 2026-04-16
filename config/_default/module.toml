@@ -2,18 +2,21 @@
 [[mounts]]
   source = "content/english"
   target = "content"
-  lang = "en"
+  [mounts.sites.matrix]
+    languages = ["en"]
 
 # Spanish content
 [[mounts]]
   source = "content/spanish"
   target = "content"
-  lang = "es"
+  [mounts.sites.matrix]
+    languages = ["es"]
 
 # Share English publication pages into Spanish content tree.
 # Exclude _index.md so the Spanish section title ("Publicaciones") is used.
 [[mounts]]
   source = "content/english/publications"
   target = "content/publications"
-  lang = "es"
-  excludeFiles = "_index.md"
+  files = ["! _index.md"]
+  [mounts.sites.matrix]
+    languages = ["es"]
