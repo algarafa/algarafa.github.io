@@ -1,0 +1,50 @@
+{{- $authorName := "" -}}
+{{- with .context.Site.Params.author -}}
+  {{- if reflect.IsMap . -}}
+    {{- with .name -}}
+      {{- $authorName = . -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $authorName = . -}}
+  {{- end -}}
+{{- end -}}
+<footer class="footer footer__{{ .footerClassModifier }}">
+  <ul
+    class="footer__list {{ with .context.Site.Params.doNotLoadAnimations }}
+      .
+    {{ else }}
+      animated fadeInDown
+    {{ end }}"
+  >
+    <li class="footer__item">
+      &copy;
+      {{ if isset .context.Site.Params "copyright" }}
+        {{ replace .context.Site.Params.copyright "{{ YEAR }}" (now.Format "2006") | markdownify }}
+      {{ else }}
+        {{ $authorName }}
+        {{ now.Format "2006" }}
+      {{ end }}
+    </li>
+    {{ range .context.Site.Menus.footer }}
+      <li class="footer__item">
+        <a
+          class="link"
+          href="{{ .URL }}"
+          {{ if strings.HasPrefix .URL "http" }}
+            target="_blank" rel="noopener noreferrer"
+          {{ end }}
+          title="{{ .Title }}"
+        >
+          {{ .Name }}
+        </a>
+      </li>
+    {{ end }}
+  </ul>
+</footer>
+{{- partial "medium-zoom.html" .context -}}
+{{- if (hasPrefix .context.Site.Config.Services.GoogleAnalytics.ID "G-") -}}
+  {{- template "_internal/google_analytics.html" .context -}}
+{{- end -}}
+{{- if and (hugo.IsProduction) (.context.Site.Params.gtagId) (eq .footerClassModifier "base") -}}
+  {{ partial "google-analytics-gtag-async.html" .context }}
+{{- end -}}
