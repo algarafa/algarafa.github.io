@@ -33,3 +33,6 @@ pygmentsCodefencesGuessSyntax = false
     category = "categories"
     series = "series"
     tag = "tags"
+
+[params]
+gtagId = "G-GDNQJXE5D4"
