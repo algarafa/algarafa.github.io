@@ -1,107 +1,204 @@
 {{ define "main" }}
+  {{- /* The gallery SVGs below use KaTeX_Main for their edge labels, which
+         requires the KaTeX stylesheet loaded by head.html. Opt in explicitly
+         since this list template itself doesn't use the matrix shortcode. */ -}}
+  {{- .Page.Store.Set "hasMath" true -}}
   <div class="post {{ with .Site.Params.doNotLoadAnimations }}{{ else }}animated fadeInDown{{ end }}">
     <div class="post__content">
       <h1>{{ .Title }}</h1>
       {{ .Content }}
 
       {{ with .Site.Data.cicy_coxeter.chart_data }}
-        <section class="cicy-charts" id="cicy-charts" aria-label="Dataset overview charts">
-          <h2>At a glance</h2>
+        <section class="cicy-charts" id="charts" aria-labelledby="charts-heading">
+          <h2 id="charts-heading">At a glance</h2>
           <div class="cicy-charts__grid">
             <figure>
               <div id="cicy-chart-hodge"></div>
-              <figcaption>Hodge-number distribution: one point per <span class="nowrap">(h<sup>1,1</sup>, h<sup>2,1</sup>)</span> pair across all 7890 CICYs, sized by count. Tooltip also shows how many of those are Kähler-favourable.</figcaption>
+              <figcaption>Hodge-number distribution: one point per <span class="nowrap">(h<sup>1,1</sup>, h<sup>2,1</sup>)</span> pair across all 7890 CICYs, sized by count. Click a point to filter the Explorer to that pair.</figcaption>
             </figure>
             <figure>
               <div id="cicy-chart-rank-h11"></div>
-              <figcaption>Kähler-favourable CICYs by rank(<em>W</em>) and h<sup>1,1</sup>. Cells labelled with model counts. Compare with paper Table 3.1.</figcaption>
+              <figcaption>Kähler-favorable CICYs by rank(<em>W</em>) and h<sup>1,1</sup>. Click a cell to filter the Explorer to that rank and h<sup>1,1</sup>. Compare with paper Table 3.1.</figcaption>
             </figure>
             <figure>
               <div id="cicy-chart-rank-h11-infinite"></div>
-              <figcaption>Same as above, restricted to models with <strong>infinite</strong> Coxeter groups (affine + indefinite diagrams). Paper §3 flags 251 such models.</figcaption>
+              <figcaption>Same as above, restricted to models with <strong>infinite</strong> Coxeter groups (affine + indefinite diagrams). Clicking a cell additionally pre-selects the corresponding Coxeter-kind facet. Paper §3 flags 251 such models.</figcaption>
             </figure>
             <figure>
               <div id="cicy-chart-coxeter"></div>
-              <figcaption>Kähler-favourable CICYs by Coxeter-group summary (empty string = no Coxeter action; rank<em>N</em> lumps higher-rank cases — UI polish pending).</figcaption>
+              <figcaption>Kähler-favorable CICYs by Coxeter-group summary (empty string = no Coxeter action; rank<em>N</em> lumps higher-rank cases — UI polish pending).</figcaption>
             </figure>
             <figure>
               <div id="cicy-chart-pairs"></div>
-              <figcaption>Edge-label distribution across all unordered pairs of iso-flop walls in Kähler-favourable models. Finite bins (2, 3, 4) match paper Table 3.2; P/H bins count <em>edge labels</em> (parabolic/hyperbolic diagram convention) rather than the <em>subgroup type</em> shown in the paper, so those two bins are legitimately different.</figcaption>
+              <figcaption>Edge-label distribution across all unordered pairs of iso-flop walls in Kähler-favorable models. Finite bins (2, 3, 4) match paper Table 3.2; P/H bins count <em>edge labels</em> (parabolic/hyperbolic diagram convention) rather than the <em>subgroup type</em> shown in the paper, so those two bins are legitimately different.</figcaption>
             </figure>
           </div>
           <script id="cicy-chart-data" type="application/json">{{ . | jsonify (dict "indent" "") | safeJS }}</script>
         </section>
       {{ end }}
 
-      <section id="cicy-explorer" class="cicy-explorer" aria-label="CICY Coxeter database explorer">
-        <div class="cicy-explorer__status" role="status" aria-live="polite">
-          Loading database &hellip;
+      {{ with .Site.Data.cicy_coxeter.diagram_gallery }}
+        <section class="cicy-gallery" id="gallery" aria-labelledby="gallery-heading">
+          <h2 id="gallery-heading">Coxeter diagram gallery</h2>
+          <p class="cicy-gallery__intro">
+            Each tile is one Coxeter-matrix shape that appears in the database.
+            {{ .total_shapes }} distinct shapes cover the {{ .total_models }}
+            Kähler-favorable CICYs with a non-trivial Coxeter action. Click a
+            tile to list the CICYs that carry that shape in the Explorer below.
+          </p>
+          {{ range .groups }}
+            <h3>Rank {{ .rank }} &mdash; {{ len .shapes }} shape{{ if ne (len .shapes) 1 }}s{{ end }}</h3>
+            <div class="cicy-gallery__grid">
+              {{ range .shapes }}
+                <figure class="cicy-gallery__tile" id="shape-{{ .name }}">
+                  <a class="cicy-gallery__link"
+                     href="?shape={{ .name }}#explorer"
+                     data-shape="{{ .name }}"
+                     aria-label="Filter Explorer to the {{ with .display }}{{ . }}{{ else }}rank-{{ .rank }}{{ end }} shape ({{ .count }} model{{ if ne .count 1 }}s{{ end }})">
+                    <div class="cicy-gallery__diagram">
+                      {{ .svg | safeHTML }}
+                    </div>
+                    <figcaption>
+                      {{ with .display }}<strong class="cicy-gallery__name">{{ . }}</strong>{{ end }}
+                      <span class="cicy-gallery__count">{{ .count }} model{{ if ne .count 1 }}s{{ end }}</span>
+                    </figcaption>
+                  </a>
+                  <p class="cicy-gallery__example">
+                    example: <a href="/cicy-coxeter/{{ .example_num }}/">CICY {{ .example_num }}</a>
+                  </p>
+                </figure>
+              {{ end }}
+            </div>
+          {{ end }}
+        </section>
+      {{ end }}
+
+      <section id="explorer" class="cicy-explorer" aria-labelledby="explorer-heading">
+        <h2 id="explorer-heading">Explorer</h2>
+        <p class="cicy-explorer__intro">
+          Filtering runs entirely client-side: the page streams a Parquet view
+          of the database into your browser via
+          <a href="https://duckdb.org/docs/api/wasm/overview">DuckDB-WASM</a>.
+          Each matching row links to the dedicated page for that CICY.
+        </p>
+
+        <div class="cicy-explorer__loading" role="status" aria-live="polite">
+          <ol class="cicy-loading-stages" data-stage="duckdb">
+            <li data-stage="duckdb"><span class="cicy-loading-dot"></span>Initializing DuckDB-WASM</li>
+            <li data-stage="parquet"><span class="cicy-loading-dot"></span>Downloading database (~180 kB)</li>
+            <li data-stage="view"><span class="cicy-loading-dot"></span>Building view</li>
+          </ol>
+          <p class="cicy-explorer__loading-error" hidden></p>
         </div>
 
         <form class="cicy-explorer__facets" autocomplete="off" aria-label="Filter the database">
-          <fieldset class="cicy-explorer__field cicy-explorer__field--lookup">
-            <legend>Look up by number</legend>
-            <label>
-              <span class="cicy-explorer__label">Num</span>
-              <input type="number" name="num" min="1" max="7890" step="1" placeholder="e.g. 6771">
+          <div class="cicy-explorer__search">
+            <label class="cicy-explorer__search-label">
+              <span class="cicy-explorer__label">Look up by number</span>
+              <input
+                type="number"
+                name="num"
+                min="1"
+                max="7890"
+                step="1"
+                placeholder="e.g. 6771"
+                aria-describedby="cicy-search-hint">
             </label>
-            <p class="cicy-explorer__hint">When set, all other filters are ignored.</p>
-          </fieldset>
+            <p class="cicy-explorer__hint" id="cicy-search-hint">
+              When set, all other filters are ignored.
+            </p>
+          </div>
 
-          <fieldset class="cicy-explorer__field">
-            <legend>Hodge numbers</legend>
-            <label>
-              <span class="cicy-explorer__label">h<sup>1,1</sup> min</span>
-              <input type="number" name="h11_min" min="1" max="19" step="1">
-            </label>
-            <label>
-              <span class="cicy-explorer__label">h<sup>1,1</sup> max</span>
-              <input type="number" name="h11_max" min="1" max="19" step="1">
-            </label>
-            <label>
-              <span class="cicy-explorer__label">h<sup>2,1</sup> min</span>
-              <input type="number" name="h21_min" min="0" max="101" step="1">
-            </label>
-            <label>
-              <span class="cicy-explorer__label">h<sup>2,1</sup> max</span>
-              <input type="number" name="h21_max" min="0" max="101" step="1">
-            </label>
-          </fieldset>
+          <div class="cicy-explorer__facets-grid">
+            <fieldset class="cicy-explorer__field">
+              <legend>Hodge numbers</legend>
+              <label>
+                <span class="cicy-explorer__label">h<sup>1,1</sup> min</span>
+                <input type="number" name="h11_min" min="1" max="19" step="1">
+              </label>
+              <label>
+                <span class="cicy-explorer__label">h<sup>1,1</sup> max</span>
+                <input type="number" name="h11_max" min="1" max="19" step="1">
+              </label>
+              <label>
+                <span class="cicy-explorer__label">h<sup>2,1</sup> min</span>
+                <input type="number" name="h21_min" min="0" max="101" step="1">
+              </label>
+              <label>
+                <span class="cicy-explorer__label">h<sup>2,1</sup> max</span>
+                <input type="number" name="h21_max" min="0" max="101" step="1">
+              </label>
+            </fieldset>
 
-          <fieldset class="cicy-explorer__field">
-            <legend>Flags</legend>
-            <label>
-              <span class="cicy-explorer__label">Kähler-favourable</span>
-              <select name="kahler_pos">
-                <option value="">Any</option>
-                <option value="true">True</option>
-                <option value="false">False</option>
-              </select>
-            </label>
-            <label>
-              <span class="cicy-explorer__label">Direct product</span>
-              <select name="is_product">
-                <option value="">Any</option>
-                <option value="true">True</option>
-                <option value="false">False</option>
-              </select>
-            </label>
-            <label>
-              <span class="cicy-explorer__label">Coxeter rank</span>
-              <select name="coxeter_rank">
-                <option value="">Any</option>
-                <option value="0">0 (no iso-flops)</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-              </select>
-            </label>
-          </fieldset>
+            <fieldset class="cicy-explorer__field">
+              <legend>Coxeter structure</legend>
+              <label>
+                <span class="cicy-explorer__label">Rank</span>
+                <select name="coxeter_rank">
+                  <option value="">Any</option>
+                  <option value="0">0 (no iso-flops)</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </label>
+              <label>
+                <span class="cicy-explorer__label">Kind</span>
+                <select name="coxeter_kind">
+                  <option value="">Any</option>
+                  <option value="finite">Finite</option>
+                  <option value="affine">Affine (parabolic)</option>
+                  <option value="indefinite">Indefinite (incl. hyperbolic)</option>
+                  <option value="infinite">Infinite (affine + indefinite)</option>
+                  <option value="none">None (no Coxeter action)</option>
+                </select>
+              </label>
+              <label>
+                <span class="cicy-explorer__label">Diagram shape</span>
+                <select name="shape">
+                  <option value="">Any</option>
+                  {{ with .Site.Data.cicy_coxeter.chart_data.shape_options }}
+                    {{ $lastRank := 0 }}
+                    {{ range . }}
+                      {{ if ne .rank $lastRank }}
+                        {{ if gt $lastRank 0 }}</optgroup>{{ end }}
+                        <optgroup label="Rank {{ .rank }}">
+                        {{ $lastRank = .rank }}
+                      {{ end }}
+                      <option value="{{ .key }}">{{ .display }} &middot; {{ .count }}</option>
+                    {{ end }}
+                    {{ if gt $lastRank 0 }}</optgroup>{{ end }}
+                  {{ end }}
+                </select>
+              </label>
+            </fieldset>
+
+            <fieldset class="cicy-explorer__field">
+              <legend>Flags</legend>
+              <label>
+                <span class="cicy-explorer__label">Kähler-favorable</span>
+                <select name="kahler_pos">
+                  <option value="">Any</option>
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </label>
+              <label>
+                <span class="cicy-explorer__label">Direct product</span>
+                <select name="is_product">
+                  <option value="">Any</option>
+                  <option value="true">True</option>
+                  <option value="false">False</option>
+                </select>
+              </label>
+            </fieldset>
+          </div>
 
           <div class="cicy-explorer__actions">
             <button type="reset" class="cicy-explorer__reset">Reset filters</button>
+            <button type="button" class="cicy-explorer__share" data-action="copy-url">Copy URL with filters</button>
             <button type="button" class="cicy-explorer__export" data-action="export-csv" disabled>Download matches as CSV</button>
           </div>
         </form>
@@ -112,13 +209,15 @@
           <table class="cicy-explorer__table">
             <thead>
               <tr>
-                <th scope="col" data-sort="Num">#</th>
-                <th scope="col" data-sort="H11">h<sup>1,1</sup></th>
-                <th scope="col" data-sort="H21">h<sup>2,1</sup></th>
-                <th scope="col" data-sort="KahlerPos">Kähler-fav.</th>
-                <th scope="col" data-sort="IsProduct">Product</th>
-                <th scope="col" data-sort="IsoFlopRank">Rank(W)</th>
-                <th scope="col" data-sort="CoxeterSummary">Coxeter</th>
+                <th scope="col" data-sort="Num"><button type="button" class="cicy-sort-btn" data-col="Num">#<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="H11"><button type="button" class="cicy-sort-btn" data-col="H11">h<sup>1,1</sup><span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="H21"><button type="button" class="cicy-sort-btn" data-col="H21">h<sup>2,1</sup><span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="Favour"><button type="button" class="cicy-sort-btn" data-col="Favour">Fav.<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="KahlerPos"><button type="button" class="cicy-sort-btn" data-col="KahlerPos">K-fav.<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="IsProduct"><button type="button" class="cicy-sort-btn" data-col="IsProduct">Product<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="IsoFlopRank"><button type="button" class="cicy-sort-btn" data-col="IsoFlopRank">Rank(W)<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="CoxeterKind"><button type="button" class="cicy-sort-btn" data-col="CoxeterKind">Kind<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" data-sort="CoxeterSummary"><button type="button" class="cicy-sort-btn" data-col="CoxeterSummary">Coxeter<span class="cicy-sort-arrow"></span></button></th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -135,31 +234,42 @@
         </noscript>
       </section>
 
-      {{ with .Site.Data.cicy_coxeter.diagram_gallery }}
-        <section class="cicy-gallery" aria-label="Every Coxeter diagram in the database">
-          <h2>Coxeter diagram gallery</h2>
-          <p>
-            {{ .total_shapes }} distinct Coxeter-matrix shapes occur across the
-            {{ .total_models }} Kähler-favourable CICYs with a non-trivial Coxeter
-            action. Each tile shows one shape, the number of models sharing it,
-            and a link to the smallest CICY index in that class.
-          </p>
-          {{ range .groups }}
-            <h3>Rank {{ .rank }} &mdash; {{ len .shapes }} shape{{ if ne (len .shapes) 1 }}s{{ end }}</h3>
-            <div class="cicy-gallery__grid">
-              {{ range .shapes }}
-                <figure class="cicy-gallery__tile">
-                  {{ .svg | safeHTML }}
-                  <figcaption>
-                    <a href="/cicy-coxeter/{{ .example_num }}/">#{{ .example_num }}</a>
-                    &middot; {{ .count }} model{{ if ne .count 1 }}s{{ end }}
-                  </figcaption>
-                </figure>
-              {{ end }}
-            </div>
-          {{ end }}
-        </section>
-      {{ end }}
+      {{- /* Temporary review fixtures — kept for per-entry polish QA; moved
+             here from _index.md so it renders after every other landing
+             section. Scheduled for removal per CLAUDE.md §"Legacy style —
+             scheduled for removal". */ -}}
+      <section class="cicy-review-fixtures" id="review-fixtures" aria-label="Review fixtures (temporary)">
+        <h2>Review fixtures &mdash; temporary</h2>
+        <p>
+          Each row links the <strong>new</strong> per-model page and its
+          <strong>frozen legacy</strong> counterpart for side-by-side
+          comparison. These fixtures cover every code path in the layout
+          (sentinel / trivial / rank 1&hellip;5, finite / affine / indefinite,
+          direct product, large h<sup>1,1</sup> so the config matrix collapses).
+          Remove the whole block once satisfied.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Case</th><th>New</th><th>Legacy</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Non-Kähler-favorable sentinel, large h<sup>1,1</sup>=15 (collapsed config matrix)</td><td><a href="/cicy-coxeter/1/">CICY 1</a></td><td><a href="/legacy/cicy-coxeter/1/">CICY 1</a></td></tr>
+            <tr><td>Non-Kähler-favorable sentinel, small h<sup>1,1</sup>=6</td><td><a href="/cicy-coxeter/3407/">CICY 3407</a></td><td><a href="/legacy/cicy-coxeter/3407/">CICY 3407</a></td></tr>
+            <tr><td>Non-Kähler-favorable direct product (h<sup>1,1</sup>=0 edge)</td><td><a href="/cicy-coxeter/31/">CICY 31</a></td><td><a href="/legacy/cicy-coxeter/31/">CICY 31</a></td></tr>
+            <tr><td>Kähler-favorable with <strong>no</strong> iso-flops (trivial Coxeter), small h<sup>1,1</sup>=3</td><td><a href="/cicy-coxeter/7242/">CICY 7242</a></td><td><a href="/legacy/cicy-coxeter/7242/">CICY 7242</a></td></tr>
+            <tr><td>Kähler-favorable + trivial Coxeter, <strong>large</strong> h<sup>1,1</sup>=12 (collapsed config)</td><td><a href="/cicy-coxeter/232/">CICY 232</a></td><td><a href="/legacy/cicy-coxeter/232/">CICY 232</a></td></tr>
+            <tr><td>Rank 1 (ℤ₂ single reflection)</td><td><a href="/cicy-coxeter/496/">CICY 496</a></td><td><a href="/legacy/cicy-coxeter/496/">CICY 496</a></td></tr>
+            <tr><td>Rank 2 finite — A₂</td><td><a href="/cicy-coxeter/4605/">CICY 4605</a></td><td><a href="/legacy/cicy-coxeter/4605/">CICY 4605</a></td></tr>
+            <tr><td>Rank 2 finite — B₂</td><td><a href="/cicy-coxeter/1003/">CICY 1003</a></td><td><a href="/legacy/cicy-coxeter/1003/">CICY 1003</a></td></tr>
+            <tr><td>Rank 2 finite — A₁ + A₁ (disjoint)</td><td><a href="/cicy-coxeter/862/">CICY 862</a></td><td><a href="/legacy/cicy-coxeter/862/">CICY 862</a></td></tr>
+            <tr><td>Rank 2 parabolic ∞ — Ã₁-P (affine)</td><td><a href="/cicy-coxeter/4151/">CICY 4151</a></td><td><a href="/legacy/cicy-coxeter/4151/">CICY 4151</a></td></tr>
+            <tr><td>Rank 2 hyperbolic ∞ — Ã₁-H (paper's running example)</td><td><a href="/cicy-coxeter/6771/">CICY 6771</a></td><td><a href="/legacy/cicy-coxeter/6771/">CICY 6771</a></td></tr>
+            <tr><td>Rank 3 — A₁ + B₂ (three 7×7 generators, collapsing kicks in)</td><td><a href="/cicy-coxeter/2354/">CICY 2354</a></td><td><a href="/legacy/cicy-coxeter/2354/">CICY 2354</a></td></tr>
+            <tr><td>Rank 4 — B₂ + B₂</td><td><a href="/cicy-coxeter/2317/">CICY 2317</a></td><td><a href="/legacy/cicy-coxeter/2317/">CICY 2317</a></td></tr>
+            <tr><td>Rank 5 — 4-leg star (all 4)</td><td><a href="/cicy-coxeter/6715/">CICY 6715</a></td><td><a href="/legacy/cicy-coxeter/6715/">CICY 6715</a></td></tr>
+          </tbody>
+        </table>
+      </section>
     </div>
   </div>
 

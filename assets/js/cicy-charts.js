@@ -1,5 +1,12 @@
 const CHART_IDS = ["cicy-chart-hodge", "cicy-chart-rank-h11", "cicy-chart-rank-h11-infinite", "cicy-chart-coxeter", "cicy-chart-pairs"];
 
+// Sentinel string used as the Vega-Lite axis title; the post-render hook
+// `injectKatexTitles` finds <text> nodes whose textContent matches
+// /^__KATEX:(.+)__$/ and replaces them with a KaTeX-rendered <foreignObject>.
+function katexTitle(latex) {
+  return `__KATEX:${latex}__`;
+}
+
 function showError(targetId, msg) {
   const el = document.getElementById(targetId);
   if (!el) return;
@@ -12,6 +19,10 @@ function showError(targetId, msg) {
 
 function showErrorAll(msg) {
   for (const id of CHART_IDS) showError(id, msg);
+}
+
+function dispatchFilter(detail) {
+  document.dispatchEvent(new CustomEvent("cicy:filter", { detail }));
 }
 
 (async () => {
@@ -40,21 +51,105 @@ function showErrorAll(msg) {
   const theme = readThemeConfig();
   const embedOpts = { actions: false, renderer: "svg" };
 
-  await runRender("cicy-chart-hodge",               () => hodgeSpec(data.hodge_scatter, theme),                     embed, embedOpts);
-  await runRender("cicy-chart-rank-h11",            () => rankH11Spec(data.rank_h11_table, theme, null),            embed, embedOpts);
-  await runRender("cicy-chart-rank-h11-infinite",   () => rankH11Spec(data.rank_h11_table, theme, ["affine","indefinite"]), embed, embedOpts);
-  await runRender("cicy-chart-coxeter",             () => coxeterSpec(data.coxeter_summary_bar, theme),             embed, embedOpts);
-  await runRender("cicy-chart-pairs",               () => pairMSpec(data.pair_m_bar, theme),                        embed, embedOpts);
+  await runRender(
+    "cicy-chart-hodge",
+    () => hodgeSpec(data.hodge_scatter, theme),
+    embed, embedOpts,
+    (datum) => dispatchFilter({
+      h11_min: datum.h11, h11_max: datum.h11,
+      h21_min: datum.h21, h21_max: datum.h21,
+    })
+  );
+  await runRender(
+    "cicy-chart-rank-h11",
+    () => rankH11Spec(data.rank_h11_table, theme, null),
+    embed, embedOpts,
+    (datum) => dispatchFilter({
+      coxeter_rank: datum.rank,
+      h11_min: datum.h11, h11_max: datum.h11,
+    })
+  );
+  await runRender(
+    "cicy-chart-rank-h11-infinite",
+    () => rankH11Spec(data.rank_h11_table, theme, ["affine", "indefinite"]),
+    embed, embedOpts,
+    (datum) => dispatchFilter({
+      coxeter_rank: datum.rank,
+      h11_min: datum.h11, h11_max: datum.h11,
+      coxeter_kind: "infinite",
+    })
+  );
+  await runRender("cicy-chart-coxeter", () => coxeterSpec(data.coxeter_summary_bar, theme), embed, embedOpts);
+  await runRender("cicy-chart-pairs",   () => pairMSpec(data.pair_m_bar, theme),           embed, embedOpts);
 })();
 
-async function runRender(targetId, specFn, embed, opts) {
+async function runRender(targetId, specFn, embed, opts, onClick) {
   try {
     const spec = specFn();
-    await embed("#" + targetId, spec, opts);
+    const result = await embed("#" + targetId, spec, opts);
+    injectKatexTitles(document.getElementById(targetId));
+    if (onClick && result && result.view) {
+      result.view.addEventListener("click", (event, item) => {
+        if (!item || !item.datum) return;
+        onClick(item.datum);
+      });
+      // Visual cue that cells are clickable.
+      const container = document.getElementById(targetId);
+      if (container) container.classList.add("cicy-chart--clickable");
+    }
   } catch (err) {
     console.error("cicy-charts: render failed for " + targetId, err);
     showError(targetId, "Render failed: " + (err.message || err));
   }
+}
+
+function injectKatexTitles(container) {
+  if (!container || !window.katex) return;
+  const svg = container.querySelector("svg");
+  if (!svg) return;
+  const xhtmlNs = "http://www.w3.org/1999/xhtml";
+  const svgNs = "http://www.w3.org/2000/svg";
+  const titles = svg.querySelectorAll("text");
+  titles.forEach(textEl => {
+    const txt = textEl.textContent || "";
+    const match = /^__KATEX:(.+)__$/.exec(txt);
+    if (!match) return;
+    let html;
+    try {
+      html = window.katex.renderToString(match[1], {
+        throwOnError: false,
+        displayMode: false,
+      });
+    } catch (err) {
+      console.warn("cicy-charts: KaTeX render failed for", match[1], err);
+      textEl.textContent = match[1]; // fallback to raw LaTeX
+      return;
+    }
+    let bbox;
+    try { bbox = textEl.getBBox(); } catch (_) { bbox = { x: 0, y: 0, width: 60, height: 16 }; }
+    const transform = textEl.getAttribute("transform") || "";
+    // Generous padding so the rendered KaTeX HTML fits without clipping.
+    const w = Math.max(bbox.width * 1.6 + 24, 80);
+    const h = Math.max(bbox.height * 1.6 + 8, 22);
+    const fo = document.createElementNS(svgNs, "foreignObject");
+    fo.setAttribute("x", String(bbox.x - 12));
+    fo.setAttribute("y", String(bbox.y - 4));
+    fo.setAttribute("width", String(w));
+    fo.setAttribute("height", String(h));
+    if (transform) fo.setAttribute("transform", transform);
+    fo.style.overflow = "visible";
+    const div = document.createElementNS(xhtmlNs, "div");
+    div.setAttribute("xmlns", xhtmlNs);
+    div.style.fontSize = "16px";
+    div.style.color = "currentColor";
+    div.style.lineHeight = "1";
+    div.style.textAlign = "center";
+    div.innerHTML = html;
+    fo.appendChild(div);
+    textEl.parentNode.appendChild(fo);
+    textEl.style.display = "none";
+    textEl.setAttribute("aria-hidden", "true");
+  });
 }
 
 function readThemeConfig() {
@@ -100,10 +195,10 @@ function hodgeSpec(rows, config) {
     data: { values: rows },
     width: "container",
     height: 260,
-    mark: { type: "circle", opacity: 0.75 },
+    mark: { type: "circle", opacity: 0.75, cursor: "pointer" },
     encoding: {
-      x: { field: "h11", type: "quantitative", title: "h¹·¹" },
-      y: { field: "h21", type: "quantitative", title: "h²·¹" },
+      x: { field: "h11", type: "quantitative", title: katexTitle("h^{1,1}") },
+      y: { field: "h21", type: "quantitative", title: katexTitle("h^{2,1}") },
       size: { field: "count", type: "quantitative", title: "count",
               scale: { range: [16, 320] } },
       tooltip: [
@@ -136,10 +231,10 @@ function rankH11Spec(rows, config, kindAllowlist) {
         groupby: ["rank", "h11"] },
     ],
     layer: [
-      { mark: { type: "rect", tooltip: true },
+      { mark: { type: "rect", tooltip: true, cursor: "pointer" },
         encoding: {
-          x: { field: "h11", type: "ordinal", title: "h¹·¹" },
-          y: { field: "rank", type: "ordinal", title: "rank(W)",
+          x: { field: "h11", type: "ordinal", title: katexTitle("h^{1,1}") },
+          y: { field: "rank", type: "ordinal", title: katexTitle("\\mathrm{rank}(W)"),
                sort: "descending" },
           color: { field: "count", type: "quantitative", title: "models",
                    scale: { scheme: "blues", type: "log" } },
@@ -161,7 +256,7 @@ function coxeterSpec(rows, config) {
   const labelled = rows.map(r => ({ ...r, summary: r.summary === "" ? "(none)" : r.summary }));
   return {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    description: "Kähler-favourable CICYs by Coxeter summary.",
+    description: "Kähler-favorable CICYs by Coxeter summary.",
     data: { values: labelled },
     width: "container",
     height: 260,
@@ -184,7 +279,7 @@ function pairMSpec(rows, config) {
     height: 260,
     mark: { type: "bar", tooltip: true },
     encoding: {
-      x: { field: "m", type: "nominal", title: "edge label mᵢⱼ",
+      x: { field: "m", type: "nominal", title: katexTitle("m_{ij}"),
            sort: ["2", "3", "4", "P", "H"] },
       y: { field: "count", type: "quantitative", title: "pairs" },
     },
