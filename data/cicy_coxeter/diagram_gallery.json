@@ -5,6 +5,7 @@
       "shapes": [
         {
           "rank": 1,
+          "name": "dot",
           "mat": [
             [
               "1"
@@ -12,8 +13,9 @@
           ],
           "count": 1592,
           "example_num": 496,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 496: rank 1 (single node)\"><circle cx=\"12\" cy=\"12\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"28\" height=\"28\" viewBox=\"0 0 28 28\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 496: rank 1 (single node)\"><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1\n\\end{pmatrix}",
+          "display": "ℤ₂ (single reflection)"
         }
       ]
     },
@@ -22,6 +24,7 @@
       "shapes": [
         {
           "rank": 2,
+          "name": "A1+A1",
           "mat": [
             [
               "1",
@@ -34,11 +37,13 @@
           ],
           "count": 243,
           "example_num": 862,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 40\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 862: rank 2\"><circle cx=\"24\" cy=\"20\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"20\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 \\\\\n2 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"88\" height=\"28\" viewBox=\"0 0 88 28\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 862: rank 2 (A1+A1)\"><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 \\\\\n2 & 1\n\\end{pmatrix}",
+          "display": "A₁ + A₁"
         },
         {
           "rank": 2,
+          "name": "Atilde1-P",
           "mat": [
             [
               "1",
@@ -51,11 +56,13 @@
           ],
           "count": 163,
           "example_num": 4151,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 40\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 4151: rank 2\"><line x1=\"24\" y1=\"20\" x2=\"116\" y2=\"20\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"24\" cy=\"20\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"20\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & \\text{P} \\\\\n\\text{P} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"88\" height=\"47.8\" viewBox=\"0 0 88 47.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 4151: rank 2 (Atilde1-P)\"><line x1=\"14\" y1=\"33.8\" x2=\"74\" y2=\"33.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"44\" y=\"23.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"14\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & \\text{P} \\\\\n\\text{P} & 1\n\\end{pmatrix}",
+          "display": "Ã₁ — parabolic ∞"
         },
         {
           "rank": 2,
+          "name": "B2",
           "mat": [
             [
               "1",
@@ -68,11 +75,13 @@
           ],
           "count": 28,
           "example_num": 1003,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 40\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 1003: rank 2\"><line x1=\"24\" y1=\"20\" x2=\"116\" y2=\"20\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><circle cx=\"24\" cy=\"20\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"20\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 4 \\\\\n4 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"88\" height=\"47.8\" viewBox=\"0 0 88 47.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 1003: rank 2 (B2)\"><line x1=\"14\" y1=\"33.8\" x2=\"74\" y2=\"33.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"44\" y=\"23.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><circle cx=\"14\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 4 \\\\\n4 & 1\n\\end{pmatrix}",
+          "display": "B₂"
         },
         {
           "rank": 2,
+          "name": "Atilde1-H",
           "mat": [
             [
               "1",
@@ -85,11 +94,13 @@
           ],
           "count": 26,
           "example_num": 6771,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 40\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6771: rank 2\"><line x1=\"24\" y1=\"20\" x2=\"116\" y2=\"20\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"10\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">H</text><circle cx=\"24\" cy=\"20\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"20\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & \\text{H} \\\\\n\\text{H} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"88\" height=\"47.8\" viewBox=\"0 0 88 47.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6771: rank 2 (Atilde1-H)\"><line x1=\"14\" y1=\"33.8\" x2=\"74\" y2=\"33.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"44\" y=\"23.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">H</text><circle cx=\"14\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & \\text{H} \\\\\n\\text{H} & 1\n\\end{pmatrix}",
+          "display": "Ã₁ — hyperbolic ∞"
         },
         {
           "rank": 2,
+          "name": "A2",
           "mat": [
             [
               "1",
@@ -102,8 +113,9 @@
           ],
           "count": 21,
           "example_num": 4605,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 40\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 4605: rank 2\"><line x1=\"24\" y1=\"20\" x2=\"116\" y2=\"20\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"24\" cy=\"20\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"20\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 3 \\\\\n3 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"88\" height=\"28\" viewBox=\"0 0 88 28\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 4605: rank 2 (A2)\"><line x1=\"14\" y1=\"14\" x2=\"74\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 3 \\\\\n3 & 1\n\\end{pmatrix}",
+          "display": "A₂"
         }
       ]
     },
@@ -112,6 +124,7 @@
       "shapes": [
         {
           "rank": 3,
+          "name": "VPP",
           "mat": [
             [
               "1",
@@ -129,13 +142,41 @@
               "1"
             ]
           ],
-          "count": 19,
+          "count": 21,
           "example_num": 6814,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6814: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"41.4\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"109.8\" y1=\"93\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"103\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & \\text{P} \\\\\n2 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"111\" height=\"107.8\" viewBox=\"0 0 111 107.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6814: rank 3 (VPP)\"><line x1=\"37\" y1=\"74\" x2=\"97\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"37\" y1=\"74\" x2=\"37\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"67\" y=\"84\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"27\" y=\"44\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"37\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"97\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & \\text{P} \\\\\n2 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & 1\n\\end{pmatrix}",
+          "display": "V-shape (P, P)"
         },
         {
           "rank": 3,
+          "name": "A1+B2",
+          "mat": [
+            [
+              "1",
+              "2",
+              "4"
+            ],
+            [
+              "2",
+              "1",
+              "2"
+            ],
+            [
+              "4",
+              "2",
+              "1"
+            ]
+          ],
+          "count": 14,
+          "example_num": 2354,
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"148\" height=\"47.8\" viewBox=\"0 0 148 47.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 2354: rank 3 (A1+B2)\"><line x1=\"74\" y1=\"33.8\" x2=\"134\" y2=\"33.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"104\" y=\"23.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><circle cx=\"14\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"134\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & 4 \\\\\n2 & 1 & 2 \\\\\n4 & 2 & 1\n\\end{pmatrix}",
+          "display": "A₁ + B₂"
+        },
+        {
+          "rank": 3,
+          "name": "A1+A1+A1",
           "mat": [
             [
               "1",
@@ -155,35 +196,13 @@
           ],
           "count": 13,
           "example_num": 962,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 962: rank 3\"><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 \\\\\n2 & 1 & 2 \\\\\n2 & 2 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"148\" height=\"28\" viewBox=\"0 0 148 28\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 962: rank 3 (A1+A1+A1)\"><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"134\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & 2 \\\\\n2 & 1 & 2 \\\\\n2 & 2 & 1\n\\end{pmatrix}",
+          "display": "A₁ + A₁ + A₁"
         },
         {
           "rank": 3,
-          "mat": [
-            [
-              "1",
-              "2",
-              "4"
-            ],
-            [
-              "2",
-              "1",
-              "2"
-            ],
-            [
-              "4",
-              "2",
-              "1"
-            ]
-          ],
-          "count": 11,
-          "example_num": 2354,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 2354: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"41.4\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 4 \\\\\n2 & 1 & 2 \\\\\n4 & 2 & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 3,
+          "name": "VPH",
           "mat": [
             [
               "1",
@@ -203,11 +222,13 @@
           ],
           "count": 10,
           "example_num": 7069,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7069: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"41.4\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"109.8\" y1=\"93\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"103\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">H</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & \\text{P} \\\\\n2 & 1 & \\text{H} \\\\\n\\text{P} & \\text{H} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"111\" height=\"107.8\" viewBox=\"0 0 111 107.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7069: rank 3 (VPH)\"><line x1=\"37\" y1=\"74\" x2=\"97\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"37\" y1=\"74\" x2=\"37\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"67\" y=\"84\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">H</text><text x=\"27\" y=\"44\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"37\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"97\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & \\text{P} \\\\\n2 & 1 & \\text{H} \\\\\n\\text{P} & \\text{H} & 1\n\\end{pmatrix}",
+          "display": "V-shape (P, H)"
         },
         {
           "rank": 3,
+          "name": "A1+A2",
           "mat": [
             [
               "1",
@@ -227,11 +248,13 @@
           ],
           "count": 8,
           "example_num": 5284,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 5284: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"109.8\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 3 & 2 \\\\\n3 & 1 & 2 \\\\\n2 & 2 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"148\" height=\"28\" viewBox=\"0 0 148 28\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 5284: rank 3 (A1+A2)\"><line x1=\"74\" y1=\"14\" x2=\"134\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"134\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 3 & 2 \\\\\n3 & 1 & 2 \\\\\n2 & 2 & 1\n\\end{pmatrix}",
+          "display": "A₁ + A₂"
         },
         {
           "rank": 3,
+          "name": "TrianglePPP",
           "mat": [
             [
               "1",
@@ -251,35 +274,13 @@
           ],
           "count": 5,
           "example_num": 5299,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 5299: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"109.8\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"98.6\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"24\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"41.4\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"109.8\" y1=\"93\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"103\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & \\text{P} & \\text{P} \\\\\n\\text{P} & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"111\" height=\"107.8\" viewBox=\"0 0 111 107.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 5299: rank 3 (TrianglePPP)\"><line x1=\"97\" y1=\"74\" x2=\"37\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"37\" y1=\"14\" x2=\"37\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"97\" y1=\"74\" x2=\"37\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"67\" y=\"84\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"27\" y=\"44\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"74.1\" y=\"36.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"97\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"74\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & \\text{P} & \\text{P} \\\\\n\\text{P} & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & 1\n\\end{pmatrix}",
+          "display": "triangle (P, P, P)"
         },
         {
           "rank": 3,
-          "mat": [
-            [
-              "1",
-              "4",
-              "2"
-            ],
-            [
-              "4",
-              "1",
-              "2"
-            ],
-            [
-              "2",
-              "2",
-              "1"
-            ]
-          ],
-          "count": 3,
-          "example_num": 3208,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 3208: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"109.8\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"98.6\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 4 & 2 \\\\\n4 & 1 & 2 \\\\\n2 & 2 & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 3,
+          "name": "TrianglePPH",
           "mat": [
             [
               "1",
@@ -299,11 +300,13 @@
           ],
           "count": 3,
           "example_num": 7727,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7727: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"109.8\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"98.6\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"24\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"41.4\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"109.8\" y1=\"93\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"103\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">H</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & \\text{P} & \\text{P} \\\\\n\\text{P} & 1 & \\text{H} \\\\\n\\text{P} & \\text{H} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"111\" height=\"107.8\" viewBox=\"0 0 111 107.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7727: rank 3 (TrianglePPH)\"><line x1=\"97\" y1=\"74\" x2=\"37\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"37\" y1=\"14\" x2=\"37\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"97\" y1=\"74\" x2=\"37\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"67\" y=\"84\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"27\" y=\"44\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"74.1\" y=\"36.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">H</text><circle cx=\"97\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"74\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & \\text{P} & \\text{P} \\\\\n\\text{P} & 1 & \\text{H} \\\\\n\\text{P} & \\text{H} & 1\n\\end{pmatrix}",
+          "display": "triangle (P, P, H)"
         },
         {
           "rank": 3,
+          "name": "TriangleAPP",
           "mat": [
             [
               "1",
@@ -323,56 +326,9 @@
           ],
           "count": 2,
           "example_num": 7042,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7042: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"109.8\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"70\" y1=\"24\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"41.4\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"109.8\" y1=\"93\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"103\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 3 & \\text{P} \\\\\n3 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 3,
-          "mat": [
-            [
-              "1",
-              "P",
-              "2"
-            ],
-            [
-              "P",
-              "1",
-              "P"
-            ],
-            [
-              "2",
-              "P",
-              "1"
-            ]
-          ],
-          "count": 1,
-          "example_num": 7455,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7455: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"109.8\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"98.6\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"109.8\" y1=\"93\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"103\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & \\text{P} & 2 \\\\\n\\text{P} & 1 & \\text{P} \\\\\n2 & \\text{P} & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 3,
-          "mat": [
-            [
-              "1",
-              "P",
-              "P"
-            ],
-            [
-              "P",
-              "1",
-              "2"
-            ],
-            [
-              "P",
-              "2",
-              "1"
-            ]
-          ],
-          "count": 1,
-          "example_num": 7470,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7470: rank 3\"><line x1=\"70\" y1=\"24\" x2=\"109.8\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"98.6\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"24\" x2=\"30.2\" y2=\"93\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"41.4\" y=\"53.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"109.8\" cy=\"93\" r=\"4\" fill=\"currentColor\"/><circle cx=\"30.2\" cy=\"93\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & \\text{P} & \\text{P} \\\\\n\\text{P} & 1 & 2 \\\\\n\\text{P} & 2 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"111\" height=\"107.8\" viewBox=\"0 0 111 107.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7042: rank 3 (TriangleAPP)\"><line x1=\"97\" y1=\"74\" x2=\"37\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"37\" y1=\"14\" x2=\"37\" y2=\"74\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"97\" y1=\"74\" x2=\"37\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"67\" y=\"84\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"27\" y=\"44\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"97\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"37\" cy=\"74\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 3 & \\text{P} \\\\\n3 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & 1\n\\end{pmatrix}",
+          "display": "triangle (3, P, P)"
         }
       ]
     },
@@ -381,6 +337,7 @@
       "shapes": [
         {
           "rank": 4,
+          "name": "StarThreeLegP",
           "mat": [
             [
               "1",
@@ -409,11 +366,13 @@
           ],
           "count": 7,
           "example_num": 7435,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7435: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"39.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"116\" y1=\"70\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"70\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"116\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"100.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & \\text{P} \\\\\n2 & 1 & 2 & \\text{P} \\\\\n2 & 2 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & \\text{P} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"131.9\" height=\"121.4\" viewBox=\"0 0 131.9 121.4\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7435: rank 4 (StarThreeLegP)\"><line x1=\"66.0\" y1=\"74\" x2=\"66.0\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"66.0\" y1=\"74\" x2=\"14\" y2=\"104\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"66.0\" y1=\"74\" x2=\"117.9\" y2=\"104\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"56.0\" y=\"44\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"45.0\" y=\"97.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"86.9\" y=\"97.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"66.0\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"66.0\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"14\" cy=\"104\" r=\"4\" fill=\"currentColor\"/><circle cx=\"117.9\" cy=\"104\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & \\text{P} \\\\\n2 & 1 & 2 & \\text{P} \\\\\n2 & 2 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & \\text{P} & 1\n\\end{pmatrix}",
+          "display": "3-leg star (all P)"
         },
         {
           "rank": 4,
+          "name": "A1+A1+A2",
           "mat": [
             [
               "1",
@@ -440,29 +399,31 @@
               "1"
             ]
           ],
-          "count": 4,
+          "count": 6,
           "example_num": 6732,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6732: rank 4\"><line x1=\"70\" y1=\"116\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 2 \\\\\n2 & 1 & 2 & 2 \\\\\n2 & 2 & 1 & 3 \\\\\n2 & 2 & 3 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"208\" height=\"28\" viewBox=\"0 0 208 28\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6732: rank 4 (A1+A1+A2)\"><line x1=\"134\" y1=\"14\" x2=\"194\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"134\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"194\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 2 \\\\\n2 & 1 & 2 & 2 \\\\\n2 & 2 & 1 & 3 \\\\\n2 & 2 & 3 & 1\n\\end{pmatrix}",
+          "display": "A₁ + A₁ + A₂"
         },
         {
           "rank": 4,
+          "name": "PStarATwoEdge",
           "mat": [
             [
               "1",
               "2",
-              "2",
+              "3",
               "P"
             ],
             [
               "2",
               "1",
-              "3",
+              "2",
               "P"
             ],
             [
-              "2",
               "3",
+              "2",
               "1",
               "P"
             ],
@@ -473,13 +434,15 @@
               "1"
             ]
           ],
-          "count": 4,
-          "example_num": 6828,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6828: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"39.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"116\" y1=\"70\" x2=\"70\" y2=\"116\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"116\" y1=\"70\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"70\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"116\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"100.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & \\text{P} \\\\\n2 & 1 & 3 & \\text{P} \\\\\n2 & 3 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & \\text{P} & 1\n\\end{pmatrix}"
+          "count": 6,
+          "example_num": 6784,
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"140.0\" height=\"91.6\" viewBox=\"0 0 140.0 91.6\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6784: rank 4 (PStarATwoEdge)\"><line x1=\"14\" y1=\"15.8\" x2=\"14\" y2=\"75.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"14\" y1=\"15.8\" x2=\"66.0\" y2=\"45.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"14\" y1=\"75.8\" x2=\"66.0\" y2=\"45.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"66.0\" y1=\"45.8\" x2=\"126.0\" y2=\"45.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"47.1\" y=\"23.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"47.1\" y=\"67.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"96.0\" y=\"35.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"14\" cy=\"15.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"14\" cy=\"75.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"66.0\" cy=\"45.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"126.0\" cy=\"45.8\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & 3 & \\text{P} \\\\\n2 & 1 & 2 & \\text{P} \\\\\n3 & 2 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & \\text{P} & 1\n\\end{pmatrix}",
+          "display": "P-star with A₂ arm"
         },
         {
           "rank": 4,
+          "name": "B2+B2",
           "mat": [
             [
               "1",
@@ -508,11 +471,13 @@
           ],
           "count": 3,
           "example_num": 2317,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 2317: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"39.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><line x1=\"116\" y1=\"70\" x2=\"70\" y2=\"116\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"100.1\" y=\"100.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 4 \\\\\n2 & 1 & 4 & 2 \\\\\n2 & 4 & 1 & 2 \\\\\n4 & 2 & 2 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"208\" height=\"47.8\" viewBox=\"0 0 208 47.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 2317: rank 4 (B2+B2)\"><line x1=\"14\" y1=\"33.8\" x2=\"74\" y2=\"33.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"134\" y1=\"33.8\" x2=\"194\" y2=\"33.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"44\" y=\"23.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><text x=\"164\" y=\"23.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><circle cx=\"14\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"134\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"194\" cy=\"33.8\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 4 \\\\\n2 & 1 & 4 & 2 \\\\\n2 & 4 & 1 & 2 \\\\\n4 & 2 & 2 & 1\n\\end{pmatrix}",
+          "display": "B₂ + B₂"
         },
         {
           "rank": 4,
+          "name": "A2+A2",
           "mat": [
             [
               "1",
@@ -539,145 +504,15 @@
               "1"
             ]
           ],
-          "count": 2,
+          "count": 3,
           "example_num": 5256,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 5256: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"116\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"70\" y1=\"116\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 3 & 2 & 2 \\\\\n3 & 1 & 2 & 2 \\\\\n2 & 2 & 1 & 3 \\\\\n2 & 2 & 3 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"208\" height=\"28\" viewBox=\"0 0 208 28\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 5256: rank 4 (A2+A2)\"><line x1=\"14\" y1=\"14\" x2=\"74\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"134\" y1=\"14\" x2=\"194\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"74\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"134\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"194\" cy=\"14\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 3 & 2 & 2 \\\\\n3 & 1 & 2 & 2 \\\\\n2 & 2 & 1 & 3 \\\\\n2 & 2 & 3 & 1\n\\end{pmatrix}",
+          "display": "A₂ + A₂"
         },
         {
           "rank": 4,
-          "mat": [
-            [
-              "1",
-              "2",
-              "3",
-              "P"
-            ],
-            [
-              "2",
-              "1",
-              "2",
-              "P"
-            ],
-            [
-              "3",
-              "2",
-              "1",
-              "P"
-            ],
-            [
-              "P",
-              "P",
-              "P",
-              "1"
-            ]
-          ],
-          "count": 2,
-          "example_num": 6784,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6784: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"116\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"70\" y1=\"24\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"39.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"116\" y1=\"70\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"70\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"116\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"100.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 3 & \\text{P} \\\\\n2 & 1 & 2 & \\text{P} \\\\\n3 & 2 & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & \\text{P} & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 4,
-          "mat": [
-            [
-              "1",
-              "2",
-              "3",
-              "2"
-            ],
-            [
-              "2",
-              "1",
-              "2",
-              "3"
-            ],
-            [
-              "3",
-              "2",
-              "1",
-              "2"
-            ],
-            [
-              "2",
-              "3",
-              "2",
-              "1"
-            ]
-          ],
-          "count": 1,
-          "example_num": 5452,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 5452: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"116\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"116\" y1=\"70\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 3 & 2 \\\\\n2 & 1 & 2 & 3 \\\\\n3 & 2 & 1 & 2 \\\\\n2 & 3 & 2 & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 4,
-          "mat": [
-            [
-              "1",
-              "2",
-              "2",
-              "3"
-            ],
-            [
-              "2",
-              "1",
-              "2",
-              "2"
-            ],
-            [
-              "2",
-              "2",
-              "1",
-              "2"
-            ],
-            [
-              "3",
-              "2",
-              "2",
-              "1"
-            ]
-          ],
-          "count": 1,
-          "example_num": 6777,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6777: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 3 \\\\\n2 & 1 & 2 & 2 \\\\\n2 & 2 & 1 & 2 \\\\\n3 & 2 & 2 & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 4,
-          "mat": [
-            [
-              "1",
-              "2",
-              "2",
-              "2"
-            ],
-            [
-              "2",
-              "1",
-              "2",
-              "3"
-            ],
-            [
-              "2",
-              "2",
-              "1",
-              "2"
-            ],
-            [
-              "2",
-              "3",
-              "2",
-              "1"
-            ]
-          ],
-          "count": 1,
-          "example_num": 6890,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6890: rank 4\"><line x1=\"116\" y1=\"70\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 2 \\\\\n2 & 1 & 2 & 3 \\\\\n2 & 2 & 1 & 2 \\\\\n2 & 3 & 2 & 1\n\\end{pmatrix}"
-        },
-        {
-          "rank": 4,
+          "name": "KFourAllP",
           "mat": [
             [
               "1",
@@ -706,8 +541,9 @@
           ],
           "count": 1,
           "example_num": 7862,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7862: rank 4\"><line x1=\"70\" y1=\"24\" x2=\"116\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"100.1\" y=\"39.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"24\" x2=\"70\" y2=\"116\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"70\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"24\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"39.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"116\" y1=\"70\" x2=\"70\" y2=\"116\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"100.1\" y=\"100.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"116\" y1=\"70\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"70\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><line x1=\"70\" y1=\"116\" x2=\"24\" y2=\"70\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"39.9\" y=\"100.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">P</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"116\" cy=\"70\" r=\"4\" fill=\"currentColor\"/><circle cx=\"70\" cy=\"116\" r=\"4\" fill=\"currentColor\"/><circle cx=\"24\" cy=\"70\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & \\text{P} & \\text{P} & \\text{P} \\\\\n\\text{P} & 1 & \\text{P} & \\text{P} \\\\\n\\text{P} & \\text{P} & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & \\text{P} & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"131.9\" height=\"137.8\" viewBox=\"0 0 131.9 137.8\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7862: rank 4 (KFourAllP)\"><line x1=\"66.0\" y1=\"74\" x2=\"66.0\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"66.0\" y1=\"74\" x2=\"14\" y2=\"104\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"66.0\" y1=\"74\" x2=\"117.9\" y2=\"104\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"66.0\" y1=\"14\" x2=\"14\" y2=\"104\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"66.0\" y1=\"14\" x2=\"117.9\" y2=\"104\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"14\" y1=\"104\" x2=\"117.9\" y2=\"104\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"60.0\" y=\"46.5\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"45.0\" y=\"97.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"86.9\" y=\"97.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"32.9\" y=\"51.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"99.0\" y=\"51.9\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><text x=\"66.0\" y=\"114\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">P</text><circle cx=\"66.0\" cy=\"74\" r=\"4\" fill=\"currentColor\"/><circle cx=\"66.0\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"14\" cy=\"104\" r=\"4\" fill=\"currentColor\"/><circle cx=\"117.9\" cy=\"104\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & \\text{P} & \\text{P} & \\text{P} \\\\\n\\text{P} & 1 & \\text{P} & \\text{P} \\\\\n\\text{P} & \\text{P} & 1 & \\text{P} \\\\\n\\text{P} & \\text{P} & \\text{P} & 1\n\\end{pmatrix}",
+          "display": "K₄ (all P)"
         }
       ]
     },
@@ -716,6 +552,7 @@
       "shapes": [
         {
           "rank": 5,
+          "name": "StarFourLegFour",
           "mat": [
             [
               "1",
@@ -755,11 +592,13 @@
           ],
           "count": 5,
           "example_num": 6715,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6715: rank 5\"><line x1=\"70\" y1=\"24\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"42.2\" y=\"31.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><line x1=\"113.7\" y1=\"55.8\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70\" y=\"45.8\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><line x1=\"97.0\" y1=\"107.2\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"55.8\" y=\"89.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><line x1=\"43.0\" y1=\"107.2\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"25.1\" y=\"84.6\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"serif\" font-style=\"italic\" font-size=\"11\" fill=\"currentColor\">4</text><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"113.7\" cy=\"55.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"97.0\" cy=\"107.2\" r=\"4\" fill=\"currentColor\"/><circle cx=\"43.0\" cy=\"107.2\" r=\"4\" fill=\"currentColor\"/><circle cx=\"26.3\" cy=\"55.8\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 2 & 4 \\\\\n2 & 1 & 2 & 2 & 4 \\\\\n2 & 2 & 1 & 2 & 4 \\\\\n2 & 2 & 2 & 1 & 4 \\\\\n4 & 4 & 4 & 4 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"112.9\" height=\"112.9\" viewBox=\"0 0 112.9 112.9\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 6715: rank 5 (StarFourLegFour)\"><line x1=\"56.4\" y1=\"56.4\" x2=\"98.9\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"56.4\" y1=\"56.4\" x2=\"14\" y2=\"14\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"56.4\" y1=\"56.4\" x2=\"14\" y2=\"98.9\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"56.4\" y1=\"56.4\" x2=\"98.9\" y2=\"98.9\" stroke=\"currentColor\" stroke-width=\"1.2\"/><text x=\"70.6\" y=\"28.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><text x=\"42.3\" y=\"28.1\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><text x=\"42.3\" y=\"84.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><text x=\"70.6\" y=\"84.7\" text-anchor=\"middle\" dominant-baseline=\"central\" font-family=\"KaTeX_Main, 'Latin Modern Math', 'Cambria Math', serif\" font-style=\"normal\" font-size=\"13\" fill=\"currentColor\">4</text><circle cx=\"56.4\" cy=\"56.4\" r=\"4\" fill=\"currentColor\"/><circle cx=\"98.9\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"14\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"14\" cy=\"98.9\" r=\"4\" fill=\"currentColor\"/><circle cx=\"98.9\" cy=\"98.9\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 2 & 2 & 2 & 4 \\\\\n2 & 1 & 2 & 2 & 4 \\\\\n2 & 2 & 1 & 2 & 4 \\\\\n2 & 2 & 2 & 1 & 4 \\\\\n4 & 4 & 4 & 4 & 1\n\\end{pmatrix}",
+          "display": "4-leg star (all 4)"
         },
         {
           "rank": 5,
+          "name": "KFiveAllThree",
           "mat": [
             [
               "1",
@@ -799,12 +638,13 @@
           ],
           "count": 2,
           "example_num": 7447,
-          "svg": "<svg class=\"cicy-entry__diagram\" viewBox=\"0 0 140 140\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7447: rank 5\"><line x1=\"70\" y1=\"24\" x2=\"113.7\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"70\" y1=\"24\" x2=\"97.0\" y2=\"107.2\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"70\" y1=\"24\" x2=\"43.0\" y2=\"107.2\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"70\" y1=\"24\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"113.7\" y1=\"55.8\" x2=\"97.0\" y2=\"107.2\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"113.7\" y1=\"55.8\" x2=\"43.0\" y2=\"107.2\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"113.7\" y1=\"55.8\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"97.0\" y1=\"107.2\" x2=\"43.0\" y2=\"107.2\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"97.0\" y1=\"107.2\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"43.0\" y1=\"107.2\" x2=\"26.3\" y2=\"55.8\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"70\" cy=\"24\" r=\"4\" fill=\"currentColor\"/><circle cx=\"113.7\" cy=\"55.8\" r=\"4\" fill=\"currentColor\"/><circle cx=\"97.0\" cy=\"107.2\" r=\"4\" fill=\"currentColor\"/><circle cx=\"43.0\" cy=\"107.2\" r=\"4\" fill=\"currentColor\"/><circle cx=\"26.3\" cy=\"55.8\" r=\"4\" fill=\"currentColor\"/></svg>",
-          "latex": "\\begin{pmatrix}\n1 & 3 & 3 & 3 & 3 \\\\\n3 & 1 & 3 & 3 & 3 \\\\\n3 & 3 & 1 & 3 & 3 \\\\\n3 & 3 & 3 & 1 & 3 \\\\\n3 & 3 & 3 & 3 & 1\n\\end{pmatrix}"
+          "svg": "<svg class=\"cicy-entry__diagram\" width=\"125.1\" height=\"120.3\" viewBox=\"0 0 125.1 120.3\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Coxeter diagram for CICY 7447: rank 5 (KFiveAllThree)\"><line x1=\"62.5\" y1=\"14\" x2=\"111.1\" y2=\"49.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"62.5\" y1=\"14\" x2=\"92.5\" y2=\"106.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"62.5\" y1=\"14\" x2=\"32.5\" y2=\"106.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"62.5\" y1=\"14\" x2=\"14\" y2=\"49.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"111.1\" y1=\"49.3\" x2=\"92.5\" y2=\"106.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"111.1\" y1=\"49.3\" x2=\"32.5\" y2=\"106.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"111.1\" y1=\"49.3\" x2=\"14\" y2=\"49.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"92.5\" y1=\"106.3\" x2=\"32.5\" y2=\"106.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"92.5\" y1=\"106.3\" x2=\"14\" y2=\"49.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><line x1=\"32.5\" y1=\"106.3\" x2=\"14\" y2=\"49.3\" stroke=\"currentColor\" stroke-width=\"1.2\"/><circle cx=\"62.5\" cy=\"14\" r=\"4\" fill=\"currentColor\"/><circle cx=\"111.1\" cy=\"49.3\" r=\"4\" fill=\"currentColor\"/><circle cx=\"92.5\" cy=\"106.3\" r=\"4\" fill=\"currentColor\"/><circle cx=\"32.5\" cy=\"106.3\" r=\"4\" fill=\"currentColor\"/><circle cx=\"14\" cy=\"49.3\" r=\"4\" fill=\"currentColor\"/></svg>",
+          "latex": "\\begin{pmatrix}\n1 & 3 & 3 & 3 & 3 \\\\\n3 & 1 & 3 & 3 & 3 \\\\\n3 & 3 & 1 & 3 & 3 \\\\\n3 & 3 & 3 & 1 & 3 \\\\\n3 & 3 & 3 & 3 & 1\n\\end{pmatrix}",
+          "display": "K₅ (all 3)"
         }
       ]
     }
   ],
-  "total_shapes": 29,
+  "total_shapes": 22,
   "total_models": 2182
 }

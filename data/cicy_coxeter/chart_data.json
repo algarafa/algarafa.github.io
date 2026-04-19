@@ -1,4 +1,144 @@
 {
+  "totals": {
+    "total": 7890,
+    "kahler_favorable": 4874,
+    "with_coxeter": 2182,
+    "infinite_order": 251
+  },
+  "shape_options": [
+    {
+      "key": "dot",
+      "display": "ℤ₂ (single reflection)",
+      "rank": 1,
+      "count": 1592
+    },
+    {
+      "key": "A1+A1",
+      "display": "A₁ + A₁",
+      "rank": 2,
+      "count": 243
+    },
+    {
+      "key": "Atilde1-P",
+      "display": "Ã₁ — parabolic ∞",
+      "rank": 2,
+      "count": 163
+    },
+    {
+      "key": "B2",
+      "display": "B₂",
+      "rank": 2,
+      "count": 28
+    },
+    {
+      "key": "Atilde1-H",
+      "display": "Ã₁ — hyperbolic ∞",
+      "rank": 2,
+      "count": 26
+    },
+    {
+      "key": "A2",
+      "display": "A₂",
+      "rank": 2,
+      "count": 21
+    },
+    {
+      "key": "VPP",
+      "display": "V-shape (P, P)",
+      "rank": 3,
+      "count": 21
+    },
+    {
+      "key": "A1+B2",
+      "display": "A₁ + B₂",
+      "rank": 3,
+      "count": 14
+    },
+    {
+      "key": "A1+A1+A1",
+      "display": "A₁ + A₁ + A₁",
+      "rank": 3,
+      "count": 13
+    },
+    {
+      "key": "VPH",
+      "display": "V-shape (P, H)",
+      "rank": 3,
+      "count": 10
+    },
+    {
+      "key": "A1+A2",
+      "display": "A₁ + A₂",
+      "rank": 3,
+      "count": 8
+    },
+    {
+      "key": "TrianglePPP",
+      "display": "triangle (P, P, P)",
+      "rank": 3,
+      "count": 5
+    },
+    {
+      "key": "TrianglePPH",
+      "display": "triangle (P, P, H)",
+      "rank": 3,
+      "count": 3
+    },
+    {
+      "key": "TriangleAPP",
+      "display": "triangle (3, P, P)",
+      "rank": 3,
+      "count": 2
+    },
+    {
+      "key": "StarThreeLegP",
+      "display": "3-leg star (all P)",
+      "rank": 4,
+      "count": 7
+    },
+    {
+      "key": "A1+A1+A2",
+      "display": "A₁ + A₁ + A₂",
+      "rank": 4,
+      "count": 6
+    },
+    {
+      "key": "PStarATwoEdge",
+      "display": "P-star with A₂ arm",
+      "rank": 4,
+      "count": 6
+    },
+    {
+      "key": "A2+A2",
+      "display": "A₂ + A₂",
+      "rank": 4,
+      "count": 3
+    },
+    {
+      "key": "B2+B2",
+      "display": "B₂ + B₂",
+      "rank": 4,
+      "count": 3
+    },
+    {
+      "key": "KFourAllP",
+      "display": "K₄ (all P)",
+      "rank": 4,
+      "count": 1
+    },
+    {
+      "key": "StarFourLegFour",
+      "display": "4-leg star (all 4)",
+      "rank": 5,
+      "count": 5
+    },
+    {
+      "key": "KFiveAllThree",
+      "display": "K₅ (all 3)",
+      "rank": 5,
+      "count": 2
+    }
+  ],
   "hodge_scatter": [
     {
       "h11": 0,
