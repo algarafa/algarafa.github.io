@@ -96,6 +96,16 @@
                 placeholder="e.g. 6771"
                 aria-describedby="cicy-search-hint">
             </label>
+            <button
+              type="button"
+              class="cicy-explorer__filters-pill"
+              data-role="filters-pill"
+              hidden
+              aria-live="polite">
+              <span class="cicy-explorer__filters-pill-count">0 filters</span>
+              <span class="cicy-explorer__filters-pill-sep" aria-hidden="true"> — </span>
+              <span class="cicy-explorer__filters-pill-reset">reset</span>
+            </button>
             <p class="cicy-explorer__hint" id="cicy-search-hint">
               When set, all other filters are ignored.
             </p>
@@ -275,23 +285,29 @@
           </div>
         </details>
 
+        <p class="cicy-explorer__scroll-hint" data-role="scroll-hint" aria-hidden="true">
+          <span>&larr; scroll horizontally to see all columns &rarr;</span>
+        </p>
+        <div class="cicy-explorer__table-frame">
         <div class="cicy-explorer__table-wrap">
           <table class="cicy-explorer__table">
             <thead>
               <tr>
-                <th scope="col" data-sort="Num"><button type="button" class="cicy-sort-btn" data-col="Num">#<span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="H11"><button type="button" class="cicy-sort-btn" data-col="H11">h<sup>1,1</sup><span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="H21"><button type="button" class="cicy-sort-btn" data-col="H21">h<sup>2,1</sup><span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="Favour"><button type="button" class="cicy-sort-btn" data-col="Favour">Fav.<span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="KahlerPos"><button type="button" class="cicy-sort-btn" data-col="KahlerPos">K-fav.<span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="IsProduct"><button type="button" class="cicy-sort-btn" data-col="IsProduct">Product<span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="IsoFlopRank"><button type="button" class="cicy-sort-btn" data-col="IsoFlopRank">Rank(W)<span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="CoxeterKind"><button type="button" class="cicy-sort-btn" data-col="CoxeterKind">Kind<span class="cicy-sort-arrow"></span></button></th>
-                <th scope="col" data-sort="CoxeterSummary"><button type="button" class="cicy-sort-btn" data-col="CoxeterSummary">Coxeter<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="Num"><button type="button" class="cicy-sort-btn" data-col="Num">#<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="H11"><button type="button" class="cicy-sort-btn" data-col="H11">h<sup>1,1</sup><span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="H21"><button type="button" class="cicy-sort-btn" data-col="H21">h<sup>2,1</sup><span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="Favour"><button type="button" class="cicy-sort-btn" data-col="Favour">Fav.<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="KahlerPos"><button type="button" class="cicy-sort-btn" data-col="KahlerPos">K-fav.<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="IsProduct"><button type="button" class="cicy-sort-btn" data-col="IsProduct">Product<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="IsoFlopRank"><button type="button" class="cicy-sort-btn" data-col="IsoFlopRank">Rank(W)<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="CoxeterKind"><button type="button" class="cicy-sort-btn" data-col="CoxeterKind">Kind<span class="cicy-sort-arrow"></span></button></th>
+                <th scope="col" aria-sort="none" data-sort="CoxeterSummary"><button type="button" class="cicy-sort-btn" data-col="CoxeterSummary">Coxeter<span class="cicy-sort-arrow"></span></button></th>
               </tr>
             </thead>
             <tbody></tbody>
           </table>
+        </div>
+        <div class="cicy-explorer__scroll-fade" data-role="scroll-fade" aria-hidden="true"></div>
         </div>
 
         <noscript>

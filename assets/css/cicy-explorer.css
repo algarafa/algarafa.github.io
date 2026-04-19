@@ -329,7 +329,35 @@ details.cicy-cite__bibtex pre {
   align-self: end;
   opacity: 0.7;
   font-size: 0.9em;
+  grid-column: 1 / -1;
 }
+
+.cicy-explorer__filters-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--cicy-chart-accent, #4a7bd6);
+  border-radius: 999px;
+  background: rgba(74, 123, 214, 0.1);
+  color: var(--cicy-chart-accent, #4a7bd6);
+  font: inherit;
+  font-size: 0.9em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cicy-explorer__filters-pill:hover,
+.cicy-explorer__filters-pill:focus-visible {
+  background: rgba(74, 123, 214, 0.2);
+  outline: none;
+}
+
+.cicy-explorer__filters-pill-reset {
+  text-decoration: underline;
+}
+
+.cicy-explorer__filters-pill[hidden] { display: none; }
 
 .cicy-explorer__facets-grid {
   display: grid;
@@ -409,10 +437,62 @@ details.cicy-cite__bibtex pre {
   opacity: 0.9;
 }
 
+.cicy-explorer__table-frame {
+  position: relative;
+}
+
 .cicy-explorer__table-wrap {
-  overflow-x: auto;
+  /* Both-axis overflow with a bounded height so the sticky <thead> has a
+     real vertical scroll container to pin against (CSS sticky requires its
+     ancestor to actually scroll). Without max-height the wrap grows to fit
+     all ~7890 rows and the thead scrolls away with the page. */
+  overflow: auto;
+  max-height: 75vh;
   border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
   border-radius: 6px;
+}
+
+/* Narrow-viewport-only affordance: a "scroll horizontally" hint and a small
+   gradient fade on the right edge of the table wrap, telling the reader
+   there are more columns off-screen. Desktop has full-width room, so both
+   cues are hidden above 640 px. */
+.cicy-explorer__scroll-hint {
+  display: none;
+  margin: 0 0 0.35rem;
+  font-size: 0.85em;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.cicy-explorer__scroll-fade {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 1.5rem;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    var(--body-background, #fff) 85%);
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.theme--dark .cicy-explorer__scroll-fade,
+[data-theme="dark"] .cicy-explorer__scroll-fade {
+  background: linear-gradient(
+    to right,
+    rgba(27, 27, 31, 0),
+    #1b1b1f 85%);
+}
+
+@media (max-width: 640px) {
+  .cicy-explorer__scroll-hint,
+  .cicy-explorer__scroll-fade {
+    display: block;
+  }
 }
 
 .cicy-explorer__table {
@@ -429,11 +509,18 @@ details.cicy-cite__bibtex pre {
 }
 
 .cicy-explorer__table th {
-  background: rgba(128, 128, 128, 0.08);
+  background: var(--body-background, #fff);
   font-weight: 600;
   position: sticky;
   top: 0;
+  z-index: 2;
   padding: 0;
+  box-shadow: inset 0 -1px 0 rgba(128, 128, 128, 0.35);
+}
+
+.theme--dark .cicy-explorer__table th,
+[data-theme="dark"] .cicy-explorer__table th {
+  background: #1b1b1f;
 }
 
 .cicy-explorer__table tbody tr:last-child td {
@@ -694,6 +781,22 @@ table.cicy-explorer__schema-table code {
 @keyframes cicy-row-pulse {
   0%   { background: rgba(200, 150, 40, 0.35); }
   100% { background: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cicy-loading-dot,
+  .cicy-gallery__tile:target,
+  .cicy-explorer__table tbody tr.is-highlighted {
+    animation: none !important;
+  }
+}
+
+/* Vega-Lite draws `<text>` labels on top of each heatmap rect (the cell's
+   model count). These text nodes otherwise intercept pointer events when the
+   user clicks the centre of a cell, preventing the chart-click handler from
+   firing. Passing clicks through to the rect below fixes the issue.  */
+.cicy-charts svg g.mark-text > text {
+  pointer-events: none;
 }
 
 /* --- Active-shape-filter notice above the results table --------------- */

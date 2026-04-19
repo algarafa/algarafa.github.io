@@ -560,6 +560,40 @@ def _shape_display(layout_name: str, rank: int) -> str:
     return f"unclassified (rank {rank})"
 
 
+def _compact_shape_display(type_display: str) -> str:
+    """Shorten a SHAPE_DISPLAY string for meta descriptions / SEO snippets:
+    strip the en-dash separator, the trailing infinity glyph, and the
+    parenthetical \"(single reflection)\" note on the rank-1 dot case."""
+    return (
+        type_display
+        .replace(" \u2014 ", " ")
+        .replace(" \u221e", "")
+        .replace(" (single reflection)", "")
+    )
+
+
+def format_meta_description(r: Record, meta: dict) -> str:
+    """Short-Unicode meta description for the per-entry page's <head>.
+
+    Targets:
+      K-fav, non-trivial   CICY 6771 \u2014 rank 2 \u00c3\u2081 hyperbolic, h\u00b9\u00b7\u00b9=3, h\u00b2\u00b7\u00b9=35, \u03c7=\u221264.
+      K-fav, trivial       CICY N \u2014 K\u00e4hler-favorable, trivial Coxeter group, h\u00b9\u00b7\u00b9=X, h\u00b2\u00b7\u00b9=Y, \u03c7=Z.
+      non-K-fav (sentinel) CICY N \u2014 non-K\u00e4hler-favorable, h\u00b9\u00b7\u00b9=X, h\u00b2\u00b7\u00b9=Y, \u03c7=Z.
+    """
+    chi = meta["chi"]
+    chi_str = (f"\u2212{-chi}" if chi < 0 else str(chi))
+    hodge = f"h\u00b9\u00b7\u00b9={r.H11}, h\u00b2\u00b7\u00b9={r.H21}, \u03c7={chi_str}"
+    kind = meta["coxeter_kind"]
+    if kind == "sentinel":
+        return f"CICY {r.Num} \u2014 non-K\u00e4hler-favorable, {hodge}."
+    if kind == "trivial":
+        return f"CICY {r.Num} \u2014 K\u00e4hler-favorable, trivial Coxeter group, {hodge}."
+    rank = meta["rank"]
+    type_display = meta["type_display"] or _shape_display(meta["type_label"] or "", rank)
+    shape_short = _compact_shape_display(type_display)
+    return f"CICY {r.Num} \u2014 rank {rank} {shape_short}, {hodge}."
+
+
 def compute_page_meta(records: list[Record]) -> dict:
     """Sidecar metadata for per-model page layouts: navigation neighbours,
     Coxeter kind / rank / display label, shape-siblings list, ambient dims.
@@ -609,7 +643,7 @@ def compute_page_meta(records: list[Record]) -> dict:
         iso_flop_count = (
             len(r.IsoFlopRows) if r.KahlerPos and r.IsoFlopRows is not None else None
         )
-        meta[str(r.Num)] = {
+        entry = {
             "num": r.Num,
             "h11": r.H11,
             "h21": r.H21,
@@ -628,6 +662,8 @@ def compute_page_meta(records: list[Record]) -> dict:
             "prev": prev_num,
             "next": next_num,
         }
+        entry["description"] = format_meta_description(r, entry)
+        meta[str(r.Num)] = entry
     return meta
 
 
@@ -1423,6 +1459,9 @@ def render_markdown_stub(r: Record, meta: dict | None = None) -> str:
     lines.append(f"num = {r.Num}")
     lines.append(f"h11 = {r.H11}")
     lines.append(f"h21 = {r.H21}")
+    if meta and meta.get("description"):
+        desc = meta["description"].replace('\\', '\\\\').replace('"', '\\"')
+        lines.append(f'description = "{desc}"')
     lines.append("+++")
     lines.append("")
 

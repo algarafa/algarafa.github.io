@@ -4,3 +4,4 @@ resources/
 scripts/.sample-runs/
 __pycache__/
 *.pyc
+CLAUDE.md
