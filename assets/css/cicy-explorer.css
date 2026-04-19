@@ -531,9 +531,21 @@ details.cicy-cite__bibtex pre {
   cursor: pointer;
 }
 
-.cicy-explorer__table tbody tr:hover,
-.cicy-explorer__table tbody tr:focus-visible {
+.cicy-explorer__table tbody tr:hover {
   background: rgba(74, 123, 214, 0.08);
+  outline: none;
+}
+
+/* Focus state is carried by the <a> inside the #-cell (the tr itself is
+   no longer tabbable). Propagate a visible ring onto the whole row via
+   :has() so keyboard users see which row the focused link belongs to. */
+.cicy-explorer__table tbody tr:has(a:focus-visible) {
+  background: rgba(74, 123, 214, 0.08);
+  outline: 2px solid var(--cicy-chart-accent, #4a7bd6);
+  outline-offset: -2px;
+}
+
+.cicy-explorer__table .cicy-cell--num a:focus-visible {
   outline: none;
 }
 
@@ -703,10 +715,15 @@ table.cicy-explorer__schema-table code {
   cursor: pointer;
 }
 
-.cicy-gallery__link:hover,
-.cicy-gallery__link:focus-visible {
+.cicy-gallery__link:hover {
   background: rgba(74, 123, 214, 0.08);
   outline: none;
+}
+
+.cicy-gallery__link:focus-visible {
+  background: rgba(74, 123, 214, 0.08);
+  outline: 2px solid var(--cicy-chart-accent, #4a7bd6);
+  outline-offset: 1px;
 }
 
 .cicy-gallery__tile:hover,
