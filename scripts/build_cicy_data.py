@@ -358,9 +358,6 @@ def write_gallery(records: list[Record], out_path: Path) -> None:
     )
 
 
-_PAIR_M_ORDER = {"2": 0, "3": 1, "4": 2, "P": 3, "H": 4}
-
-
 _EIGENVALUE_TOL = 1e-9
 
 
@@ -442,15 +439,14 @@ def _classify_coxeter_kind(mat: list[list[str]]) -> str:
 
 
 def build_chart_data(records: list[Record]) -> dict:
-    """Aggregate the four Explorer-landing charts, the landing stats strip,
-    and the shape-facet options into one JSON blob."""
+    """Aggregate the landing-page charts (Hodge scatter + two rank×h11
+    heatmaps), the landing stats strip, and the shape-facet options into
+    one JSON blob."""
     from collections import Counter
 
     hodge = Counter()
     hodge_kahler = Counter()
     rank_h11 = Counter()
-    summary_bar = Counter()
-    pair_m = Counter()
     shape_counts: Counter = Counter()
     shape_rank: dict[str, int] = {}
 
@@ -469,14 +465,10 @@ def build_chart_data(records: list[Record]) -> dict:
         rank = len(mat)
         kind = _classify_coxeter_kind(mat)
         rank_h11[(rank, r.H11, kind)] += 1
-        summary_bar[r.coxeter_summary] += 1
         if mat:
             with_coxeter += 1
             if kind in ("affine", "indefinite"):
                 infinite_order += 1
-            for i in range(rank):
-                for j in range(i + 1, rank):
-                    pair_m[mat[i][j]] += 1
             key = r.shape_key
             if key is not None:
                 shape_counts[key] += 1
@@ -494,16 +486,6 @@ def build_chart_data(records: list[Record]) -> dict:
     rank_h11_table = [
         {"rank": rank, "h11": h11, "coxeter_kind": kind, "count": c}
         for (rank, h11, kind), c in sorted(rank_h11.items())
-    ]
-    coxeter_summary_bar = [
-        {"summary": s, "count": c}
-        for s, c in sorted(summary_bar.items(), key=lambda x: (-x[1], x[0]))
-    ]
-    pair_m_bar = [
-        {"m": m, "count": c}
-        for m, c in sorted(
-            pair_m.items(), key=lambda x: _PAIR_M_ORDER.get(x[0], 999)
-        )
     ]
     shape_options = [
         {
@@ -528,8 +510,6 @@ def build_chart_data(records: list[Record]) -> dict:
         "shape_options": shape_options,
         "hodge_scatter": hodge_scatter,
         "rank_h11_table": rank_h11_table,
-        "coxeter_summary_bar": coxeter_summary_bar,
-        "pair_m_bar": pair_m_bar,
     }
 
 

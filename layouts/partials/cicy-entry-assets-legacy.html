@@ -1,7 +1,0 @@
-{{- $css := resources.Get "css/cicy-entry-legacy.css" | resources.Minify | resources.Fingerprint -}}
-<link
-  rel="stylesheet"
-  href="{{ $css.RelPermalink }}"
-  integrity="{{ $css.Data.Integrity }}"
-  crossorigin="anonymous"
-/>

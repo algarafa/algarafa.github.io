@@ -1,4 +1,4 @@
-const CHART_IDS = ["cicy-chart-hodge", "cicy-chart-rank-h11", "cicy-chart-rank-h11-infinite", "cicy-chart-coxeter", "cicy-chart-pairs"];
+const CHART_IDS = ["cicy-chart-hodge", "cicy-chart-rank-h11", "cicy-chart-rank-h11-infinite"];
 
 // Sentinel string used as the Vega-Lite axis title; the post-render hook
 // `injectKatexTitles` finds <text> nodes whose textContent matches
@@ -79,8 +79,6 @@ function dispatchFilter(detail) {
       coxeter_kind: "infinite",
     })
   );
-  await runRender("cicy-chart-coxeter", () => coxeterSpec(data.coxeter_summary_bar, theme), embed, embedOpts);
-  await runRender("cicy-chart-pairs",   () => pairMSpec(data.pair_m_bar, theme),           embed, embedOpts);
 })();
 
 async function runRender(targetId, specFn, embed, opts, onClick) {
@@ -213,12 +211,29 @@ function hodgeSpec(rows, config) {
 }
 
 function rankH11Spec(rows, config, kindAllowlist) {
-  let filtered = rows.filter(r => r.rank >= 1);
-  if (kindAllowlist) {
-    filtered = filtered.filter(r => kindAllowlist.includes(r.coxeter_kind));
+  // Reference data spans every (rank, h11) cell in the Kähler-favorable set
+  // regardless of kind, so the full and infinite-only heatmaps share x/y
+  // axes and the colour scale. The infinite chart then reads as a sparser
+  // version of the full chart instead of a tighter one.
+  const fullData = rows.filter(r => r.rank >= 1);
+  const fullCellTotals = new Map();
+  for (const r of fullData) {
+    const key = `${r.rank}|${r.h11}`;
+    fullCellTotals.set(key, (fullCellTotals.get(key) || 0) + r.count);
   }
+  const fullCellMax = fullCellTotals.size ? Math.max(...fullCellTotals.values()) : 1;
+  const ranksDesc = [...new Set(fullData.map(r => r.rank))].sort((a, b) => b - a);
+  const h11sAsc = [...new Set(fullData.map(r => r.h11))].sort((a, b) => a - b);
+
+  const filtered = kindAllowlist
+    ? fullData.filter(r => kindAllowlist.includes(r.coxeter_kind))
+    : fullData;
+
+  // Single threshold computed from the shared fullCellMax so both heatmaps
+  // flip text colour at the same cell-count level.
+  const whiteThreshold = Math.max(1, fullCellMax * 0.4);
   const description = kindAllowlist
-    ? "Rank(W) × h¹·¹ heatmap restricted to infinite (affine + indefinite) Coxeter groups."
+    ? "Rank(W) × h¹·¹ heatmap restricted to infinite (affine + indefinite) Coxeter groups, drawn on the full chart's axes."
     : "Rank(W) × h¹·¹ heatmap (paper Table 3.1).";
   return {
     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
@@ -233,56 +248,23 @@ function rankH11Spec(rows, config, kindAllowlist) {
     layer: [
       { mark: { type: "rect", tooltip: true, cursor: "pointer" },
         encoding: {
-          x: { field: "h11", type: "ordinal", title: katexTitle("h^{1,1}") },
+          x: { field: "h11", type: "ordinal", title: katexTitle("h^{1,1}"),
+               scale: { domain: h11sAsc } },
           y: { field: "rank", type: "ordinal", title: katexTitle("\\mathrm{rank}(W)"),
-               sort: "descending" },
+               scale: { domain: ranksDesc } },
           color: { field: "count", type: "quantitative", title: "models",
-                   scale: { scheme: "blues", type: "log" } },
+                   scale: { scheme: "blues", type: "log",
+                            domain: [1, fullCellMax] } },
         } },
       { mark: { type: "text", fontSize: 16 },
         encoding: {
-          x: { field: "h11", type: "ordinal" },
-          y: { field: "rank", type: "ordinal", sort: "descending" },
+          x: { field: "h11", type: "ordinal", scale: { domain: h11sAsc } },
+          y: { field: "rank", type: "ordinal", scale: { domain: ranksDesc } },
           text: { field: "count", type: "quantitative" },
-          color: { condition: { test: "datum.count > 100", value: "white" },
+          color: { condition: { test: `datum.count > ${whiteThreshold}`, value: "white" },
                    value: "black" },
         } },
     ],
-    config,
-  };
-}
-
-function coxeterSpec(rows, config) {
-  const labelled = rows.map(r => ({ ...r, summary: r.summary === "" ? "(none)" : r.summary }));
-  return {
-    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    description: "Kähler-favorable CICYs by Coxeter summary.",
-    data: { values: labelled },
-    width: "container",
-    height: 260,
-    mark: { type: "bar", tooltip: true },
-    encoding: {
-      y: { field: "summary", type: "nominal", title: "Coxeter summary",
-           sort: { field: "count", order: "descending" } },
-      x: { field: "count", type: "quantitative", title: "models" },
-    },
-    config,
-  };
-}
-
-function pairMSpec(rows, config) {
-  return {
-    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
-    description: "Edge-label distribution across iso-flop-wall pairs.",
-    data: { values: rows },
-    width: "container",
-    height: 260,
-    mark: { type: "bar", tooltip: true },
-    encoding: {
-      x: { field: "m", type: "nominal", title: katexTitle("m_{ij}"),
-           sort: ["2", "3", "4", "P", "H"] },
-      y: { field: "count", type: "quantitative", title: "pairs" },
-    },
     config,
   };
 }

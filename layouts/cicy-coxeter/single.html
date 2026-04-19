@@ -126,12 +126,6 @@
       <p class="cicy-entry__back-link">
         <a href="{{ printf "/cicy-coxeter/#row=%d" $num | relURL }}">&larr; Back to the CICY Coxeter Database explorer</a>
       </p>
-
-      {{ with .OutputFormats.Get "legacy" }}
-        <p class="cicy-entry__legacy-link">
-          <a href="{{ .RelPermalink }}">View legacy style &rarr;</a>
-        </p>
-      {{ end }}
     </div>
   </div>
   {{ partial "cicy-entry-assets.html" . }}

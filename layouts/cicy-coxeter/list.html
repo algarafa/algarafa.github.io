@@ -18,19 +18,11 @@
             </figure>
             <figure>
               <div id="cicy-chart-rank-h11"></div>
-              <figcaption>Kähler-favorable CICYs by rank(<em>W</em>) and h<sup>1,1</sup>. Click a cell to filter the Explorer to that rank and h<sup>1,1</sup>. Compare with paper Table 3.1.</figcaption>
+              <figcaption>Kähler-favorable CICYs by rank(<em>W</em>) and h<sup>1,1</sup>. Click a cell to filter the Explorer to that rank and h<sup>1,1</sup>. Compare with Section 3.</figcaption>
             </figure>
             <figure>
               <div id="cicy-chart-rank-h11-infinite"></div>
-              <figcaption>Same as above, restricted to models with <strong>infinite</strong> Coxeter groups (affine + indefinite diagrams). Clicking a cell additionally pre-selects the corresponding Coxeter-kind facet. Paper §3 flags 251 such models.</figcaption>
-            </figure>
-            <figure>
-              <div id="cicy-chart-coxeter"></div>
-              <figcaption>Kähler-favorable CICYs by Coxeter-group summary (empty string = no Coxeter action; rank<em>N</em> lumps higher-rank cases — UI polish pending).</figcaption>
-            </figure>
-            <figure>
-              <div id="cicy-chart-pairs"></div>
-              <figcaption>Edge-label distribution across all unordered pairs of iso-flop walls in Kähler-favorable models. Finite bins (2, 3, 4) match paper Table 3.2; P/H bins count <em>edge labels</em> (parabolic/hyperbolic diagram convention) rather than the <em>subgroup type</em> shown in the paper, so those two bins are legitimately different.</figcaption>
+              <figcaption>Same as above, restricted to models with <strong>infinite</strong> Coxeter groups (affine + indefinite diagrams), drawn on the full chart's axes so empty cells are visible. Clicking a cell additionally pre-selects the corresponding Coxeter-kind facet. Section 3 flags 251 such models.</figcaption>
             </figure>
           </div>
           <script id="cicy-chart-data" type="application/json">{{ . | jsonify (dict "indent" "") | safeJS }}</script>
@@ -205,6 +197,84 @@
 
         <div class="cicy-explorer__summary" role="status" aria-live="polite"></div>
 
+        <details class="cicy-explorer__schema">
+          <summary>What do these columns mean?</summary>
+          <div class="cicy-explorer__schema-body">
+            <table class="cicy-explorer__schema-table">
+              <thead>
+                <tr><th>Column</th><th>Type</th><th>Meaning</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>Num</code></td>
+                  <td>integer</td>
+                  <td>CICY index, 1&ndash;7890.</td>
+                </tr>
+                <tr>
+                  <td>\(h^{1,1}\)</td>
+                  <td>integer</td>
+                  <td>Hodge number.</td>
+                </tr>
+                <tr>
+                  <td>\(h^{2,1}\)</td>
+                  <td>integer</td>
+                  <td>Hodge number.</td>
+                </tr>
+                <tr>
+                  <td>Fav.</td>
+                  <td>bool</td>
+                  <td>Favorable presentation (projective product) exists.</td>
+                </tr>
+                <tr>
+                  <td>K-fav.</td>
+                  <td>bool</td>
+                  <td>K&auml;hler-favorable: K&auml;hler and Mori cones descend from the ambient. Strictly stronger than <em>Fav.</em>; only K-favorable rows carry computed Coxeter data.</td>
+                </tr>
+                <tr>
+                  <td>Product</td>
+                  <td>bool</td>
+                  <td>Direct product of lower-dimensional Calabi&ndash;Yaus.</td>
+                </tr>
+                <tr>
+                  <td>Rank(\(W\))</td>
+                  <td>integer</td>
+                  <td>Rank of the iso-flop Coxeter group; &mdash; when the model is not K&auml;hler-favorable.</td>
+                </tr>
+                <tr>
+                  <td>Kind</td>
+                  <td>string</td>
+                  <td><code>finite</code> | <code>affine</code> | <code>indefinite</code> | <code>trivial</code> | <code>sentinel</code>. The first three are paper-conventional; <code>trivial</code> = K-favorable with no iso-flop walls; <code>sentinel</code> = not K-favorable.</td>
+                </tr>
+                <tr>
+                  <td>Coxeter</td>
+                  <td>string</td>
+                  <td>Concise Coxeter-group label: <code>Z2</code>, <code>I2(m)</code> with <em>m</em> &isin; {2, 3, 4, P, H}, or &mdash; for higher rank &mdash; the canonical diagram-shape name (e.g. <code>A1+B2</code>).</td>
+                </tr>
+                <tr>
+                  <td>ShapeKey<sup>*</sup></td>
+                  <td>string</td>
+                  <td>Canonical diagram-shape id (used by the Diagram-shape facet above and in the Parquet artefact).</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="cicy-explorer__schema-conventions">
+              <strong>Sentinel conventions.</strong>
+              Non-K&auml;hler-favorable rows hold <code>NULL</code> in <code>Rank(W)</code>,
+              <code>Kind&nbsp;=&nbsp;sentinel</code>, <code>Coxeter&nbsp;=&nbsp;NonKahlerPos</code>.
+              Empty <code>CoxeterMat&nbsp;=&nbsp;&#123;&#125;</code> denotes the trivial case
+              (no iso-flop walls); a single reflection \(\mathbb{Z}_2\) is encoded as
+              <code>&#123;&#123;1&#125;&#125;</code>. In <code>I2(m)</code> labels,
+              <code>P</code> and <code>H</code> both denote \(m=\infty\) but distinguish
+              parabolic vs hyperbolic representations of the same abstract group.
+            </p>
+            <p class="cicy-explorer__schema-footnote">
+              <sup>*</sup> Not shown in the table; available via the Diagram-shape
+              facet and the Parquet artefact at
+              <code>/cicy-coxeter/cicy-coxeter.parquet</code>.
+            </p>
+          </div>
+        </details>
+
         <div class="cicy-explorer__table-wrap">
           <table class="cicy-explorer__table">
             <thead>
@@ -234,42 +304,6 @@
         </noscript>
       </section>
 
-      {{- /* Temporary review fixtures — kept for per-entry polish QA; moved
-             here from _index.md so it renders after every other landing
-             section. Scheduled for removal per CLAUDE.md §"Legacy style —
-             scheduled for removal". */ -}}
-      <section class="cicy-review-fixtures" id="review-fixtures" aria-label="Review fixtures (temporary)">
-        <h2>Review fixtures &mdash; temporary</h2>
-        <p>
-          Each row links the <strong>new</strong> per-model page and its
-          <strong>frozen legacy</strong> counterpart for side-by-side
-          comparison. These fixtures cover every code path in the layout
-          (sentinel / trivial / rank 1&hellip;5, finite / affine / indefinite,
-          direct product, large h<sup>1,1</sup> so the config matrix collapses).
-          Remove the whole block once satisfied.
-        </p>
-        <table>
-          <thead>
-            <tr><th>Case</th><th>New</th><th>Legacy</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Non-Kähler-favorable sentinel, large h<sup>1,1</sup>=15 (collapsed config matrix)</td><td><a href="/cicy-coxeter/1/">CICY 1</a></td><td><a href="/legacy/cicy-coxeter/1/">CICY 1</a></td></tr>
-            <tr><td>Non-Kähler-favorable sentinel, small h<sup>1,1</sup>=6</td><td><a href="/cicy-coxeter/3407/">CICY 3407</a></td><td><a href="/legacy/cicy-coxeter/3407/">CICY 3407</a></td></tr>
-            <tr><td>Non-Kähler-favorable direct product (h<sup>1,1</sup>=0 edge)</td><td><a href="/cicy-coxeter/31/">CICY 31</a></td><td><a href="/legacy/cicy-coxeter/31/">CICY 31</a></td></tr>
-            <tr><td>Kähler-favorable with <strong>no</strong> iso-flops (trivial Coxeter), small h<sup>1,1</sup>=3</td><td><a href="/cicy-coxeter/7242/">CICY 7242</a></td><td><a href="/legacy/cicy-coxeter/7242/">CICY 7242</a></td></tr>
-            <tr><td>Kähler-favorable + trivial Coxeter, <strong>large</strong> h<sup>1,1</sup>=12 (collapsed config)</td><td><a href="/cicy-coxeter/232/">CICY 232</a></td><td><a href="/legacy/cicy-coxeter/232/">CICY 232</a></td></tr>
-            <tr><td>Rank 1 (ℤ₂ single reflection)</td><td><a href="/cicy-coxeter/496/">CICY 496</a></td><td><a href="/legacy/cicy-coxeter/496/">CICY 496</a></td></tr>
-            <tr><td>Rank 2 finite — A₂</td><td><a href="/cicy-coxeter/4605/">CICY 4605</a></td><td><a href="/legacy/cicy-coxeter/4605/">CICY 4605</a></td></tr>
-            <tr><td>Rank 2 finite — B₂</td><td><a href="/cicy-coxeter/1003/">CICY 1003</a></td><td><a href="/legacy/cicy-coxeter/1003/">CICY 1003</a></td></tr>
-            <tr><td>Rank 2 finite — A₁ + A₁ (disjoint)</td><td><a href="/cicy-coxeter/862/">CICY 862</a></td><td><a href="/legacy/cicy-coxeter/862/">CICY 862</a></td></tr>
-            <tr><td>Rank 2 parabolic ∞ — Ã₁-P (affine)</td><td><a href="/cicy-coxeter/4151/">CICY 4151</a></td><td><a href="/legacy/cicy-coxeter/4151/">CICY 4151</a></td></tr>
-            <tr><td>Rank 2 hyperbolic ∞ — Ã₁-H (paper's running example)</td><td><a href="/cicy-coxeter/6771/">CICY 6771</a></td><td><a href="/legacy/cicy-coxeter/6771/">CICY 6771</a></td></tr>
-            <tr><td>Rank 3 — A₁ + B₂ (three 7×7 generators, collapsing kicks in)</td><td><a href="/cicy-coxeter/2354/">CICY 2354</a></td><td><a href="/legacy/cicy-coxeter/2354/">CICY 2354</a></td></tr>
-            <tr><td>Rank 4 — B₂ + B₂</td><td><a href="/cicy-coxeter/2317/">CICY 2317</a></td><td><a href="/legacy/cicy-coxeter/2317/">CICY 2317</a></td></tr>
-            <tr><td>Rank 5 — 4-leg star (all 4)</td><td><a href="/cicy-coxeter/6715/">CICY 6715</a></td><td><a href="/legacy/cicy-coxeter/6715/">CICY 6715</a></td></tr>
-          </tbody>
-        </table>
-      </section>
     </div>
   </div>
 

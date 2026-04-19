@@ -33,16 +33,3 @@ pygmentsCodefencesGuessSyntax = false
     category = "categories"
     series = "series"
     tag = "tags"
-
-# Alternative output format used only by the CICY Coxeter per-model pages
-# (opted into via cascade in content/english/cicy-coxeter/_index.md) to render
-# each page a second time under a /legacy/ sub-URL while we polish the main
-# style. Scheduled for removal once polishing rounds are complete — see the
-# "Legacy style — scheduled for removal" section of CLAUDE.md.
-[outputFormats]
-  [outputFormats.legacy]
-    mediaType = "text/html"
-    baseName = "index"
-    path = "legacy"
-    isHTML = true
-    notAlternative = true

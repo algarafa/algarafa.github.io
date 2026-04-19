@@ -2,16 +2,6 @@
 title = "CICY Coxeter Database"
 description = "An interactive explorer for the Coxeter symmetries of Kähler-favorable complete intersection Calabi–Yau threefolds."
 math = true
-
-# Emit every per-model page twice: the canonical /cicy-coxeter/<N>/ (polished
-# template) and /cicy-coxeter/<N>/legacy/ (frozen previous style) so results
-# can be compared side-by-side during polishing rounds. Temporary — remove
-# this block together with the `legacy` output format and the legacy layouts
-# (see CLAUDE.md §"Legacy style — scheduled for removal").
-[[cascade]]
-  outputs = ["html", "legacy"]
-  [cascade._target]
-    kind = "page"
 +++
 
 Companion database to the paper *Kaleidoscopes, Waves and the Prepotential* by
@@ -39,17 +29,18 @@ Kähler-favorable entries as a browseable explorer.
   <a href="#explorer">Explorer</a>
 </nav>
 
-## Downloads
+<section id="downloads" aria-labelledby="downloads-heading">
 
-The full database is available in three formats:
+## Downloads {#downloads-heading}
 
-- [Wolfram Mathematica](CICY-Coxeter-Database.m) — association list; the
-  canonical form used in the companion paper.
-- [Plain text](CICY-Coxeter-Database.txt) — one record per block, one
-  `Key : Value` per line.
-- [Parquet](cicy-coxeter.parquet) — derived columnar artefact that powers the
-  Explorer below; the
-  [schema](cicy-coxeter.schema.json) lists all columns.
+The full database is available in two formats:
+
+- [Wolfram Mathematica](CICY-Coxeter-Database.m)
+  ({{< filesize "static/cicy-coxeter/CICY-Coxeter-Database.m" >}}) —
+  association list; the canonical form used in the companion paper.
+- [Plain text](CICY-Coxeter-Database.txt)
+  ({{< filesize "static/cicy-coxeter/CICY-Coxeter-Database.txt" >}}) —
+  one record per block, one `Key : Value` per line.
 
 Indices run \\(1,\dots,7890\\), matching the original CICY list of
 Candelas–Dale–Lütken–Schimmrigk; the \\(4874\\) Kähler-favorable entries carry
@@ -81,3 +72,5 @@ If you use the database or the explorer, please cite the companion paper:
 ```
 
 </details>
+
+</section>

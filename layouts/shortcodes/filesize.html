@@ -1,0 +1,14 @@
+{{- /* Render a human-readable file size for any path under the project
+       root (e.g. "static/cicy-coxeter/CICY-Coxeter-Database.m"). Used in the
+       CICY landing page Downloads section so visitors can see the cost
+       before clicking. */ -}}
+{{- $path := .Get 0 -}}
+{{- $stat := os.Stat $path -}}
+{{- $size := $stat.Size -}}
+{{- if lt $size 1024 -}}
+  {{- printf "%d B" $size -}}
+{{- else if lt $size 1048576 -}}
+  {{- printf "%.0f kB" (div (float $size) 1024.0) -}}
+{{- else -}}
+  {{- printf "%.1f MB" (div (float $size) 1048576.0) -}}
+{{- end -}}

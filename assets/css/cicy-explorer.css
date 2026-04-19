@@ -2,6 +2,17 @@
   --cicy-chart-grid: rgba(128, 128, 128, 0.25);
   --cicy-chart-accent: #4a7bd6;
   --cicy-chart-bg: transparent;
+  /* Single spacing token between top-level landing-page sections
+     (Downloads → Charts → Gallery → Explorer). Apply via margin-top on
+     each section so vertical rhythm stays consistent. */
+  --cicy-section-gap: 2.5rem;
+}
+
+#downloads,
+.cicy-charts,
+.cicy-gallery,
+.cicy-explorer {
+  margin-top: var(--cicy-section-gap);
 }
 
 /* --- Landing-page intro: stats strip, featured callout, jump nav ------- */
@@ -107,7 +118,6 @@ details.cicy-cite__bibtex pre {
 /* --- Charts section --------------------------------------------------- */
 
 .cicy-charts {
-  margin: 1.5rem 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -157,7 +167,6 @@ details.cicy-cite__bibtex pre {
 /* --- Explorer section ------------------------------------------------- */
 
 .cicy-explorer {
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -461,11 +470,69 @@ details.cicy-cite__bibtex pre {
   border-radius: 4px;
 }
 
-/* --- Gallery section -------------------------------------------------- */
+/* --- Schema disclosure (above the results table) --------------------- */
 
-.cicy-gallery {
-  margin-top: 2.5rem;
+details.cicy-explorer__schema {
+  border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
+  border-radius: 6px;
+  padding: 0.4rem 0.85rem;
 }
+
+details.cicy-explorer__schema > summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0.25rem 0;
+  list-style: revert;
+}
+
+.cicy-explorer__schema-body {
+  padding-top: 0.65rem;
+}
+
+table.cicy-explorer__schema-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0.75rem;
+}
+
+table.cicy-explorer__schema-table th,
+table.cicy-explorer__schema-table td {
+  padding: 0.35rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+}
+
+table.cicy-explorer__schema-table th {
+  font-weight: 600;
+  background: rgba(128, 128, 128, 0.06);
+}
+
+table.cicy-explorer__schema-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+table.cicy-explorer__schema-table td:nth-child(2) {
+  white-space: nowrap;
+  opacity: 0.75;
+}
+
+table.cicy-explorer__schema-table code {
+  font-size: 0.92em;
+}
+
+.cicy-explorer__schema-conventions,
+.cicy-explorer__schema-footnote {
+  margin: 0.5rem 0 0;
+  line-height: 1.4;
+}
+
+.cicy-explorer__schema-footnote {
+  opacity: 0.75;
+  font-size: 0.92em;
+}
+
+/* --- Gallery section -------------------------------------------------- */
 
 .cicy-gallery__intro {
   margin: 0.25rem 0 1rem;
@@ -609,30 +676,3 @@ details.cicy-cite__bibtex pre {
   cursor: pointer;
 }
 
-/* --- Review fixtures (temporary) -------------------------------------- */
-
-.cicy-review-fixtures {
-  margin-top: 3rem;
-  padding: 0.75rem 1rem;
-  border: 2px dashed #c89630;
-  background: rgba(200, 150, 40, 0.08);
-  font-size: 0.95em;
-  border-radius: 4px;
-}
-
-.cicy-review-fixtures h2 {
-  margin-top: 0;
-  font-size: 1.1em;
-}
-
-.cicy-review-fixtures table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.cicy-review-fixtures th,
-.cicy-review-fixtures td {
-  padding: 0.3rem 0.6rem;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
-  text-align: left;
-}
