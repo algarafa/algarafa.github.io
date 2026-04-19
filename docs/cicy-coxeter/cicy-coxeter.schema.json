@@ -1,0 +1,81 @@
+{
+  "columns": [
+    {
+      "name": "Num",
+      "type": "INTEGER",
+      "description": "CICY index, 1..7890."
+    },
+    {
+      "name": "H11",
+      "type": "INTEGER",
+      "description": "Hodge number h^{1,1}."
+    },
+    {
+      "name": "H21",
+      "type": "INTEGER",
+      "description": "Hodge number h^{2,1}."
+    },
+    {
+      "name": "C2",
+      "type": "INTEGER[]",
+      "description": "c2(X).D_i in the favorable basis."
+    },
+    {
+      "name": "Conf",
+      "type": "INTEGER[][]",
+      "description": "Configuration matrix in the favorable presentation."
+    },
+    {
+      "name": "Favour",
+      "type": "BOOLEAN",
+      "description": "Favorable (projective-product) presentation exists."
+    },
+    {
+      "name": "KahlerPos",
+      "type": "BOOLEAN",
+      "description": "Kahler-favorable."
+    },
+    {
+      "name": "IsProduct",
+      "type": "BOOLEAN",
+      "description": "Direct product of lower-dim Calabi-Yaus."
+    },
+    {
+      "name": "IsoFlopRows",
+      "type": "STRUCT(row INTEGER, type VARCHAR)[]",
+      "description": "Config-matrix rows yielding iso-flop walls; NULL when non-Kahler-pos."
+    },
+    {
+      "name": "KahlerRefGens",
+      "type": "INTEGER[][][]",
+      "description": "Simple reflections in the Kahler representation; NULL when non-Kahler-pos."
+    },
+    {
+      "name": "CoxeterMat",
+      "type": "VARCHAR[][]",
+      "description": "Coxeter matrix entries as strings; \"P\"/\"H\" denote infinite orders; NULL when non-Kahler-pos."
+    },
+    {
+      "name": "IsoFlopRank",
+      "type": "INTEGER",
+      "description": "Derived: len(IsoFlopRows); NULL when non-Kahler-pos."
+    },
+    {
+      "name": "CoxeterSummary",
+      "type": "VARCHAR",
+      "description": "Derived one-liner (\"Z2\", \"I2(H)\", \"NonKahlerPos\", \"\" for empty, etc.)."
+    },
+    {
+      "name": "ShapeKey",
+      "type": "VARCHAR",
+      "description": "Canonical Coxeter-diagram shape id (e.g. \"A2\", \"B2\", \"Atilde1-H\", \"dot\"); NULL when there is no non-trivial Coxeter action. Matches the landing-page Explorer's Diagram-shape facet and gallery tile ids."
+    },
+    {
+      "name": "CoxeterKind",
+      "type": "VARCHAR",
+      "description": "Classification of the Coxeter group: \"finite\", \"affine\", \"indefinite\", \"trivial\" (Kähler-fav with no iso-flop walls), or \"sentinel\" (non-Kähler-favorable, no Coxeter data computed)."
+    }
+  ],
+  "row_count": 7890,
+  "kahler_favourable_count": 4874
+}
