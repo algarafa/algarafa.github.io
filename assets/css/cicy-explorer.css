@@ -129,7 +129,9 @@ details.cicy-cite__bibtex pre {
 
 .cicy-charts__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  /* 280px (not 320) so the column still fits on a 375px viewport
+     after .post's 30px side margins (effective width ~315px). */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.25rem;
 }
 
@@ -155,6 +157,36 @@ details.cicy-cite__bibtex pre {
 
 .cicy-charts .nowrap {
   white-space: nowrap;
+}
+
+.cicy-chart-fallback {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 100%;
+  min-height: 240px;
+  padding: 0.5rem 0.25rem;
+  text-align: left;
+  color: inherit;
+}
+
+.cicy-chart-fallback__summary {
+  margin: 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.cicy-chart-fallback__note {
+  margin: 0;
+  font-size: 0.88em;
+  opacity: 0.75;
+  line-height: 1.4;
+}
+
+.cicy-chart-fallback__note a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .cicy-chart--clickable .role-mark > path,
@@ -267,6 +299,12 @@ details.cicy-cite__bibtex pre {
   align-items: end;
   padding-bottom: 0.85rem;
   border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.2));
+}
+
+@media (max-width: 480px) {
+  .cicy-explorer__search {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .cicy-explorer__search-label {
@@ -487,6 +525,10 @@ details.cicy-explorer__schema > summary {
 
 .cicy-explorer__schema-body {
   padding-top: 0.65rem;
+  /* The schema-table's first column holds <code> tokens that don't wrap;
+     fall back to horizontal scroll on narrow viewports rather than letting
+     the table push the page width. */
+  overflow-x: auto;
 }
 
 table.cicy-explorer__schema-table {

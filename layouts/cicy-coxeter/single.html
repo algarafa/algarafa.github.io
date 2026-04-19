@@ -5,7 +5,7 @@
   {{- $chi := mul 2 (sub $h11 $h21) -}}
   {{- $meta := index .Site.Data.cicy_coxeter.page_meta (printf "%d" $num) -}}
   <div class="post {{ with .Site.Params.doNotLoadAnimations }}{{ else }}animated fadeInDown{{ end }}">
-    <div class="post__content">
+    <div class="post__content cicy-entry">
       <p class="cicy-entry__breadcrumb">
         <a href="{{ "/cicy-coxeter/" | relURL }}">&larr; CICY Coxeter Database</a>
       </p>
@@ -114,7 +114,7 @@
               {{- if gt $total $max }}<span class="cicy-entry__siblings-more">&nbsp;&hellip; +{{ sub $total $max }} more</span>{{- end -}}
             </span>
             {{ with .type_label }}
-              &middot; <a href="{{ printf "/cicy-coxeter/#shape-%s" . | relURL }}">browse gallery</a>
+              &middot; <a href="{{ printf "/cicy-coxeter/?shape=%s#explorer" . | relURL }}">filter Explorer by this shape</a>
             {{ end }}
             &middot; <a class="cicy-entry__nav-sibling" href="{{ "/cicy-coxeter/" | relURL }}" data-role="cicy-random-sibling" data-siblings="{{ delimit .siblings "," }}">random sibling <kbd class="cicy-entry__kbd" aria-hidden="true">s</kbd></a>
           </section>
@@ -124,7 +124,7 @@
       {{ partial "cicy-glossary.html" . }}
 
       <p class="cicy-entry__back-link">
-        <a href="{{ printf "/cicy-coxeter/#row=%d" $num | relURL }}">&larr; Back to the CICY Coxeter Database explorer</a>
+        <a href="{{ printf "/cicy-coxeter/?num=%d#explorer" $num | relURL }}">&larr; Back to the CICY Coxeter Database explorer</a>
       </p>
     </div>
   </div>

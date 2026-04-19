@@ -1,5 +1,19 @@
 const CHART_IDS = ["cicy-chart-hodge", "cicy-chart-rank-h11", "cicy-chart-rank-h11-infinite"];
 
+// Per-chart text summaries shown when a chart can't render (CDN blocked,
+// chart_data.json missing, vega-embed import failure, etc.). Each one is a
+// self-contained sentence so the reader still gets the chart's takeaway.
+const CHART_FALLBACKS = {
+  "cicy-chart-hodge":
+    "Hodge-number distribution: 7890 CICYs span (h\u00b9\u00b9, h\u00b2\u00b9) with h\u00b9\u00b9 \u2208 [1, 19] and h\u00b2\u00b9 \u2208 [0, 101].",
+  "cicy-chart-rank-h11":
+    "Coxeter rank \u00d7 h\u00b9\u00b9 across the 4874 K\u00e4hler-favorable CICYs (paper Section 3, Table 3.1).",
+  "cicy-chart-rank-h11-infinite":
+    "Same axes, restricted to infinite Coxeter groups: 251 K\u00e4hler-favorable CICYs, all with h\u00b9\u00b9 \u2264 5.",
+};
+
+const FALLBACK_TIMEOUT_MS = 6000;
+
 // Sentinel string used as the Vega-Lite axis title; the post-render hook
 // `injectKatexTitles` finds <text> nodes whose textContent matches
 // /^__KATEX:(.+)__$/ and replaces them with a KaTeX-rendered <foreignObject>.
@@ -7,18 +21,36 @@ function katexTitle(latex) {
   return `__KATEX:${latex}__`;
 }
 
-function showError(targetId, msg) {
-  const el = document.getElementById(targetId);
-  if (!el) return;
-  el.innerHTML = "";
-  const p = document.createElement("p");
-  p.style.cssText = "color:#c0392b;margin:0;padding:0.5rem;";
-  p.textContent = msg;
-  el.appendChild(p);
+function chartHasRendered(el) {
+  return !!(el && el.querySelector("svg, canvas"));
 }
 
-function showErrorAll(msg) {
-  for (const id of CHART_IDS) showError(id, msg);
+function showFallback(targetId) {
+  const el = document.getElementById(targetId);
+  if (!el || el.dataset.fallback === "shown") return;
+  if (chartHasRendered(el)) return;
+  el.dataset.fallback = "shown";
+  el.innerHTML = "";
+  const wrap = document.createElement("div");
+  wrap.className = "cicy-chart-fallback";
+  wrap.setAttribute("role", "note");
+  const summary = document.createElement("p");
+  summary.className = "cicy-chart-fallback__summary";
+  summary.textContent = CHART_FALLBACKS[targetId] || "Chart unavailable.";
+  const note = document.createElement("p");
+  note.className = "cicy-chart-fallback__note";
+  note.innerHTML =
+    "Chart rendering unavailable in this browser. Download the full dataset as " +
+    '<a href="cicy-coxeter.parquet">Parquet</a>, ' +
+    '<a href="CICY-Coxeter-Database.m">Mathematica</a>, or ' +
+    '<a href="CICY-Coxeter-Database.txt">plain text</a>.';
+  wrap.appendChild(summary);
+  wrap.appendChild(note);
+  el.appendChild(wrap);
+}
+
+function showFallbackAll() {
+  for (const id of CHART_IDS) showFallback(id);
 }
 
 function dispatchFilter(detail) {
@@ -33,7 +65,8 @@ function dispatchFilter(detail) {
   try {
     data = JSON.parse(dataEl.textContent);
   } catch (err) {
-    showErrorAll("Could not parse chart data: " + err.message);
+    console.error("cicy-charts: chart data parse failed", err);
+    showFallbackAll();
     return;
   }
 
@@ -44,7 +77,7 @@ function dispatchFilter(detail) {
     if (typeof embed !== "function") throw new Error("vega-embed default export is not a function");
   } catch (err) {
     console.error("cicy-charts: failed to load vega-embed", err);
-    showErrorAll("Could not load Vega-Embed from CDN: " + (err.message || err));
+    showFallbackAll();
     return;
   }
 
@@ -82,6 +115,11 @@ function dispatchFilter(detail) {
 })();
 
 async function runRender(targetId, specFn, embed, opts, onClick) {
+  // Safety net: if `embed()` neither resolves nor rejects within the timeout
+  // (network stall, malformed datum that vega swallows silently, …), show the
+  // fallback so the reader isn't left with a blank box. `showFallback` is a
+  // no-op once an SVG has been emitted into the container.
+  const timer = window.setTimeout(() => showFallback(targetId), FALLBACK_TIMEOUT_MS);
   try {
     const spec = specFn();
     const result = await embed("#" + targetId, spec, opts);
@@ -97,7 +135,9 @@ async function runRender(targetId, specFn, embed, opts, onClick) {
     }
   } catch (err) {
     console.error("cicy-charts: render failed for " + targetId, err);
-    showError(targetId, "Render failed: " + (err.message || err));
+    showFallback(targetId);
+  } finally {
+    window.clearTimeout(timer);
   }
 }
 
