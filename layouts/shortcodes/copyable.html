@@ -1,0 +1,19 @@
+{{- /*
+  Code block with a "Copy" button in its caption. Used on the CICY per-model
+  pages to let the reader grab plaintext, Mathematica, and JSON renderings of
+  each record verbatim.
+
+    {{< copyable label="Mathematica association" lang="mathematica" >}}
+    <|Num -> 6771, ...|>
+    {{< /copyable >}}
+*/ -}}
+{{- $label := .Get "label" | default "Code" -}}
+{{- $lang := .Get "lang" | default "text" -}}
+{{- $inner := trim .Inner "\n" -}}
+<figure class="cicy-entry__record" data-copy-lang="{{ $lang }}">
+  <figcaption>
+    <span class="cicy-entry__record-label">{{ $label }}</span>
+    <button type="button" class="cicy-entry__copy-btn" data-role="cicy-copy" aria-label="Copy {{ $label }}">Copy</button>
+  </figcaption>
+  <pre><code class="language-{{ $lang }}">{{ $inner }}</code></pre>
+</figure>

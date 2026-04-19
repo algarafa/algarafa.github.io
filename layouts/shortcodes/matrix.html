@@ -1,3 +1,32 @@
+{{- /*
+  Renders LaTeX in an overflow-friendly div. Optional collapsing:
+    {{< matrix >}}                              # plain, no wrapper
+    {{< matrix fold="open"  summary="..." >}}   # wrapped in <details open>
+    {{< matrix fold="closed" summary="..." >}}  # wrapped in <details>
+
+  Additional optional attribute for collapsible variants:
+    summaryMath="M_k"   inline LaTeX rendered through the same KaTeX pipeline
+                        as the matrix body, prepended to `summary` so the
+                        symbol typography matches the page (e.g. a bold italic
+                        M with a proper subscript, not plain-text "M_k").
+*/ -}}
+{{- $fold := .Get "fold" | default "" -}}
+{{- $summary := .Get "summary" | default "" -}}
+{{- $summaryMath := .Get "summaryMath" | default "" -}}
+{{- $extraClass := .Get "class" | default "" -}}
 {{- $opts := dict "displayMode" true -}}
+{{- $inlineOpts := dict "displayMode" false -}}
 {{- .Page.Store.Set "hasMath" true -}}
-<div class="cicy-entry__matrix">{{ transform.ToMath (trim .Inner "\n\t ") $opts }}</div>
+{{- $inner := trim .Inner "\n\t " -}}
+{{- if or (eq $fold "open") (eq $fold "closed") -}}
+  {{- $openAttr := "" -}}
+  {{- if eq $fold "open" }}{{ $openAttr = " open" }}{{ end -}}
+  {{- $classAttr := "cicy-entry__matrix-collapsible" -}}
+  {{- with $extraClass }}{{ $classAttr = printf "%s %s" $classAttr . }}{{ end -}}
+<details class="{{ $classAttr }}"{{ $openAttr | safeHTMLAttr }}>
+  <summary>{{ with $summaryMath }}<span class="cicy-entry__summary-math">{{ transform.ToMath . $inlineOpts }}</span>{{ end }}{{ $summary }}</summary>
+  <div class="cicy-entry__matrix">{{ transform.ToMath $inner $opts }}</div>
+</details>
+{{- else -}}
+<div class="cicy-entry__matrix">{{ transform.ToMath $inner $opts }}</div>
+{{- end -}}

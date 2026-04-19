@@ -1,0 +1,44 @@
+{{- /*
+  Glossary for jargon that appears on every per-model CICY page. Rendered
+  inside a collapsed <details> at the bottom of each page so readers can opt
+  in without noise. Individual terms can also be referenced inline via the
+  shorthand <abbr class="cicy-glossary__term" data-term="KEY" …>.
+*/ -}}
+<details class="cicy-glossary">
+  <summary>Glossary &amp; conventions</summary>
+  <dl>
+    <dt>Iso-flop row — Type&nbsp;1a</dt>
+    <dd>
+      A configuration-matrix row that yields an isomorphic flop via a
+      projective-space swap whose flop map restricts to the identity on the
+      ambient factor (see paper §3.2).
+    </dd>
+    <dt>Iso-flop row — Type&nbsp;1b</dt>
+    <dd>
+      A configuration-matrix row yielding an iso-flop whose ambient action is
+      non-trivial but still a linear automorphism; distinguished from Type&nbsp;1a
+      by the sign pattern of the induced Kähler reflection.
+    </dd>
+    <dt>Iso-flop row — Type&nbsp;2</dt>
+    <dd>
+      A configuration-matrix row yielding an iso-flop that mixes ambient
+      factors — the Kähler reflection is no longer block-diagonal.
+    </dd>
+    <dt>Parabolic&nbsp;(<code>P</code>) vs hyperbolic&nbsp;(<code>H</code>)</dt>
+    <dd>
+      Both labels denote a Coxeter-matrix entry <em>m</em><sub>ij</sub>&nbsp;=&nbsp;∞,
+      i.e.&nbsp;<em>Q<sub>ij</sub></em>&nbsp;=&nbsp;<em>M<sub>i</sub>M<sub>j</sub></em>
+      has infinite order. The distinction is which faithful representation
+      realises the relation: <code>P</code> is parabolic (Gram matrix
+      positive semi-definite) while <code>H</code> is hyperbolic (indefinite).
+      See §4.1 of the paper.
+    </dd>
+    <dt>Non-Kähler-favorable&nbsp;(<code>NonKahlerPos</code>)</dt>
+    <dd>
+      The CICY admits no favorable Kähler presentation: its Kähler / Mori
+      cones do not descend directly from the ambient product. No Coxeter data
+      is computed; the corresponding fields in the database carry the
+      <code>NonKahlerPos</code> sentinel.
+    </dd>
+  </dl>
+</details>
