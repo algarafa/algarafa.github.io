@@ -1,7 +1,7 @@
-resources/
-.hugo_build.lock
-.claude/
-scripts/.sample-runs/
-__pycache__/
 *.pyc
+.claude/
+.hugo_build.lock
 CLAUDE.md
+__pycache__/
+resources/
+scripts/.sample-runs/
