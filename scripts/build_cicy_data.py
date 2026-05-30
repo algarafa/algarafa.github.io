@@ -338,7 +338,7 @@ def build_diagram_gallery(records: list[Record]) -> dict:
 
     groups = []
     for rank in sorted(by_rank.keys()):
-        shapes = sorted(by_rank[rank], key=lambda x: (-x["count"], x["example_num"]))
+        shapes = sorted(by_rank[rank], key=lambda x: (_shape_order(x["name"]), x["example_num"]))
         groups.append({"rank": rank, "shapes": shapes})
     total_shapes = sum(len(g["shapes"]) for g in groups)
     return {
@@ -496,7 +496,7 @@ def build_chart_data(records: list[Record]) -> dict:
         }
         for key, count in sorted(
             shape_counts.items(),
-            key=lambda kv: (shape_rank[kv[0]], -kv[1], kv[0]),
+            key=lambda kv: (shape_rank[kv[0]], _shape_order(kv[0]), kv[0]),
         )
     ]
     totals = {
@@ -528,29 +528,84 @@ def write_chart_data(records: list[Record], out_path: Path) -> None:
 # classification in a reader-friendly form. Fallback shapes (not hand-laid-out)
 # fall through to `unclassified (rank N)`.
 SHAPE_DISPLAY: dict[str, str] = {
-    "dot": "\u2124\u2082 (single reflection)",  # Z₂
-    "A2": "A\u2082",                              # A₂
-    "B2": "B\u2082",                              # B₂
-    "Atilde1-P": "\u00c3\u2081 \u2014 parabolic \u221e",   # Ã₁ parabolic
-    "Atilde1-H": "\u00c3\u2081 \u2014 hyperbolic \u221e",  # Ã₁ hyperbolic
-    "A1+A1": "A\u2081 + A\u2081",
-    "A1+A1+A1": "A\u2081 + A\u2081 + A\u2081",
-    "A1+A2": "A\u2081 + A\u2082",
-    "A1+B2": "A\u2081 + B\u2082",
-    "VPH": "V-shape (P, H)",
-    "VPP": "V-shape (P, P)",
-    "TriangleAPP": "triangle (3, P, P)",
-    "TrianglePPH": "triangle (P, P, H)",
-    "TrianglePPP": "triangle (P, P, P)",
-    "A1+A1+A2": "A\u2081 + A\u2081 + A\u2082",
-    "A2+A2": "A\u2082 + A\u2082",
-    "B2+B2": "B\u2082 + B\u2082",
-    "StarThreeLegP": "3-leg star (all P)",
-    "PStarATwoEdge": "P-star with A\u2082 arm",
-    "KFourAllP": "K\u2084 (all P)",
-    "StarFourLegFour": "4-leg star (all 4)",
-    "KFiveAllThree": "K\u2085 (all 3)",
+    # Rank 1 and rank 2 follow the paper's Section 3 convention: single
+    # reflection = ℤ₂; every rank-2 Coxeter group is dihedral, so use
+    # I₂(m), with (P)/(H) distinguishing the two m=∞ representations
+    # (parabolic / hyperbolic — see tab:dihedral-subgroups-count in §3).
+    "dot": "\u2124\u2082",                                   # ℤ₂
+    "A1+A1": "I\u2082(2)",                                    # I₂(2)  (≅ A₁ × A₁)
+    "A2": "I\u2082(3)",                                       # I₂(3)  (≅ A₂)
+    "B2": "I\u2082(4)",                                       # I₂(4)  (≅ B₂)
+    "Atilde1-P": "I\u2082(\u221e) (P)",                       # I₂(∞) (P)
+    "Atilde1-H": "I\u2082(\u221e) (H)",                       # I₂(∞) (H)
+    # Reducible rank ≥ 3 cases: direct products of the rank-1 / rank-2
+    # building blocks above, so ℤ₂ for A₁ factors and I₂(m) for dihedral
+    # factors, joined by ×. Connected indefinite diagrams have no
+    # Cartan–Killing letter name; they are named structurally in the
+    # rank-≥3 connected block below.
+    "A1+A1+A1": "\u2124\u2082 \u00d7 \u2124\u2082 \u00d7 \u2124\u2082",       # ℤ₂ × ℤ₂ × ℤ₂
+    "A1+A2": "\u2124\u2082 \u00d7 I\u2082(3)",                                 # ℤ₂ × I₂(3)
+    "A1+B2": "\u2124\u2082 \u00d7 I\u2082(4)",                                 # ℤ₂ × I₂(4)
+    # Indefinite rank-3 shapes in Coxeter bracket notation (see
+    # en.wikipedia.org/wiki/Coxeter_notation): linear rank-3 diagrams are
+    # [m₁, m₂]; cyclic (triangle) diagrams are [(m₁, m₂, m₃)] — nested
+    # parens inside brackets mark the closed cycle.
+    "VPH": "[P, H]",
+    "VPP": "[P, P]",
+    "TriangleAPP": "[(3, P, P)]",
+    "TrianglePPH": "[(P, P, H)]",
+    "TrianglePPP": "W₃",  # W₃ — rank-3 universal Coxeter group (all-∞ triangle); cf. KFourAllP = W₄
+    "A1+A1+A2": "\u2124\u2082 \u00d7 \u2124\u2082 \u00d7 I\u2082(3)",          # ℤ₂ × ℤ₂ × I₂(3)
+    "A2+A2": "I\u2082(3) \u00d7 I\u2082(3)",                                   # I₂(3) × I₂(3)
+    "B2+B2": "I\u2082(4) \u00d7 I\u2082(4)",                                   # I₂(4) × I₂(4)
+    # Rank-\u22653 connected indefinite diagrams: the all-\u221e complete graphs are the
+    # universal Coxeter groups W_n (paper \u00a7"Universal Coxeter groups"; W\u2083 is the
+    # all-\u221e triangle above, W\u2084 = K\u2084 all-P). The remaining stars / complete
+    # graphs use graph notation \u2014 K_{1,k} (star) or K_n (complete) \u2014 with the
+    # common edge label in parentheses (P = \u221e), matching the I\u2082(m) style; the irregular P-star is its
+    # [(3,P,P)] triangle plus an extra \u221e leg. All values stay plain unicode so
+    # they render in the Explorer's native <select> shape facet.
+    "StarThreeLegP": "K\u2081,\u2083(P)",          # 3-leg \u221e-star
+    "PStarATwoEdge": "[(3, P, P)] + P",  # [(3,P,P)] triangle + \u221e leg
+    "KFourAllP": "W\u2084",                   # rank-4 universal Coxeter group
+    "StarFourLegFour": "K\u2081,\u2084(4)",        # 4-leg star, m = 4
+    "KFiveAllThree": "K\u2085(3)",            # complete K\u2085, m = 3
 }
+
+
+# Canonical display order within each rank, for the gallery tiles and the
+# Explorer shape facet (replaces the old count-descending order). Rank 2 runs
+# through the I\u2082(m) progression m = 2, 3, 4 and then the two m = \u221e
+# representations (P, then H). Rank 3 lists the reducible products first \u2014
+# mirroring the rank-2 order of their non-trivial dihedral factor \u2014 then the
+# connected linear diagrams from more to fewer P labels, and finally the
+# triangles, starting with the one carrying a finite label and ending with the
+# one carrying the most H labels. Ranks 4\u20135 extend the same idea: products
+# first (ascending factor order), then the connected indefinite diagrams.
+# Shapes absent from this list sort last (defensive; none expected).
+SHAPE_ORDER: dict[str, int] = {
+    name: i
+    for i, name in enumerate([
+        # rank 1
+        "dot",
+        # rank 2: I\u2082(2), I\u2082(3), I\u2082(4), I\u2082(\u221e) P, I\u2082(\u221e) H
+        "A1+A1", "A2", "B2", "Atilde1-P", "Atilde1-H",
+        # rank 3: products (mirror rank 2), linear (more\u2192fewer P), triangles
+        "A1+A1+A1", "A1+A2", "A1+B2",
+        "VPP", "VPH",
+        "TriangleAPP", "TrianglePPP", "TrianglePPH",
+        # rank 4: products (ascending factor order), then connected indefinite
+        "A1+A1+A2", "A2+A2", "B2+B2",
+        "StarThreeLegP", "PStarATwoEdge", "KFourAllP",
+        # rank 5: connected indefinite
+        "StarFourLegFour", "KFiveAllThree",
+    ])
+}
+
+
+def _shape_order(name: str) -> int:
+    """Canonical within-rank display ordinal; unknown shapes sort last."""
+    return SHAPE_ORDER.get(name, len(SHAPE_ORDER))
 
 
 def _shape_display(layout_name: str, rank: int) -> str:
@@ -560,23 +615,11 @@ def _shape_display(layout_name: str, rank: int) -> str:
     return f"unclassified (rank {rank})"
 
 
-def _compact_shape_display(type_display: str) -> str:
-    """Shorten a SHAPE_DISPLAY string for meta descriptions / SEO snippets:
-    strip the en-dash separator, the trailing infinity glyph, and the
-    parenthetical \"(single reflection)\" note on the rank-1 dot case."""
-    return (
-        type_display
-        .replace(" \u2014 ", " ")
-        .replace(" \u221e", "")
-        .replace(" (single reflection)", "")
-    )
-
-
 def format_meta_description(r: Record, meta: dict) -> str:
     """Short-Unicode meta description for the per-entry page's <head>.
 
     Targets:
-      K-fav, non-trivial   CICY 6771 \u2014 rank 2 \u00c3\u2081 hyperbolic, h\u00b9\u00b7\u00b9=3, h\u00b2\u00b7\u00b9=35, \u03c7=\u221264.
+      K-fav, non-trivial   CICY 6771 \u2014 rank 2 I\u2082(\u221e) (H), h\u00b9\u00b7\u00b9=3, h\u00b2\u00b7\u00b9=35, \u03c7=\u221264.
       K-fav, trivial       CICY N \u2014 K\u00e4hler-favorable, trivial Coxeter group, h\u00b9\u00b7\u00b9=X, h\u00b2\u00b7\u00b9=Y, \u03c7=Z.
       non-K-fav (sentinel) CICY N \u2014 non-K\u00e4hler-favorable, h\u00b9\u00b7\u00b9=X, h\u00b2\u00b7\u00b9=Y, \u03c7=Z.
     """
@@ -590,8 +633,7 @@ def format_meta_description(r: Record, meta: dict) -> str:
         return f"CICY {r.Num} \u2014 K\u00e4hler-favorable, trivial Coxeter group, {hodge}."
     rank = meta["rank"]
     type_display = meta["type_display"] or _shape_display(meta["type_label"] or "", rank)
-    shape_short = _compact_shape_display(type_display)
-    return f"CICY {r.Num} \u2014 rank {rank} {shape_short}, {hodge}."
+    return f"CICY {r.Num} \u2014 rank {rank} {type_display}, {hodge}."
 
 
 def compute_page_meta(records: list[Record]) -> dict:

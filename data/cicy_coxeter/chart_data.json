@@ -8,133 +8,133 @@
   "shape_options": [
     {
       "key": "dot",
-      "display": "ℤ₂ (single reflection)",
+      "display": "ℤ₂",
       "rank": 1,
       "count": 1592
     },
     {
       "key": "A1+A1",
-      "display": "A₁ + A₁",
+      "display": "I₂(2)",
       "rank": 2,
       "count": 243
     },
     {
-      "key": "Atilde1-P",
-      "display": "Ã₁ — parabolic ∞",
+      "key": "A2",
+      "display": "I₂(3)",
       "rank": 2,
-      "count": 163
+      "count": 21
     },
     {
       "key": "B2",
-      "display": "B₂",
+      "display": "I₂(4)",
       "rank": 2,
       "count": 28
     },
     {
+      "key": "Atilde1-P",
+      "display": "I₂(∞) (P)",
+      "rank": 2,
+      "count": 163
+    },
+    {
       "key": "Atilde1-H",
-      "display": "Ã₁ — hyperbolic ∞",
+      "display": "I₂(∞) (H)",
       "rank": 2,
       "count": 26
     },
     {
-      "key": "A2",
-      "display": "A₂",
-      "rank": 2,
-      "count": 21
-    },
-    {
-      "key": "VPP",
-      "display": "V-shape (P, P)",
-      "rank": 3,
-      "count": 21
-    },
-    {
-      "key": "A1+B2",
-      "display": "A₁ + B₂",
-      "rank": 3,
-      "count": 14
-    },
-    {
       "key": "A1+A1+A1",
-      "display": "A₁ + A₁ + A₁",
+      "display": "ℤ₂ × ℤ₂ × ℤ₂",
       "rank": 3,
       "count": 13
     },
     {
-      "key": "VPH",
-      "display": "V-shape (P, H)",
-      "rank": 3,
-      "count": 10
-    },
-    {
       "key": "A1+A2",
-      "display": "A₁ + A₂",
+      "display": "ℤ₂ × I₂(3)",
       "rank": 3,
       "count": 8
     },
     {
+      "key": "A1+B2",
+      "display": "ℤ₂ × I₂(4)",
+      "rank": 3,
+      "count": 14
+    },
+    {
+      "key": "VPP",
+      "display": "[P, P]",
+      "rank": 3,
+      "count": 21
+    },
+    {
+      "key": "VPH",
+      "display": "[P, H]",
+      "rank": 3,
+      "count": 10
+    },
+    {
+      "key": "TriangleAPP",
+      "display": "[(3, P, P)]",
+      "rank": 3,
+      "count": 2
+    },
+    {
       "key": "TrianglePPP",
-      "display": "triangle (P, P, P)",
+      "display": "W₃",
       "rank": 3,
       "count": 5
     },
     {
       "key": "TrianglePPH",
-      "display": "triangle (P, P, H)",
+      "display": "[(P, P, H)]",
       "rank": 3,
       "count": 3
     },
     {
-      "key": "TriangleAPP",
-      "display": "triangle (3, P, P)",
-      "rank": 3,
-      "count": 2
-    },
-    {
-      "key": "StarThreeLegP",
-      "display": "3-leg star (all P)",
-      "rank": 4,
-      "count": 7
-    },
-    {
       "key": "A1+A1+A2",
-      "display": "A₁ + A₁ + A₂",
-      "rank": 4,
-      "count": 6
-    },
-    {
-      "key": "PStarATwoEdge",
-      "display": "P-star with A₂ arm",
+      "display": "ℤ₂ × ℤ₂ × I₂(3)",
       "rank": 4,
       "count": 6
     },
     {
       "key": "A2+A2",
-      "display": "A₂ + A₂",
+      "display": "I₂(3) × I₂(3)",
       "rank": 4,
       "count": 3
     },
     {
       "key": "B2+B2",
-      "display": "B₂ + B₂",
+      "display": "I₂(4) × I₂(4)",
       "rank": 4,
       "count": 3
     },
     {
+      "key": "StarThreeLegP",
+      "display": "K₁,₃(P)",
+      "rank": 4,
+      "count": 7
+    },
+    {
+      "key": "PStarATwoEdge",
+      "display": "[(3, P, P)] + P",
+      "rank": 4,
+      "count": 6
+    },
+    {
       "key": "KFourAllP",
-      "display": "K₄ (all P)",
+      "display": "W₄",
       "rank": 4,
       "count": 1
     },
     {
       "key": "StarFourLegFour",
-      "display": "4-leg star (all 4)",
+      "display": "K₁,₄(4)",
       "rank": 5,
       "count": 5
     },
     {
       "key": "KFiveAllThree",
-      "display": "K₅ (all 3)",
+      "display": "K₅(3)",
       "rank": 5,
       "count": 2
     }

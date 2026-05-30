@@ -37,6 +37,13 @@
             {{ .total_shapes }} distinct shapes cover the {{ .total_models }}
             Kähler-favorable CICYs with a non-trivial Coxeter action. Click a
             tile to list the CICYs that carry that shape in the Explorer below.
+            Shape labels use standard
+            <a href="https://en.wikipedia.org/wiki/Coxeter_notation" rel="noopener">Coxeter
+            bracket notation</a>: <code>[p,&nbsp;q]</code> for linear rank-3
+            diagrams, <code>[(p,&nbsp;q,&nbsp;r)]</code> for triangle (cyclic)
+            diagrams; <code>P</code> and <code>H</code> are the paper's tags
+            for the parabolic and hyperbolic representations of an order-∞
+            relation.
           </p>
           {{ range .groups }}
             <h3>Rank {{ .rank }} &mdash; {{ len .shapes }} shape{{ if ne (len .shapes) 1 }}s{{ end }}</h3>

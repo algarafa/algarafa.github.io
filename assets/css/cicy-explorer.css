@@ -711,9 +711,15 @@ table.cicy-explorer__schema-table code {
   gap: 0.4rem;
   padding: 0.75rem 0.5rem 0.5rem;
   text-decoration: none;
-  color: inherit;
   cursor: pointer;
 }
+
+/* Override the theme's `.post__content a { color: … }` so tile links inherit
+   normal text color. Scoped to tiles (not the gallery intro) so real prose
+   links like the Coxeter-notation reference keep the theme link color.
+   Selector matches the theme's specificity (0,2,1); this file loads after
+   the theme CSS, so source order tiebreaks in our favor. */
+.post__content .cicy-gallery__tile a { color: inherit; }
 
 .cicy-gallery__link:hover {
   background: rgba(74, 123, 214, 0.08);
