@@ -1,0 +1,31 @@
+{{- /* Shared per-model render context for the data-driven entry partial.
+       Call with the Page as `.`:
+
+         {{- $c := partial "cicy-page/_ctx.html" . -}}
+
+       Returns a dict:
+         .page    the Page (for .Content, .Title, .Permalink, .Params)
+         .num     the CICY index (int)
+         .meta    page_meta entry (facts / nav / siblings)
+         .render  page_render entry (structured data + pre-built LaTeX,
+                  diagram SVG, and the three record serialisations)
+         .kind    Coxeter kind: finite|affine|indefinite|trivial|sentinel
+         .h11 .h21 .chi
+       The four shape branches a layout must handle reduce to .kind plus
+       (.render.rank): sentinel / trivial / rank-1 / rank>=2-full. */ -}}
+{{- $num := .Params.num -}}
+{{- $key := printf "%d" $num -}}
+{{- $meta := index site.Data.cicy_coxeter.page_meta $key -}}
+{{- $render := index site.Data.cicy_coxeter.page_render $key -}}
+{{- $h11 := .Params.h11 -}}
+{{- $h21 := .Params.h21 -}}
+{{- return (dict
+      "page" .
+      "num" $num
+      "meta" $meta
+      "render" $render
+      "kind" $render.kind
+      "h11" $h11
+      "h21" $h21
+      "chi" (mul 2 (sub $h11 $h21))
+   ) -}}

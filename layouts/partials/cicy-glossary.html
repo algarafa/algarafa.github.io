@@ -1,44 +1,73 @@
 {{- /*
-  Glossary for jargon that appears on every per-model CICY page. Rendered
-  inside a collapsed <details> at the bottom of each page so readers can opt
-  in without noise. Individual terms can also be referenced inline via the
-  shorthand <abbr class="cicy-glossary__term" data-term="KEY" …>.
+  Conventions and glossary for the per-model CICY pages, rendered inside a
+  collapsed <details> at the bottom of each page so readers can opt in without
+  noise. Definitions follow the companion paper: the iso-flop row types from the
+  proposition in the isomorphic-flops review section, parabolic vs hyperbolic
+  from the dihedral section. Inline math uses \(...\), rendered client-side by
+  the KaTeX auto-render in head.html.
 */ -}}
 <details class="cicy-glossary">
-  <summary>Glossary &amp; conventions</summary>
+  <summary>Conventions and glossary</summary>
+
+  <p class="cicy-glossary__group">Conventions</p>
   <dl>
-    <dt>Iso-flop row — Type&nbsp;1a</dt>
+    <dt>Configuration matrix</dt>
     <dd>
-      A configuration-matrix row that yields an isomorphic flop via a
-      projective-space swap whose flop map restricts to the identity on the
-      ambient factor (see paper §3.2).
+      Rows are the ambient \(\mathbb{P}^{n_i}\) factors; columns indicate the
+      homogeneous degrees of the defining polynomials. The superscript
+      is \((h^{1,1},\,h^{2,1})\) and the subscript is the Euler characteristic
+      \(\chi = 2(h^{1,1} - h^{2,1})\).
     </dd>
-    <dt>Iso-flop row — Type&nbsp;1b</dt>
+    <dt>Second Chern class</dt>
     <dd>
-      A configuration-matrix row yielding an iso-flop whose ambient action is
-      non-trivial but still a linear automorphism; distinguished from Type&nbsp;1a
-      by the sign pattern of the induced Kähler reflection.
+      The intersection numbers \(c_2(X)\cdot D_i\) in the favorable divisor basis
+      \(\{D_i\}_{i \in \{ 1, \dotsc, h^{1,1} \}}\).
     </dd>
-    <dt>Iso-flop row — Type&nbsp;2</dt>
+  </dl>
+
+  <p class="cicy-glossary__group">Glossary</p>
+  <dl>
+    <dt>Iso-flop (isomorphic flop)</dt>
     <dd>
-      A configuration-matrix row yielding an iso-flop that mixes ambient
-      factors — the Kähler reflection is no longer block-diagonal.
+      A flop \(X \dashrightarrow X'\) between diffeomorphic families of
+      Calabi&ndash;Yau threefolds.
     </dd>
-    <dt>Parabolic&nbsp;(<code>P</code>) vs hyperbolic&nbsp;(<code>H</code>)</dt>
+    <dt>K&auml;hler-favorable</dt>
     <dd>
-      Both labels denote a Coxeter-matrix entry <em>m</em><sub>ij</sub>&nbsp;=&nbsp;∞,
-      i.e.&nbsp;<em>Q<sub>ij</sub></em>&nbsp;=&nbsp;<em>M<sub>i</sub>M<sub>j</sub></em>
-      has infinite order. The distinction is which faithful representation
-      realises the relation: <code>P</code> is parabolic (Gram matrix
-      positive semi-definite) while <code>H</code> is hyperbolic (indefinite).
-      See §4.1 of the paper.
+      A favorable CICY whose K&auml;hler cone directly descends from that of the
+      ambient space.
     </dd>
-    <dt>Non-Kähler-favorable&nbsp;(<code>NonKahlerPos</code>)</dt>
+    <dt>Iso-flop row: Type&nbsp;1a</dt>
     <dd>
-      The CICY admits no favorable Kähler presentation: its Kähler / Mori
-      cones do not descend directly from the ambient product. No Coxeter data
-      is computed; the corresponding fields in the database carry the
-      <code>NonKahlerPos</code> sentinel.
+      A configuration matrix row of the form
+      \(\left[\begin{array}{c|cccccc} \mathbb{P}^{n} & 1 & \cdots & 1 & 0 & \cdots & 0 \end{array}\right]\) whose charge
+      vectors over the ones columns all coincide. The flop across the
+      corresponding K&auml;hler cone wall is always an iso-flop.
+    </dd>
+    <dt>Iso-flop row: Type&nbsp;1b</dt>
+    <dd>
+      A configuration matrix row of the same form as Type&nbsp;1a but without the
+      coincident charge vectors. The flop across the corresponding K&auml;hler cone
+      wall is typically (but not necessarily) not an iso-flop.
+    </dd>
+    <dt>Iso-flop row: Type&nbsp;2</dt>
+    <dd>
+      A configuration matrix row of the form
+      \(\left[\begin{array}{c|ccccccc} \mathbb{P}^{n} & 2 & 1 & \cdots & 1 & 0 & \cdots & 0 \end{array}\right]\), including the case with no ones.
+      The flop across the corresponding K&auml;hler cone wall is always an iso-flop.
+    </dd>
+    <dt>Parabolic&nbsp;(<code>P</code>) vs. hyperbolic&nbsp;(<code>H</code>)</dt>
+    <dd>
+      Both mark a Coxeter-matrix entry of infinite order: the product
+      \(Q_{ij} = \hat{M}_i \hat{M}_j\) has \(\operatorname{ord}(Q_{ij}) = \infty\). They distinguish two inequivalent types of faithful
+      representation: <em>parabolic</em>&nbsp;(<code>P</code>) and
+      <em>hyperbolic</em>&nbsp;(<code>H</code>). See
+      Section 4.1 of the <a href="/publications/kaleidoscopes-waves-prepotential/">companion paper</a> for details.
+    </dd>
+    <dt>Non-K&auml;hler-favorable&nbsp;(<code>NonKahlerPos</code>)</dt>
+    <dd>
+      A CICY whose K&auml;hler cone does not directly descend from that of the
+      ambient space. The Coxeter symmetry is left undetermined for such models.
     </dd>
   </dl>
 </details>

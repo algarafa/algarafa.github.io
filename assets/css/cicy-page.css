@@ -1,0 +1,717 @@
+/* ====================================================================
+   CICY Coxeter per-model page — "specimen sheet" stylesheet.
+   --------------------------------------------------------------------
+   One sheet in two sections:
+
+     1. Tokens & primitives — the `--cx-*` palette (light + dark) that
+        mirrors the landing page so the whole site reads as one design
+        language, the kind -> --k accent mapping, and the shared
+        primitives (matrix wrapper, record/copy block, diagram colour).
+
+     2. Page layout (prefixed .cxpg-sheet) — the datasheet masthead (serial =
+        page <h1>, ribbon, invariants, LEDs), the two-column "title | data"
+        ledger, the full database record, and the footer.
+
+   Everything is scoped under `.cxpg` so it never collides with the
+   landing `.cxshow` blocks or the live Explorer. The page text is the
+   site's own body sans, so KaTeX math pairs with it exactly as it does
+   everywhere else on the site.
+   ==================================================================== */
+
+
+/* ====================================================================
+   1. Tokens & primitives
+   ==================================================================== */
+
+.cxpg {
+  /* group-type hues — identical to the gallery / sections showcases */
+  --cx-finite:   #458588;
+  --cx-affine:   #689d6a;
+  --cx-indef:    #d79921;
+  --cx-accent:   #458588;
+  --cx-ink:      #2b3036;
+  --cx-muted:    #6a727b;
+  --cx-line:     rgba(22, 30, 40, 0.12);
+  --cx-line-2:   rgba(22, 30, 40, 0.06);
+  --cx-surface:  #ffffff;
+  --cx-surface-2:#f5f7f9;
+  --cx-yes:      #2a7a3a;
+  --cx-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  /* the page text font: the site's own body stack (theme partials/_base.scss),
+     so the math pairs with the same sans used across the rest of the site. */
+  --cx-sans: "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", sans-serif;
+  /* fallback kind accent for sentinel / trivial (no Coxeter group => no hue) */
+  --k: var(--cx-muted);
+}
+
+.theme--dark .cxpg,
+[data-theme="dark"] .cxpg {
+  --cx-finite:   #83a598;
+  --cx-affine:   #8ec07c;
+  --cx-indef:    #fabd2f;
+  --cx-accent:   #83a598;
+  --cx-ink:      #e6ecf2;
+  --cx-muted:    #9aa6b2;
+  --cx-line:     rgba(255, 255, 255, 0.14);
+  --cx-line-2:   rgba(255, 255, 255, 0.07);
+  --cx-surface:  #18242e;
+  --cx-surface-2:#1f2d38;
+  --cx-yes:      #7ed08b;
+}
+
+/* kind -> single page accent. Sentinel/trivial deliberately keep --k = muted
+   (set on .cxpg above) so "no Coxeter structure" reads as absence of hue. */
+.cxpg[data-kind="finite"]     { --k: var(--cx-finite); }
+.cxpg[data-kind="affine"]     { --k: var(--cx-affine); }
+.cxpg[data-kind="indefinite"] { --k: var(--cx-indef); }
+.cxpg [data-kind="finite"]     { --k: var(--cx-finite); }
+.cxpg [data-kind="affine"]     { --k: var(--cx-affine); }
+.cxpg [data-kind="indefinite"] { --k: var(--cx-indef); }
+.cxpg [data-kind="trivial"],
+.cxpg [data-kind="sentinel"]   { --k: var(--cx-muted); }
+
+/* KaTeX inside a tinted surface inherits the surface ink, not the page ink. */
+.cxpg .katex { color: inherit; }
+
+/* overflow-safe wrapper for any display matrix */
+.cxpg-matrix {
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 0.15rem 0;
+}
+
+/* Record (serialisation) block + copy button — scoped JS in cicy-page.js
+   binds [data-role="cxpg-copy"] within [data-cxpg-record]. */
+.cxpg-record {
+  margin: 0.6rem 0;
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--cx-surface);
+}
+
+.cxpg-record__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.3rem 0.65rem;
+  background: var(--cx-surface-2);
+  border-bottom: 1px solid var(--cx-line);
+  font-size: 0.78em;
+  color: var(--cx-muted);
+}
+
+.cxpg-record__label {
+  font-family: var(--cx-mono);
+  letter-spacing: 0.02em;
+}
+
+.cxpg-copy {
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface);
+  color: var(--cx-ink);
+  padding: 0.08rem 0.55rem;
+  font-size: 0.92em;
+  font-family: var(--cx-mono);
+  cursor: pointer;
+  border-radius: 0;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.cxpg-copy:hover {
+  background: color-mix(in srgb, var(--cx-accent) 10%, var(--cx-surface));
+  border-color: color-mix(in srgb, var(--cx-accent) 45%, var(--cx-line));
+}
+
+.cxpg-copy.is-copied {
+  background: color-mix(in srgb, var(--cx-yes) 22%, var(--cx-surface));
+  border-color: color-mix(in srgb, var(--cx-yes) 55%, var(--cx-line));
+  color: var(--cx-yes);
+}
+
+.cxpg-record pre {
+  margin: 0;
+  padding: 0.6rem 0.75rem;
+  overflow-x: auto;
+  font-family: var(--cx-mono);
+  font-size: 0.82em;
+  line-height: 1.5;
+  background: transparent;
+  text-align: left;
+}
+
+.cxpg-record pre code { background: none; padding: 0; }
+
+/* Diagram SVG inherits the kind accent --k; size is set on the page layer. */
+.cxpg [class*="__diagram"] svg { color: var(--k); }
+
+
+/* ====================================================================
+   2. Page layout — datasheet masthead, ledger, record, footer
+   ==================================================================== */
+
+.cxpg-sheet {
+  color: var(--cx-ink);
+  font-size: 1.425rem;
+  line-height: 1.55;
+  /* one uniform type size for the whole masthead readout (chips, invariants,
+     LEDs) so the Hodge sub/superscripts stay legible without singling them
+     out — the box scales as a whole. */
+  --cx-sheet-read: 1.45rem;
+  /* the page text font: the site's own body sans. */
+  --cx-sheet-font: var(--cx-sans);
+}
+
+/* --------------------------------------------------------------------
+   Utility bar — sticky readout: breadcrumb + keyboard-navigable stepper
+   -------------------------------------------------------------------- */
+.cxpg-sheet__util {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1.3rem;
+  padding: 0.4rem 0.1rem;
+  background: color-mix(in srgb, var(--cx-surface) 90%, transparent);
+  backdrop-filter: saturate(1.1) blur(6px);
+  border-bottom: 1px solid var(--cx-line);
+  font-family: var(--cx-sheet-font);
+  font-size: 1.11rem;
+  font-variant-numeric: tabular-nums;
+}
+.cxpg-sheet__crumb {
+  color: var(--cx-muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cxpg-sheet__crumb b { color: var(--cx-ink); font-weight: 600; }
+.cxpg-sheet__crumb-sep { opacity: 0.5; margin: 0 0.15em; }
+.cxpg-sheet__crumb:hover { color: var(--cx-ink); }
+
+.cxpg-sheet__step {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+.cxpg-sheet__step-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  padding: 0.12rem 0.55rem;
+  color: var(--cx-muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  border-left: 1px solid var(--cx-line);
+}
+.cxpg-sheet__step-cell:first-child { border-left: 0; }
+.cxpg-sheet__step-cell--r {
+  color: var(--cx-muted);
+  background: var(--cx-surface-2);
+}
+.cxpg-sheet__step-cell:hover { color: var(--k); background: color-mix(in srgb, var(--k) 9%, transparent); }
+.cxpg-sheet__step-n { color: var(--cx-ink); font-weight: 600; }
+.cxpg-sheet__step-cell:hover .cxpg-sheet__step-n { color: var(--k); }
+
+/* --------------------------------------------------------------------
+   Masthead datasheet
+   -------------------------------------------------------------------- */
+/* Two columns: the identity block (serial + ribbon + LEDs) and the invariants
+   readout. The LEDs live INSIDE the identity column, so their distance from
+   the ribbon is a fixed margin — it no longer varies with the invariants
+   height (which used to stretch the old two-row grid). */
+.cxpg-sheet__sheet {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 0 1.8rem;
+  margin: 0 0 1.6rem;
+  padding: 1.05rem 1.2rem;
+  background: var(--cx-surface);
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+}
+
+.cxpg-sheet__id { min-width: 0; }
+
+/* serial doubles as the page <h1>: "CICY" prefix + large tabular number */
+.cxpg-sheet__num {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  margin: 0;
+  font-family: var(--cx-sheet-font);
+  font-weight: 400;
+  color: var(--cx-ink);
+  font-variant-numeric: tabular-nums;
+}
+.cxpg-sheet__num-pre {
+  font-size: 1.95rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  color: var(--cx-muted);
+}
+.cxpg-sheet__num-n {
+  font-size: 5.1rem;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+}
+
+.cxpg-sheet__ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cxpg-sheet__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.55rem;
+  border: 1px solid var(--k);
+  border-radius: 0;
+  font-family: var(--cx-sheet-font);
+  font-size: var(--cx-sheet-read);
+  letter-spacing: 0.01em;
+  color: var(--cx-ink);
+  background: transparent;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+/* the shape chip (e.g. I₂(∞)) stays the SAME size as its sibling chips —
+   legibility comes from the uniformly larger readout, not a per-item bump. */
+.cxpg-sheet__chip--kind {
+  background: var(--k);
+  border-color: var(--k);
+  color: #fff;
+  text-transform: lowercase;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.theme--dark .cxpg-sheet__chip--kind,
+[data-theme="dark"] .cxpg-sheet__chip--kind { color: #11181f; }
+.cxpg-sheet__chip--neutral {
+  border-color: var(--cx-line);
+  color: var(--cx-muted);
+}
+
+/* invariants readout — right-aligned tabular key/value, full-word labels */
+.cxpg-sheet__invar {
+  margin: 0;
+  padding: 0;
+  justify-self: end;
+  min-width: 18.5rem;
+}
+.cxpg-sheet__invar > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+  padding: 0.18rem 0;
+  border-bottom: 1px solid var(--cx-line-2);
+  font-family: var(--cx-sheet-font);
+}
+.cxpg-sheet__invar > div:last-child { border-bottom: 0; }
+.cxpg-sheet__invar dt {
+  margin: 0;
+  font-size: var(--cx-sheet-read);
+  letter-spacing: 0.02em;
+  color: var(--cx-muted);
+}
+/* KaTeX Hodge labels are toned to read as peers of the plain word labels:
+   the same muted colour, and sized down so the math (and its superscripts)
+   no longer looks heavier or larger than "ambient factors" beside it. */
+.cxpg-sheet__invar-math { display: inline-flex; align-items: baseline; }
+.cxpg-sheet__invar-math .katex { color: var(--cx-muted); font-size: 0.9em; font-weight: inherit; }
+.cxpg-sheet__invar dd {
+  margin: 0;
+  font-size: var(--cx-sheet-read);
+  font-variant-numeric: tabular-nums;
+  color: var(--cx-ink);
+  text-align: right;
+}
+/* boolean LEDs — full-word labels, a fixed distance below the ribbon */
+.cxpg-sheet__leds {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.3rem;
+  margin: 1.1rem 0 0;
+}
+.cxpg-sheet__led {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--cx-sheet-font);
+  font-size: var(--cx-sheet-read);
+  letter-spacing: 0.03em;
+  color: var(--cx-muted);
+  cursor: default;
+}
+.cxpg-sheet__led i {
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  flex: 0 0 auto;
+}
+.cxpg-sheet__led.is-on { color: var(--k); }
+.cxpg-sheet__led.is-on i { background: var(--k); border-color: var(--k); }
+.cxpg-sheet__led.is-off i { background: transparent; }
+
+/* sentinel / trivial note banner */
+.cxpg-sheet__banner {
+  margin: 0 0 1.6rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--cx-line);
+  border-left: 3px solid var(--cx-muted);
+  border-radius: 0;
+  background: var(--cx-surface-2);
+  font-size: 1.29rem;
+  line-height: 1.6;
+  color: var(--cx-muted);
+}
+.cxpg-sheet__banner-tag {
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-family: var(--cx-sheet-font);
+  font-size: 0.93rem;
+  letter-spacing: 0.02em;
+  padding: 0.08rem 0.4rem;
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  color: var(--cx-muted);
+  background: var(--cx-surface);
+  vertical-align: 0.08em;
+}
+.cxpg-sheet__banner code {
+  font-family: var(--cx-mono); /* genuine code stays mono in every font variant */
+  font-size: 0.86em;
+  color: var(--cx-ink);
+}
+
+/* --------------------------------------------------------------------
+   Body — two-column "title | data" spec table
+   -------------------------------------------------------------------- */
+.cxpg-sheet__table {
+  margin: 0 0 1.6rem;
+  border-top: 1px solid var(--cx-line);
+}
+/* Fixed title column so the central divider is at the SAME x on every row
+   (a per-row max-content track would put it at a different x each time). The
+   width fits the longest title ("Configuration matrix") + its right padding. */
+.cxpg-sheet__row {
+  display: grid;
+  grid-template-columns: 16rem minmax(0, 1fr);
+  gap: 0;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--cx-line);
+  align-items: start;
+}
+
+/* Ledger: titles left-aligned in the first column, a central hairline, data right. */
+.cxpg-sheet__rowhead {
+  min-width: 0;
+  text-align: left;
+  padding-right: 1.5rem;
+}
+.cxpg-sheet__rowtitle {
+  display: block;
+  font-family: var(--cx-sheet-font);
+  font-size: 1.38rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  line-height: 1.25;
+  color: var(--cx-ink);
+  padding-top: 0.12rem;
+  white-space: nowrap;
+}
+
+.cxpg-sheet__rowdata {
+  min-width: 0;
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--cx-line);
+}
+
+.cxpg-sheet__note { margin: 0; font-size: 1.3rem; }
+.cxpg-sheet__note--center { text-align: center; }
+
+/* toggle-all [±] inline in the reflections sub-caption */
+.cxpg-sheet__pm {
+  border: 1px solid var(--cx-line);
+  background: transparent;
+  color: var(--cx-muted);
+  padding: 0 0.3rem;
+  margin-left: 0.2rem;
+  font-family: var(--cx-sheet-font);
+  font-size: 1.02rem;
+  line-height: 1.3;
+  cursor: pointer;
+  border-radius: 0;
+}
+.cxpg-sheet__pm:hover { color: var(--k); border-color: var(--k); }
+
+/* math + diagram are horizontally centred in the data column */
+.cxpg-sheet .katex-display { text-align: center; margin: 0.1rem 0; }
+.cxpg-sheet__math { margin: 0; }
+.cxpg-sheet__math--scroll { overflow-x: auto; }
+
+/* collapsed config / details summaries */
+.cxpg-sheet__fold { margin: 0; }
+.cxpg-sheet__fold > summary,
+.cxpg-sheet__gen > summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+  font-family: var(--cx-sheet-font);
+  font-size: 1.22rem;
+  color: var(--cx-ink);
+}
+.cxpg-sheet__fold > summary::-webkit-details-marker,
+.cxpg-sheet__gen > summary::-webkit-details-marker { display: none; }
+.cxpg-sheet__fold-cue,
+.cxpg-sheet__gen-cue {
+  flex: 0 0 auto;
+  color: var(--k);
+  font-size: 0.8em;
+  align-self: center;
+}
+.cxpg-sheet__fold-cue::before,
+.cxpg-sheet__gen-cue::before { content: "▸"; }
+.cxpg-sheet__fold[open] .cxpg-sheet__fold-cue::before,
+.cxpg-sheet__gen[open] .cxpg-sheet__gen-cue::before { content: "▾"; }
+/* outlined like the [Expand/Collapse all] button (.cxpg-sheet__pm) so the
+   Show/Hide affordance reads as a button, not bare text */
+.cxpg-sheet__fold-hint {
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  padding: 0 0.3rem;
+  font-size: 1.02rem;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  color: var(--cx-muted);
+}
+.cxpg-sheet__fold > summary:hover .cxpg-sheet__fold-hint { color: var(--k); border-color: var(--k); }
+.cxpg-sheet__fold-hint::after { content: "Show"; }
+.cxpg-sheet__fold[open] .cxpg-sheet__fold-hint::after { content: "Hide"; }
+
+/* generators */
+.cxpg-sheet__gen {
+  margin: 0;
+  border-bottom: 1px solid var(--cx-line-2);
+}
+/* when expanded, give the matrix the same breathing room around the divider
+   that the last reflection gets above the row's closing rule (the divider was
+   sitting too close to the matrix above it). */
+.cxpg-sheet__gen[open]:not(:last-of-type) { padding-bottom: 0.9rem; }
+.cxpg-sheet__gen[open]:not(:first-of-type) { padding-top: 0.9rem; }
+.cxpg-sheet__gen:last-of-type { border-bottom: 0; }
+.cxpg-sheet__gen-sym .katex { font-size: 1em; }
+.cxpg-sheet__gen-meta {
+  font-family: var(--cx-sheet-font);
+  font-size: 1.11rem;
+  color: var(--cx-muted);
+}
+
+/* diagram — kind-tinted, no frame; centred in the data column like the matrices */
+.cxpg-sheet__diagram-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.cxpg-sheet__diagram {
+  color: var(--k);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 1.5rem;
+}
+.cxpg-sheet__diagram svg { width: auto; max-width: 100%; height: auto; }
+.cxpg-sheet .cox-edge--inf { opacity: 0.85; }
+.cxpg-sheet .cox-lbl--inf-h,
+.cxpg-sheet .cox-lbl--inf-p { font-weight: 600; }
+
+/* --------------------------------------------------------------------
+   Database record — full width, below the table
+   -------------------------------------------------------------------- */
+.cxpg-sheet__records { margin: 1.6rem 0 0.4rem; }
+.cxpg-sheet__records-h {
+  margin: 0 0 0.7rem;
+  font-family: var(--cx-sheet-font);
+  font-size: 1.38rem;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  color: var(--cx-ink);
+}
+.cxpg-sheet .cxpg-record { margin: 0.5rem 0; }
+.cxpg-sheet .cxpg-record:first-of-type { margin-top: 0; }
+
+/* --------------------------------------------------------------------
+   Footer — muted band: dense sibling chip-wrap, glossary, back-link
+   -------------------------------------------------------------------- */
+.cxpg-sheet__foot {
+  margin: 2.2rem 0 0;
+  padding: 1.2rem 1.2rem 1.1rem;
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  background: var(--cx-surface-2);
+}
+.cxpg-sheet__siblings { margin: 0 0 1.1rem; }
+.cxpg-sheet__sib-title {
+  display: block;
+  margin: 0 0 0.5rem;
+  font-family: var(--cx-sheet-font);
+  font-size: 1.14rem;
+  letter-spacing: 0.02em;
+  color: var(--cx-muted);
+}
+.cxpg-sheet__sib-link { color: var(--k); text-decoration: none; }
+.cxpg-sheet__sib-link:hover { text-decoration: underline; }
+.cxpg-sheet__sib-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+.cxpg-sheet__sib-list a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.6em;
+  padding: 0.08rem 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--k) 35%, var(--cx-line));
+  border-radius: 0;
+  font-family: var(--cx-sheet-font);
+  font-size: 1.14rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--cx-ink);
+  text-decoration: none;
+  background: var(--cx-surface);
+}
+.cxpg-sheet__sib-list a:hover {
+  border-color: var(--k);
+  color: var(--k);
+  background: color-mix(in srgb, var(--k) 8%, var(--cx-surface));
+}
+
+.cxpg-sheet__foot .cicy-glossary { margin: 0 0 1rem; }
+
+.cxpg-sheet__back {
+  margin: 0;
+  font-family: var(--cx-sheet-font);
+  font-size: 1.2rem;
+}
+.cxpg-sheet__back a { color: var(--cx-muted); text-decoration: none; }
+.cxpg-sheet__back a:hover { color: var(--k); }
+
+/* --------------------------------------------------------------------
+   Keyboard hint <kbd> + glossary
+   -------------------------------------------------------------------- */
+.cxpg-sheet__kbd {
+  font-family: var(--cx-mono);
+  font-size: 0.82em;
+  line-height: 1;
+  padding: 0.12em 0.4em;
+  border: 1px solid var(--cx-line);
+  border-bottom-width: 2px;
+  border-radius: 0;
+  color: var(--cx-muted);
+  background: var(--cx-surface);
+}
+
+.cxpg-sheet .cicy-glossary {
+  padding: 0;
+  font-size: 1.18rem;
+  color: var(--cx-muted);
+}
+/* Siblings/glossary divider: show the rule only when a siblings list sits
+   directly above the glossary. On trivial/sentinel/no-sibling pages the
+   glossary then sits flush inside the footer box with no orphaned rule. */
+.cxpg-sheet__siblings + .cicy-glossary {
+  border-top: 1px solid var(--cx-line);
+  padding-top: 0.6rem;
+}
+.cxpg-sheet .cicy-glossary > summary {
+  cursor: pointer;
+  padding: 0.3rem 0;
+  font-weight: 600;
+  color: var(--cx-ink);
+}
+.cxpg-sheet .cicy-glossary__group {
+  margin: 1.3rem 0 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--cx-line);
+  font-size: 1.28em;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--cx-ink);
+}
+.cxpg-sheet .cicy-glossary__group:first-of-type {
+  margin-top: 0.4rem;
+  padding-top: 0;
+  border-top: 0;
+}
+.cxpg-sheet .cicy-glossary dl { margin: 0.2rem 0 0.25rem; }
+.cxpg-sheet .cicy-glossary dt { margin-top: 0.6rem; font-weight: 600; color: var(--cx-ink); }
+.cxpg-sheet .cicy-glossary dd { margin: 0.2rem 0 0.5rem; line-height: 1.55; }
+.cxpg-sheet .cicy-glossary code {
+  font-family: var(--cx-mono);
+  font-size: 0.92em;
+  color: var(--cx-ink);
+}
+
+/* terse per-row meta in the ledger title column */
+.cxpg-sheet__rowmeta {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: 1.08rem;
+  line-height: 1.4;
+  color: var(--cx-muted);
+}
+.cxpg-sheet__rowmeta a { color: var(--k); text-decoration: none; }
+.cxpg-sheet__rowmeta a:hover { text-decoration: underline; }
+.cxpg-sheet__rowmeta .cxpg-sheet__pm { display: block; width: fit-content; margin: 0.3rem 0 0; }
+
+/* --------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  .cxpg-sheet__num-n { font-size: 4.2rem; }
+}
+
+@media (max-width: 640px) {
+  /* masthead stacks: identity block (serial + ribbon + LEDs) then invariants */
+  .cxpg-sheet__sheet {
+    grid-template-columns: 1fr;
+    gap: 0.95rem;
+  }
+  .cxpg-sheet__invar { justify-self: stretch; min-width: 0; }
+  .cxpg-sheet__num-n { font-size: 3.75rem; }
+
+  /* spec table collapses: title above data, no column rule */
+  .cxpg-sheet__row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem 0;
+  }
+  .cxpg-sheet__rowhead { text-align: left; padding-right: 0; }
+  .cxpg-sheet__rowdata { padding-left: 0; border-left: 0; }
+
+  .cxpg-sheet__util { position: static; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cxpg-sheet__util { backdrop-filter: none; }
+}

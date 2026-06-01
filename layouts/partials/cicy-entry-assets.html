@@ -1,11 +1,15 @@
-{{- $css := resources.Get "css/cicy-entry.css" | resources.Minify | resources.Fingerprint -}}
+{{- /* Stylesheet + script for the CICY Coxeter per-model page. The sheet
+       (token/primitive layer + page layout) is minified and fingerprinted; the
+       script carries copy / generator-toggle / random / keyboard-navigation
+       behaviour. */ -}}
+{{- $css := resources.Get "css/cicy-page.css" | resources.Minify | resources.Fingerprint -}}
 <link
   rel="stylesheet"
   href="{{ $css.RelPermalink }}"
   integrity="{{ $css.Data.Integrity }}"
   crossorigin="anonymous"
 />
-{{- $js := resources.Get "js/cicy-entry.js" | resources.Minify | resources.Fingerprint -}}
+{{- $js := resources.Get "js/cicy-page.js" | resources.Minify | resources.Fingerprint -}}
 <script
   src="{{ $js.RelPermalink }}"
   integrity="{{ $js.Data.Integrity }}"
