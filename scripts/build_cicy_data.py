@@ -46,6 +46,7 @@ ENGLISH_CONTENT_DIR = ROOT / "content" / "english" / "cicy-coxeter"
 GALLERY_OUT = ROOT / "data" / "cicy_coxeter" / "diagram_gallery.json"
 CHART_DATA_OUT = ROOT / "data" / "cicy_coxeter" / "chart_data.json"
 PAGE_META_OUT = ROOT / "data" / "cicy_coxeter" / "page_meta.json"
+PAGE_RENDER_OUT = ROOT / "data" / "cicy_coxeter" / "page_render.json"
 SAMPLE_DIR = ROOT / "scripts" / ".sample-runs"
 
 EXPECTED_KEYS = (
@@ -334,6 +335,9 @@ def build_diagram_gallery(records: list[Record]) -> dict:
         info["svg"] = coxeter_diagram_svg(info["mat"], info["example_num"])
         info["latex"] = latex_coxeter_matrix(info["mat"]) if info["mat"] else ""
         info["display"] = _shape_display(info["name"], info["rank"])
+        # finite / affine / indefinite — lets the landing-page gallery group
+        # and colour-code shapes by the nature of the Coxeter group.
+        info["kind"] = _classify_coxeter_kind(info["mat"])
         by_rank[info["rank"]].append(info)
 
     groups = []
@@ -414,21 +418,17 @@ def _sym_eigvals(mat: list[list[float]]) -> list[float]:
 
 
 def _classify_coxeter_kind(mat: list[list[str]]) -> str:
-    """Classify a Coxeter matrix as finite / affine / indefinite. Uses the
+    """Classify a Coxeter matrix as finite / affine / indefinite from the
     eigenvalue signature of the Gram matrix G_{ij} = -cos(π / m_{ij}) with
-    G_{ii} = 1, then overrides to `indefinite` whenever any off-diagonal
-    carries the paper's `H` label — since `P` and `H` both give the same
-    Gram entry but the paper treats `H` as the hyperbolic (indefinite)
-    representation of the same abstract I₂(∞) group. Returns '' for empty
-    input."""
+    G_{ii} = 1 (positive definite -> finite, positive semi-definite/degenerate
+    -> affine, indefinite -> indefinite). Both `P` and `H` denote m_{ij} = ∞
+    (G_{ij} = -1): per §3 of the paper they are the parabolic vs hyperbolic
+    *representations* of the SAME abstract Coxeter group, so they must not
+    affect this classification. In particular I₂(∞) is the affine group Ã₁ in
+    both its P and H presentations. Returns '' for empty input."""
     if not mat:
         return ""
     rank = len(mat)
-    has_h = any(
-        mat[i][j] == "H" for i in range(rank) for j in range(i + 1, rank)
-    )
-    if has_h:
-        return "indefinite"
     g = [[1.0 if i == j else _mij_cos(mat[i][j]) for j in range(rank)] for i in range(rank)]
     eigs = _sym_eigvals(g)
     if all(e > _EIGENVALUE_TOL for e in eigs):
@@ -1242,21 +1242,40 @@ def coxeter_diagram_svg(mat: list[list[str]], num: int) -> str:
             continue
         x1, y1 = pts_px[si]
         x2, y2 = pts_px[sj]
+        # Semantic hooks (inert by default — no styling here): let downstream
+        # CSS distinguish ordinary (m=3), finite-labelled (m>=4) and
+        # infinite (P/H) edges without re-parsing the geometry. Entry pages
+        # ship CSS that ignores these classes, so their appearance is
+        # unchanged; the landing-page gallery variants hook them.
+        edge_cls = "cox-edge"
+        if m in ("P", "H"):
+            edge_cls += " cox-edge--inf"
+        elif m != "3":
+            edge_cls += " cox-edge--mult"
         parts.append(
-            f'<line x1="{_svg_coord(_tx(x1))}" y1="{_svg_coord(_ty(y1))}" '
+            f'<line class="{edge_cls}" data-m="{m}" '
+            f'x1="{_svg_coord(_tx(x1))}" y1="{_svg_coord(_ty(y1))}" '
             f'x2="{_svg_coord(_tx(x2))}" y2="{_svg_coord(_ty(y2))}" '
             'stroke="currentColor" stroke-width="1.2"/>'
         )
     for (ax, ay), m in label_anchors:
+        if m == "P":
+            lbl_cls = "cox-lbl cox-lbl--inf cox-lbl--inf-p"
+        elif m == "H":
+            lbl_cls = "cox-lbl cox-lbl--inf cox-lbl--inf-h"
+        else:
+            lbl_cls = "cox-lbl cox-lbl--fin"
         parts.append(
-            f'<text x="{_svg_coord(_tx(ax))}" y="{_svg_coord(_ty(ay))}" '
+            f'<text class="{lbl_cls}" data-m="{m}" '
+            f'x="{_svg_coord(_tx(ax))}" y="{_svg_coord(_ty(ay))}" '
             'text-anchor="middle" dominant-baseline="central" '
             f'font-family="{_LABEL_FONT_FAMILY}" font-style="normal" '
             f'font-size="{_LABEL_FONT_PX}" fill="currentColor">{m}</text>'
         )
     for px, py in pts_px:
         parts.append(
-            f'<circle cx="{_svg_coord(_tx(px))}" cy="{_svg_coord(_ty(py))}" '
+            f'<circle class="cox-node" '
+            f'cx="{_svg_coord(_tx(px))}" cy="{_svg_coord(_ty(py))}" '
             f'r="{_NODE_R:g}" fill="currentColor"/>'
         )
 
@@ -1268,7 +1287,7 @@ def coxeter_diagram_svg(mat: list[list[str]], num: int) -> str:
     w_str = _svg_coord(width)
     h_str = _svg_coord(height)
     return (
-        f'<svg class="cicy-entry__diagram" '
+        f'<svg class="cicy-entry__diagram" data-rank="{rank}" '
         f'width="{w_str}" height="{h_str}" viewBox="0 0 {w_str} {h_str}" '
         f'xmlns="http://www.w3.org/2000/svg" role="img" '
         f'aria-label="{aria}">'
@@ -1441,10 +1460,10 @@ def _iso_flop_reflections_section(r: Record) -> list[str]:
         summary = f" — iso-flop row {iso['row']}, {iso['type']}"
         lines.extend(
             _matrix_shortcode(
-                f"M_{idx} = {latex_pmatrix(mat)}",
+                f"\\hat{{M}}_{idx} = {latex_pmatrix(mat)}",
                 fold=fold,
                 summary=summary,
-                summary_math=f"M_{idx}",
+                summary_math=f"\\hat{{M}}_{idx}",
                 extra_class="is-generator",
             )
         )
@@ -1686,7 +1705,7 @@ def write_sample(
                     f"_Generator {idx} — iso-flop row {iso['row']}, {iso['type']}_\n"
                 )
                 parts.append(
-                    "```latex\n" + f"M_{idx} = {latex_pmatrix(mat)}" + "\n```\n"
+                    "```latex\n" + f"\\hat{{M}}_{idx} = {latex_pmatrix(mat)}" + "\n```\n"
                 )
         elif r.KahlerPos:
             parts.append("**KahlerRefGens:** _(empty — no iso-flop walls)_\n")
@@ -1717,6 +1736,90 @@ def sha256(path: Path) -> str:
     return h.hexdigest()
 
 
+def _plain_text_record(r: Record) -> str:
+    """The verbatim .txt-format serialisation shown in the 'Database record'
+    block — identical to the one emitted into the markdown stub."""
+    return "\n".join([
+        f"Num           : {r.Num}",
+        f"H11           : {r.H11}",
+        f"H21           : {r.H21}",
+        f"C2            : {serialise_field('C2', r.C2)}",
+        f"Conf          : {serialise_field('Conf', r.Conf)}",
+        f"Favour        : {serialise_field('Favour', r.Favour)}",
+        f"KahlerPos     : {serialise_field('KahlerPos', r.KahlerPos)}",
+        f"IsProduct     : {serialise_field('IsProduct', r.IsProduct)}",
+        f"IsoFlopRows   : {serialise_field('IsoFlopRows', r.IsoFlopRows)}",
+        f"KahlerRefGens : {serialise_field('KahlerRefGens', r.KahlerRefGens)}",
+        f"CoxeterMat    : {serialise_field('CoxeterMat', r.CoxeterMat)}",
+    ])
+
+
+def compute_page_render(records: list[Record], meta_map: dict) -> dict:
+    """Per-model render payload for data-driven page layouts (the Page-Style
+    showcase). Carries BOTH the structured numeric data (so a layout can render
+    e.g. the configuration matrix as an HTML table with P^{n_i} row labels) AND
+    the pre-built LaTeX strings + diagram SVG + the three record serialisations
+    (so any layout reproduces the canonical Style-0 math/markup verbatim).
+
+    Keyed by stringified Num, mirroring page_meta.json. A pure function of the
+    records; repeated runs are byte-identical."""
+    out: dict[str, dict] = {}
+    for r in records:
+        meta = meta_map[str(r.Num)]
+        ambient = [sum(row) - 1 for row in r.Conf]
+        entry: dict[str, Any] = {
+            "num": r.Num,
+            "kind": meta["coxeter_kind"],
+            "rank": meta["rank"],
+            "type_display": meta["type_display"],
+            "type_label": meta["type_label"],
+            # Second Chern class
+            "c2": r.C2,
+            "latex_c2": f"c_2(X)\\cdot D_i = {latex_row_vector(r.C2)}",
+            # Configuration matrix
+            "conf": r.Conf,
+            "ambient": ambient,
+            "latex_conf": latex_configuration_matrix(r.Conf, r.H11, r.H21, r.Num),
+            "conf_collapsed": r.H11 > CONFIG_COLLAPSE_H11_THRESHOLD,
+            # Iso-flop generator reflections (empty list for trivial/sentinel)
+            "generators": [],
+            # Coxeter diagram + matrix (null when no non-trivial action)
+            "coxeter_mat": None,
+            "latex_coxeter": None,
+            "coxeter_has_inf": False,
+            "diagram_svg": None,
+            # Database record — three verbatim serialisations
+            "serial_txt": _plain_text_record(r),
+            "serial_mma": _mma_assoc(r),
+            "serial_json": _record_json(r),
+        }
+        if r.KahlerPos and r.KahlerRefGens:
+            gens = []
+            for idx, (mat, iso) in enumerate(
+                zip(r.KahlerRefGens, r.IsoFlopRows), start=1
+            ):
+                gens.append({
+                    "label": f"\\hat{{M}}_{idx}",
+                    "row": iso["row"],
+                    "type": iso["type"],
+                    "mat": mat,
+                    "latex": f"\\hat{{M}}_{idx} = {latex_pmatrix(mat)}",
+                })
+            entry["generators"] = gens
+        if r.KahlerPos and r.CoxeterMat:
+            flat = [v for row in r.CoxeterMat for v in row]
+            entry["coxeter_mat"] = r.CoxeterMat
+            entry["latex_coxeter"] = latex_coxeter_matrix(r.CoxeterMat)
+            entry["coxeter_has_inf"] = ("P" in flat) or ("H" in flat)
+            entry["diagram_svg"] = coxeter_diagram_svg(r.CoxeterMat, r.Num)
+        out[str(r.Num)] = entry
+    return out
+
+
+def write_page_render(records: list[Record], meta_map: dict, out_path: Path) -> None:
+    _write_json(compute_page_render(records, meta_map), out_path)
+
+
 def run_build(target_root: Path) -> None:
     text = SOURCE_TXT.read_text(encoding="utf-8")
     records = parse_records(text)
@@ -1727,6 +1830,7 @@ def run_build(target_root: Path) -> None:
     gallery = target_root / GALLERY_OUT.relative_to(ROOT)
     chart_data = target_root / CHART_DATA_OUT.relative_to(ROOT)
     page_meta = target_root / PAGE_META_OUT.relative_to(ROOT)
+    page_render = target_root / PAGE_RENDER_OUT.relative_to(ROOT)
     # Compute page_meta up-front so the markdown stubs can embed
     # per-model metadata (type label, gallery link, etc.) that the layout
     # also surfaces from the same JSON sidecar.
@@ -1737,10 +1841,11 @@ def run_build(target_root: Path) -> None:
     write_gallery(records, gallery)
     write_chart_data(records, chart_data)
     _write_json(meta_map, page_meta)
+    write_page_render(records, meta_map, page_render)
 
 
 def check_mode() -> int:
-    if not PARQUET_OUT.exists() or not SCHEMA_OUT.exists() or not GALLERY_OUT.exists() or not CHART_DATA_OUT.exists() or not PAGE_META_OUT.exists():
+    if not PARQUET_OUT.exists() or not SCHEMA_OUT.exists() or not GALLERY_OUT.exists() or not CHART_DATA_OUT.exists() or not PAGE_META_OUT.exists() or not PAGE_RENDER_OUT.exists():
         print("ERROR: expected outputs are missing; run the script without --check first.")
         return 1
     with tempfile.TemporaryDirectory() as tmp:
@@ -1760,6 +1865,7 @@ def check_mode() -> int:
             GALLERY_OUT.relative_to(ROOT),
             CHART_DATA_OUT.relative_to(ROOT),
             PAGE_META_OUT.relative_to(ROOT),
+            PAGE_RENDER_OUT.relative_to(ROOT),
         ):
             committed = sha256(ROOT / rel)
             fresh = sha256(tmp_root / rel)
@@ -1822,6 +1928,7 @@ def main(argv: list[str]) -> int:
     print(f"Wrote {GALLERY_OUT.relative_to(ROOT)}")
     print(f"Wrote {CHART_DATA_OUT.relative_to(ROOT)}")
     print(f"Wrote {PAGE_META_OUT.relative_to(ROOT)}")
+    print(f"Wrote {PAGE_RENDER_OUT.relative_to(ROOT)}")
     return 0
 
 
