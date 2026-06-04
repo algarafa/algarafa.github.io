@@ -1,0 +1,45 @@
+{{- /* Landing-page assets: fingerprinted, SRI-protected CSS + JS for the
+       Explorer, charts, gallery and section panels. Included once, at the end
+       of layouts/cicy-coxeter/list.html. */ -}}
+{{- $css := resources.Get "css/cicy-explorer.css" | resources.Minify | resources.Fingerprint -}}
+<link
+  rel="stylesheet"
+  href="{{ $css.RelPermalink }}"
+  integrity="{{ $css.Data.Integrity }}"
+  crossorigin="anonymous"
+/>
+{{- $galleryCss := resources.Get "css/cicy-gallery.css" | resources.Minify | resources.Fingerprint -}}
+<link
+  rel="stylesheet"
+  href="{{ $galleryCss.RelPermalink }}"
+  integrity="{{ $galleryCss.Data.Integrity }}"
+  crossorigin="anonymous"
+/>
+{{- $sectionsCss := resources.Get "css/cicy-sections.css" | resources.Minify | resources.Fingerprint -}}
+<link
+  rel="stylesheet"
+  href="{{ $sectionsCss.RelPermalink }}"
+  integrity="{{ $sectionsCss.Data.Integrity }}"
+  crossorigin="anonymous"
+/>
+{{- $js := resources.Get "js/cicy-explorer.js" | resources.Fingerprint -}}
+<script
+  type="module"
+  src="{{ $js.RelPermalink }}"
+  integrity="{{ $js.Data.Integrity }}"
+  crossorigin="anonymous"
+></script>
+{{- $chartsJs := resources.Get "js/cicy-charts.js" | resources.Fingerprint -}}
+<script
+  type="module"
+  src="{{ $chartsJs.RelPermalink }}"
+  integrity="{{ $chartsJs.Data.Integrity }}"
+  crossorigin="anonymous"
+></script>
+{{- $sectionsJs := resources.Get "js/cicy-sections.js" | resources.Fingerprint -}}
+<script
+  type="module"
+  src="{{ $sectionsJs.RelPermalink }}"
+  integrity="{{ $sectionsJs.Data.Integrity }}"
+  crossorigin="anonymous"
+></script>

@@ -1,0 +1,12 @@
+{{- /* Syntax-highlighted BibTeX entry for the companion paper, shared by
+       the Downloads section. textContent of the emitted block is clean
+       BibTeX, so copy-to-clipboard buttons can read straight from it. */ -}}
+{{- $bib := `@article{Alvarez-Garcia:2026tba,
+    author = "{\'A}lvarez-Garc{\'\i}a, Rafael and Ruehle, Fabian",
+    title = "{Kaleidoscopes, Waves and the Prepotential}",
+    eprint = "TBA",
+    archivePrefix = "arXiv",
+    primaryClass = "hep-th",
+    year = "2026"
+}` -}}
+{{ transform.Highlight $bib "bibtex" "" }}

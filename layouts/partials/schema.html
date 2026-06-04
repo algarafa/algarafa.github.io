@@ -1,0 +1,135 @@
+{{- /* Root-level override of the Anatole theme's schema.html.
+      For the CICY–Coxeter database section we replace the default
+      BlogPosting markup with schema.org Dataset (landing) and
+      DataRecord (per-entry) blocks. All other pages fall through
+      to the upstream behaviour. */ -}}
+
+{{- $cicyAbs := printf "%s%s" .Site.BaseURL "cicy-coxeter/" -}}
+{{- $isCicyList := and (eq .Section "cicy-coxeter") (eq .Kind "section") -}}
+{{- $isCicyPage := and (eq .Section "cicy-coxeter") (eq .Kind "page") -}}
+
+{{ if $isCicyList -}}
+  {{- $landing := dict
+      "@context" "https://schema.org"
+      "@type" "Dataset"
+      "@id" $cicyAbs
+      "url" $cicyAbs
+      "name" "CICY Coxeter Database"
+      "alternateName" (slice "CICY-Coxeter Database" "Coxeter-group data for Kähler-favorable CICYs")
+      "description" (or .Description .Params.description "Companion database to Kaleidoscopes, Waves and the Prepotential: Coxeter-group data arising from isomorphic flops on the 4874 Kähler-favorable complete intersection Calabi–Yau threefolds.")
+      "creator" (slice
+          (dict "@type" "Person" "name" "Rafael Álvarez-García"
+                "identifier" "https://orcid.org/0000-0002-8927-2656"
+                "url" "https://orcid.org/0000-0002-8927-2656")
+          (dict "@type" "Person" "name" "Fabian Ruehle"))
+      "publisher" (dict
+          "@type" "Person"
+          "name" "Rafael Álvarez-García"
+          "url" .Site.BaseURL)
+      "license" "https://creativecommons.org/licenses/by/4.0/"
+      "isAccessibleForFree" true
+      "keywords" (slice
+          "Calabi–Yau threefold"
+          "complete intersection"
+          "CICY"
+          "Coxeter group"
+          "isomorphic flop"
+          "string theory"
+          "Kähler cone"
+          "mathematical physics")
+      "identifier" (printf "%scicy-coxeter/" .Site.BaseURL)
+      "inLanguage" (.Site.LanguageCode | default "en")
+      "dateModified" (cond (.Lastmod.IsZero) (now.Format "2006-01-02") (.Lastmod.Format "2006-01-02"))
+      "distribution" (slice
+          (dict "@type" "DataDownload"
+                "name" "CICY Coxeter Database — Wolfram Mathematica package"
+                "encodingFormat" "application/vnd.wolfram.mathematica.package"
+                "contentUrl" (printf "%scicy-coxeter/CICY-Coxeter-Database.m" .Site.BaseURL))
+          (dict "@type" "DataDownload"
+                "name" "CICY Coxeter Database — plain text"
+                "encodingFormat" "text/plain"
+                "contentUrl" (printf "%scicy-coxeter/CICY-Coxeter-Database.txt" .Site.BaseURL)))
+  -}}
+  <script type="application/ld+json">
+    {{- $landing | jsonify (dict "indent" "  ") | safeJS -}}
+  </script>
+{{- else if $isCicyPage -}}
+  {{- $desc := or .Params.description .Description (printf "CICY %d — entry in the CICY Coxeter Database." .Params.num) -}}
+  {{- $record := dict
+      "@context" "https://schema.org"
+      "@type" "DataRecord"
+      "@id" .Permalink
+      "url" .Permalink
+      "name" .Title
+      "identifier" .Params.num
+      "description" $desc
+      "isPartOf" (dict
+          "@type" "Dataset"
+          "@id" $cicyAbs
+          "name" "CICY Coxeter Database"
+          "url" $cicyAbs)
+      "inLanguage" (.Site.LanguageCode | default "en")
+      "license" "https://creativecommons.org/licenses/by/4.0/"
+  -}}
+  <script type="application/ld+json">
+    {{- $record | jsonify (dict "indent" "  ") | safeJS -}}
+  </script>
+{{- else if .IsHome -}}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": {{ .Site.Title | jsonify | safeJS }},
+      "url": "{{ .Site.BaseURL }}",
+      "description": "{{ .Site.Params.description }}",
+      "thumbnailUrl": "{{ .Site.Params.Logo | absURL }}",
+      "license": "{{ .Site.Params.license }}"
+      {{- with .Site.Params.copyright }}
+        {{- $copyright := replace . "{{ YEAR }}" (now.Format "2006") }}
+        ,"copyrightYear": "{{ index (findRE `^\d{4}` $copyright 1) 0 }}"
+      {{- end }}
+    }
+  </script>
+{{- else if .IsPage -}}
+  {{- $author := or .Params.author .Site.Params.author -}}
+  {{- $favicon := .Site.Params.favicon | absURL -}}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "articleSection": "{{ .Section }}",
+      "name": {{ .Title | jsonify | safeJS }},
+      "headline": {{ .Title | jsonify | safeJS }},
+      "alternativeHeadline": "{{ .Params.lead }}",
+      "description": {{ (or .Description .Summary "") | jsonify | safeJS }},
+      "license": "{{ .Site.Params.license }}",
+      {{- with .Site.Params.copyright }}
+        {{- $copyright := replace . "{{ YEAR }}" (now.Format "2006") }}
+        "copyrightYear": "{{ index (findRE `^\d{4}` $copyright 1) 0 }}",
+      {{- end }}
+      "inLanguage": "{{ .Site.LanguageCode | default "en-us" }}",
+      "isFamilyFriendly": "true",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ .Permalink }}" },
+      "author":           { "@type": "Person",  "name": "{{ $author }}" },
+      "creator":          { "@type": "Person",  "name": "{{ $author }}" },
+      "accountablePerson":{ "@type": "Person",  "name": "{{ $author }}" },
+      "copyrightHolder":  { "@type": "Person",  "name": "{{ $author }}" },
+      "dateCreated":   "{{ .Date.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+      "datePublished": "{{ .PublishDate.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+      "dateModified":  "{{ .Lastmod.Format "2006-01-02T15:04:05.00Z" | safeHTML }}",
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ $author }}",
+        "url": "{{ .Site.BaseURL }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ printf "%s%s" $favicon "favicon-32x32.png" }}",
+          "width": "32",
+          "height": "32"
+        }
+      },
+      "url": "{{ .Permalink }}",
+      "wordCount": "{{ .WordCount }}"
+    }
+  </script>
+{{- end -}}

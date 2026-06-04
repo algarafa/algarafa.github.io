@@ -1,0 +1,199 @@
+{{- /* CICY Coxeter per-model page (production).
+       A "specimen sheet": a sticky utility bar, a datasheet masthead whose
+       serial doubles as the page <h1>, then a two-column "title | data" ledger
+       (configuration matrix → second Chern class → Coxeter diagram → Coxeter
+       matrix → iso-flop reflections), the full database record, and a footer.
+       Fully data-driven from page_render / page_meta — the markdown `.Content`
+       body is intentionally not rendered. Receives the Page as `.`. */ -}}
+{{- $c := partial "cicy-page/_ctx.html" . -}}
+{{- $r := $c.render -}}
+{{- $m := $c.meta -}}
+{{- $num := $c.num -}}
+{{- $rank := $r.rank | default 0 -}}
+{{- $chiStr := cond (lt $c.chi 0) (printf "−%d" (int (math.Abs $c.chi))) (printf "%d" $c.chi) -}}
+<article class="cxpg cxpg-sheet" data-cxpg data-kind="{{ $c.kind }}">
+
+  {{- /* ---- sticky utility bar: breadcrumb + keyboard-navigable stepper ---- */ -}}
+  <div class="cxpg-sheet__util">
+    <a class="cxpg-sheet__crumb" href="{{ "/cicy-coxeter/" | relURL }}">CICY Coxeter DB <span class="cxpg-sheet__crumb-sep">|</span> <b>{{ $num }}</b></a>
+    <nav class="cxpg-sheet__step" aria-label="Neighbour models">
+      <a class="cxpg-sheet__step-cell" data-role="cicy-nav-prev" href="{{ printf "/cicy-coxeter/%d/" (int $m.prev) | relURL }}" rel="prev" aria-label="Previous, model {{ $m.prev }}"><kbd class="cxpg-sheet__kbd" aria-hidden="true">←</kbd> <span class="cxpg-sheet__step-n">{{ $m.prev }}</span></a>
+      <a class="cxpg-sheet__step-cell cxpg-sheet__step-cell--r" data-role="cicy-random" href="{{ "/cicy-coxeter/" | relURL }}" aria-label="Random model" title="Random model">random <kbd class="cxpg-sheet__kbd" aria-hidden="true">r</kbd></a>
+      <a class="cxpg-sheet__step-cell" data-role="cicy-nav-next" href="{{ printf "/cicy-coxeter/%d/" (int $m.next) | relURL }}" rel="next" aria-label="Next, model {{ $m.next }}"><span class="cxpg-sheet__step-n">{{ $m.next }}</span> <kbd class="cxpg-sheet__kbd" aria-hidden="true">→</kbd></a>
+    </nav>
+  </div>
+
+  {{- /* ---- masthead datasheet: CICY <N> (h1) + ribbon | invariants | LEDs ---- */ -}}
+  <header class="cxpg-sheet__sheet">
+
+    <div class="cxpg-sheet__id">
+      <h1 class="cxpg-sheet__num"><span class="cxpg-sheet__num-pre">CICY</span><span class="cxpg-sheet__num-n">{{ $num }}</span></h1>
+      <ul class="cxpg-sheet__ribbon">
+        {{- if gt $rank 0 }}
+        <li class="cxpg-sheet__chip">rank {{ $rank }}</li>
+        <li class="cxpg-sheet__chip cxpg-sheet__chip--type">{{ $r.type_display }}</li>
+        <li class="cxpg-sheet__chip cxpg-sheet__chip--kind" data-kind="{{ $c.kind }}">{{ $c.kind }}</li>
+        {{- else if eq $c.kind "trivial" }}
+        <li class="cxpg-sheet__chip cxpg-sheet__chip--neutral">no Coxeter symmetry</li>
+        {{- else }}
+        <li class="cxpg-sheet__chip cxpg-sheet__chip--neutral">non-Kähler-favorable</li>
+        {{- end }}
+      </ul>
+      <div class="cxpg-sheet__leds" role="group" aria-label="Boolean properties">
+        <span class="cxpg-sheet__led {{ if $m.is_favour }}is-on{{ else }}is-off{{ end }}" title="Favorable presentation: {{ if $m.is_favour }}yes{{ else }}no{{ end }}"><i aria-hidden="true"></i>Favorable</span>
+        <span class="cxpg-sheet__led {{ if $m.is_kahler_pos }}is-on{{ else }}is-off{{ end }}" title="Kähler-favorable: {{ if $m.is_kahler_pos }}yes{{ else }}no{{ end }}"><i aria-hidden="true"></i>Kähler-fav</span>
+        {{- /* IsProduct is a genuine boolean for every record (never the NonKahlerPos
+               sentinel — confirmed across the DB: the only 22 True cases are all
+               non-Kähler), so the Product LED renders on/off uniformly. */ -}}
+        <span class="cxpg-sheet__led {{ if $m.is_product }}is-on{{ else }}is-off{{ end }}" title="Direct product: {{ if $m.is_product }}yes{{ else }}no{{ end }}"><i aria-hidden="true"></i>Product</span>
+      </div>
+    </div>
+
+    <dl class="cxpg-sheet__invar" aria-label="Invariants">
+      <div><dt class="cxpg-sheet__invar-math">{{ transform.ToMath "h^{1,1}" (dict "displayMode" false "output" "htmlAndMathml") }}</dt><dd>{{ $c.h11 }}</dd></div>
+      <div><dt class="cxpg-sheet__invar-math">{{ transform.ToMath "h^{2,1}" (dict "displayMode" false "output" "htmlAndMathml") }}</dt><dd>{{ $c.h21 }}</dd></div>
+      <div><dt class="cxpg-sheet__invar-math">{{ transform.ToMath "\\chi" (dict "displayMode" false "output" "htmlAndMathml") }}</dt><dd>{{ $chiStr }}</dd></div>
+      <div><dt>ambient factors</dt><dd>{{ $m.ambient_rows }}</dd></div>
+      <div><dt>polynomials</dt><dd>{{ $m.conf_cols }}</dd></div>
+      {{- if eq $c.kind "sentinel" }}
+      {{- else if eq $c.kind "trivial" }}
+      <div><dt>iso-flops</dt><dd>0</dd></div>
+      {{- else }}
+      <div><dt>iso-flops</dt><dd>{{ $m.iso_flop_count }}</dd></div>
+      <div><dt>Coxeter rank</dt><dd>{{ $rank }}</dd></div>
+      <div><dt>Coxeter group</dt><dd class="cxpg-sheet__invar-shape">{{ $r.type_display }}</dd></div>
+      {{- end }}
+    </dl>
+  </header>
+
+  {{- if eq $c.kind "sentinel" }}
+  <p class="cxpg-sheet__banner"><span class="cxpg-sheet__banner-tag">Note</span> Non-Kähler-favorable. The Coxeter symmetry is left undetermined.</p>
+  {{- else if eq $c.kind "trivial" }}
+  <p class="cxpg-sheet__banner"><span class="cxpg-sheet__banner-tag">Note</span> Kähler-favorable, but without iso-flop walls. The Coxeter symmetry is trivial.</p>
+  {{- end }}
+
+  {{- /* ---- body: two-column "title | data" ledger ---- */ -}}
+  <dl class="cxpg-sheet__table">
+
+    {{- /* nudge the (h¹¹,h²¹) superscript and χ subscript off the bracket's
+           right edge with a thin space. The χ subscript value is wrapped in a
+           group ({…}) so its leading minus stays UNARY (otherwise the space
+           makes KaTeX treat it as a binary minus and add a gap before 64). */ -}}
+    {{- $confTex := replace $r.latex_conf "\\right]^{" "\\right]^{\\," -}}
+    {{- $confTex = replace $confTex "}_{" "}_{\\,{" -}}
+    {{- $confTex = printf "%s}" $confTex -}}
+    <div class="cxpg-sheet__row">
+      <dt class="cxpg-sheet__rowhead"><span class="cxpg-sheet__rowtitle">Configuration matrix</span></dt>
+      <dd class="cxpg-sheet__rowdata">
+        {{- /* every config uses the same fold header for a uniform look;
+               small configs default open (showing "Hide" + the matrix),
+               large ones default collapsed (showing "Show"). */ -}}
+        <details class="cxpg-sheet__fold"{{ if not $r.conf_collapsed }} open{{ end }}>
+          <summary><span class="cxpg-sheet__fold-cue" aria-hidden="true"></span>{{ $m.ambient_rows }}×{{ $m.conf_cols }} configuration <span class="cxpg-sheet__fold-hint" aria-hidden="true"></span></summary>
+          <div class="cxpg-matrix cxpg-sheet__math cxpg-sheet__math--scroll">{{ transform.ToMath $confTex (dict "displayMode" true "output" "htmlAndMathml") }}</div>
+        </details>
+      </dd>
+    </div>
+
+    {{- /* c₂(X)·Dᵢ is a column vector (paper convention); display it compactly
+           as a transposed row, matching the companion paper's (…)ᵀ notation. */ -}}
+    {{- $c2Tex := replace $r.latex_c2 "\\end{pmatrix}" "\\end{pmatrix}^{T}" -}}
+    <div class="cxpg-sheet__row">
+      <dt class="cxpg-sheet__rowhead"><span class="cxpg-sheet__rowtitle">Second Chern class</span></dt>
+      <dd class="cxpg-sheet__rowdata">
+        <div class="cxpg-matrix cxpg-sheet__math cxpg-sheet__math--scroll">{{ transform.ToMath $c2Tex (dict "displayMode" true "output" "htmlAndMathml") }}</div>
+      </dd>
+    </div>
+
+    {{- if eq $c.kind "trivial" }}
+    <div class="cxpg-sheet__row">
+      <dt class="cxpg-sheet__rowhead"><span class="cxpg-sheet__rowtitle">Coxeter group</span></dt>
+      <dd class="cxpg-sheet__rowdata"><p class="cxpg-sheet__note cxpg-sheet__note--center">\(W = 1\)</p></dd>
+    </div>
+    {{- end }}
+
+    {{- if $r.diagram_svg }}
+    <div class="cxpg-sheet__row">
+      <dt class="cxpg-sheet__rowhead">
+        <span class="cxpg-sheet__rowtitle">Coxeter diagram</span>
+        <span class="cxpg-sheet__rowmeta"><a href="{{ printf "/cicy-coxeter/#shape-%s" $r.type_label | relURL }}">Gallery →</a></span>
+      </dt>
+      <dd class="cxpg-sheet__rowdata">
+        <div class="cxpg-sheet__diagram-wrap">
+          <div class="cxpg-sheet__diagram">{{ $r.diagram_svg | safeHTML }}</div>
+        </div>
+      </dd>
+    </div>
+    {{- end }}
+
+    {{- if $r.latex_coxeter }}
+    <div class="cxpg-sheet__row">
+      <dt class="cxpg-sheet__rowhead">
+        <span class="cxpg-sheet__rowtitle">Coxeter matrix</span>
+        {{- if $r.coxeter_has_inf }}<span class="cxpg-sheet__rowmeta">{{ transform.ToMath "\\text{P, H} = \\infty" (dict "displayMode" false "output" "htmlAndMathml") }}</span>{{ end }}
+      </dt>
+      <dd class="cxpg-sheet__rowdata">
+        <div class="cxpg-matrix cxpg-sheet__math cxpg-sheet__math--scroll">{{ transform.ToMath $r.latex_coxeter (dict "displayMode" true "output" "htmlAndMathml") }}</div>
+      </dd>
+    </div>
+    {{- end }}
+
+    {{- if and $m.is_kahler_pos $r.generators }}
+    <div class="cxpg-sheet__row">
+      <dt class="cxpg-sheet__rowhead">
+        <span class="cxpg-sheet__rowtitle">Iso-flop reflections</span>
+        <span class="cxpg-sheet__rowmeta">Kähler representation
+        {{- if ge (len $r.generators) 1 }}<button type="button" class="cxpg-sheet__pm" data-role="cxpg-toggle-gens" aria-expanded="{{ if le $rank 2 }}true{{ else }}false{{ end }}" aria-label="Toggle all reflections" title="Toggle all reflections">{{ if le $rank 2 }}Collapse all{{ else }}Expand all{{ end }}</button>{{ end }}</span>
+      </dt>
+      <dd class="cxpg-sheet__rowdata">
+        {{- range $r.generators }}
+        <details class="cxpg-sheet__gen" data-cxpg-gen{{ if le $rank 2 }} open{{ end }}>
+          <summary>
+            <span class="cxpg-sheet__gen-cue" aria-hidden="true"></span>
+            <span class="cxpg-sheet__gen-label"><span class="cxpg-sheet__gen-sym">{{ transform.ToMath .label (dict "displayMode" false "output" "htmlAndMathml") }}</span><span class="cxpg-sheet__gen-meta">: row {{ .row }}, {{ .type }}</span></span>
+          </summary>
+          <div class="cxpg-matrix cxpg-sheet__math cxpg-sheet__math--scroll">{{ transform.ToMath .latex (dict "displayMode" true "output" "htmlAndMathml") }}</div>
+        </details>
+        {{- end }}
+      </dd>
+    </div>
+    {{- end }}
+  </dl>
+
+  {{- /* ---- database record — full width, at the bottom ---- */ -}}
+  <section class="cxpg-sheet__records">
+    <h2 class="cxpg-sheet__records-h">Database record</h2>
+    {{- /* Mathematica first, then Plain text — unified with the landing-page
+           Downloads order (the native Wolfram association is the canonical
+           format; the plain text is its human-readable rendering). */ -}}
+    {{- $records := slice
+        (dict "label" "Mathematica" "text" $r.serial_mma)
+        (dict "label" "Plain text" "text" $r.serial_txt) }}
+    {{- range $records }}
+    <figure class="cxpg-record" data-cxpg-record>
+      <figcaption class="cxpg-record__head">
+        <span class="cxpg-record__label">{{ .label }}</span>
+        <button type="button" class="cxpg-copy" data-role="cxpg-copy" data-label="Copy" aria-label="Copy {{ .label }}">Copy</button>
+      </figcaption>
+      <pre><code>{{ .text }}</code></pre>
+    </figure>
+    {{- end }}
+  </section>
+
+  {{- /* ---- footer: siblings, glossary, back-link ---- */ -}}
+  <footer class="cxpg-sheet__foot">
+    {{- if and $m.siblings (gt (len $m.siblings) 0) }}
+    {{- $total := len $m.siblings }}
+    <section class="cxpg-sheet__siblings">
+      <span class="cxpg-sheet__sib-title">{{ $total }} sibling model{{ if ne $total 1 }}s{{ end }} share the Coxeter group{{ with $r.type_display }} {{ . }}{{ end }}{{ with $r.type_label }} · <a class="cxpg-sheet__sib-link" href="{{ printf "/cicy-coxeter/?shape=%s#explorer" . | relURL }}">filter Explorer</a>{{ end }} · <a class="cxpg-sheet__sib-link" data-role="cicy-random-sibling" data-siblings="{{ delimit $m.siblings "," }}" href="{{ "/cicy-coxeter/" | relURL }}">random sibling <kbd class="cxpg-sheet__kbd" aria-hidden="true">s</kbd></a></span>
+      <span class="cxpg-sheet__sib-list">
+        {{- range $m.siblings }}<a data-kind="{{ $c.kind }}" href="{{ printf "/cicy-coxeter/%d/" (int .) | relURL }}">{{ . }}</a>{{ end }}
+      </span>
+    </section>
+    {{- end }}
+
+    {{ partial "cicy-glossary.html" $c.page }}
+
+    <p class="cxpg-sheet__back"><a href="{{ printf "/cicy-coxeter/?num=%d#explorer" $num | relURL }}">‹ Back to the explorer</a></p>
+  </footer>
+</article>

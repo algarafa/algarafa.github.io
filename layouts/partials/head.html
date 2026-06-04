@@ -234,13 +234,33 @@
 
   <!-- KaTeX-->
   {{ $noop := .WordCount }}
-  {{ if or (.Page.Store.Get "hasMath") .IsHome }}
+  {{/* Every CICY Coxeter page needs KaTeX: the per-model pages render their
+       configuration matrix / Chern class / Coxeter data server-side via
+       transform.ToMath, and the section landing's intro carries inline
+       \(...\) examples. Neither path sets the in-content `hasMath` flag that
+       head can see (it is set in the templates' `main` block, which runs after
+       head), so load KaTeX for the whole section explicitly. */}}
+  {{ $cicySection := eq .Section "cicy-coxeter" }}
+  {{ if or (.Page.Store.Get "hasMath") .IsHome $cicySection }}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"
       integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV"
       crossorigin="anonymous"
     />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"
+      integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '\\[', right: '\\]', display: true}, {left: '\\(', right: '\\)', display: false}], throwOnError: false});"
+    ></script>
   {{ end }}
 
   <!-- Academicons -->

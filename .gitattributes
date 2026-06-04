@@ -1,1 +1,6 @@
 docs/** -text
+static/cicy-coxeter/*.m -text
+static/cicy-coxeter/*.txt -text
+static/cicy-coxeter/*.parquet -text
+static/cicy-coxeter/*.schema.json text eol=lf
+content/english/cicy-coxeter/*.md text eol=lf

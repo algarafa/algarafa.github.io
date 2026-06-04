@@ -1,0 +1,240 @@
+/* ====================================================================
+   CICY Coxeter gallery — production styles
+   --------------------------------------------------------------------
+   The landing-page gallery (`#gallery`): an Atlas — a rank × group-type
+   matrix (.cxatlas) drawn with one uniform node size (the "standard node"
+   design) in equal, full-width cells, plus a CSS-only kind-column switcher
+   on narrow screens. Section gap comes from `.cicy-gallery` in
+   cicy-explorer.css; the Explorer active-shape highlight (`.cxatlas__chip`
+   `:target` / `.is-active-shape`) is wired in cicy-explorer.{js,css}.
+
+   Diagram SVGs expose semantic hooks (build_cicy_data.py):
+     .cox-node                      every vertex (circle)
+     .cox-edge / .cox-edge--inf     edges; --inf marks order-∞ (P/H)
+     .cox-edge--mult                finite m>=4 edges
+     .cox-lbl--inf-p / --inf-h      the P / H labels
+   Cells/chips carry data-kind="finite|affine|indefinite".
+   ==================================================================== */
+
+/* group-type palette — calm, distinct, legible on both grounds (gruvbox) */
+.cicy-gallery {
+  --coxg-finite:   #458588;
+  --coxg-affine:   #689d6a;
+  --coxg-indef:    #d79921;
+  --coxg-accent:   var(--cicy-chart-accent, #458588);
+  --coxg-ink:      #2b3036;
+  --coxg-muted:    #6a727b;
+  --coxg-line:     rgba(22, 30, 40, 0.12);
+  --coxg-line-2:   rgba(22, 30, 40, 0.06);
+  --coxg-surface:  #ffffff;
+  --coxg-surface-2:#f5f7f9;
+}
+
+.theme--dark .cicy-gallery {
+  --coxg-finite:   #83a598;
+  --coxg-affine:   #8ec07c;
+  --coxg-indef:    #fabd2f;
+  --coxg-ink:      #e6ecf2;
+  --coxg-muted:    #9aa6b2;
+  --coxg-line:     rgba(255, 255, 255, 0.14);
+  --coxg-line-2:   rgba(255, 255, 255, 0.07);
+  --coxg-surface:  #18242e;
+  --coxg-surface-2:#1f2d38;
+}
+
+/* kind → accent custom prop, consumed by headers, cells, chips, tabs */
+.cicy-gallery [data-kind="finite"]     { --k: var(--coxg-finite); }
+.cicy-gallery [data-kind="affine"]     { --k: var(--coxg-affine); }
+.cicy-gallery [data-kind="indefinite"] { --k: var(--coxg-indef); }
+
+/* kind dot — column headers + mobile tabs */
+.coxg-taxon__dot {
+  display: inline-block;
+  width: 0.72em;
+  height: 0.72em;
+  border-radius: 50%;
+  background: var(--k, var(--coxg-accent));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--k, var(--coxg-accent)) 22%, transparent);
+}
+
+/* --- The matrix ------------------------------------------------------ */
+
+.cxatlas__scroll { overflow-x: auto; }
+
+.cxatlas__grid {
+  display: grid;
+  grid-template-columns: minmax(3.4rem, auto) repeat(3, 1fr);
+  min-width: 540px;
+  gap: 1px;
+  background: var(--coxg-line);
+  border: 1px solid var(--coxg-line);
+  overflow: hidden;
+}
+
+.cxatlas__corner,
+.cxatlas__colhead,
+.cxatlas__rowhead,
+.cxatlas__cell { background: var(--coxg-surface); }
+
+.cxatlas__colhead {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;   /* clears the dot's ~3px box-shadow halo so the label isn't crowded */
+  padding: 0.6rem 0.5rem;
+  font-size: 0.84em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--k);
+  background: color-mix(in srgb, var(--k) 12%, var(--coxg-surface));
+}
+.cxatlas__colhead .coxg-taxon__dot { width: 10px; height: 10px; }
+
+/* natural-case "Rank N" — deliberately not uppercased, matching the site's
+   sentence-case headings */
+.cxatlas__rowhead {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.84em;
+  font-weight: 650;
+  color: var(--coxg-muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cxatlas__cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* centre chips in tall rows so sparse cells read as intentional */
+  gap: 0.45rem;
+  padding: 0.5rem;
+  background: color-mix(in srgb, var(--k) 4%, var(--coxg-surface));
+}
+.theme--dark .cxatlas__cell {
+  background: color-mix(in srgb, var(--k) 9%, var(--coxg-surface));
+}
+.cxatlas__cell.is-empty {
+  align-items: center;
+  justify-content: center;
+  background: var(--coxg-surface-2);
+}
+.cxatlas__empty { color: var(--coxg-muted); }
+
+.cxatlas__chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--k) 26%, var(--coxg-line));
+  background: var(--coxg-surface);
+  text-decoration: none;
+  scroll-margin-top: 4rem;   /* clear sticky chrome when reached via #shape-* */
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.post__content .cxatlas__chip { color: inherit; }
+.cxatlas__chip:hover,
+.cxatlas__chip:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--k);
+  box-shadow: 0 8px 18px -12px color-mix(in srgb, var(--k) 70%, black);
+}
+
+.cxatlas__diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cxatlas__diagram svg {
+  display: block;
+  color: var(--k);
+  width: auto;
+  height: auto;
+  zoom: 0.8;          /* one global scale → uniform node size everywhere */
+}
+
+.cxatlas__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.04rem;
+  text-align: center;
+}
+.cxatlas__name { font-weight: 650; font-size: 0.88em; line-height: 1.12; }
+.cxatlas__count {
+  font-size: 0.72em;
+  color: var(--coxg-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.cxatlas .cox-edge { stroke-width: 1.5px; }
+.cxatlas .cox-node { r: 4px; }
+
+.cicy-gallery a:focus-visible {
+  outline: 2px solid var(--coxg-accent);
+  outline-offset: 2px;
+}
+
+/* --- Narrow-screen column switcher (CSS-only) ------------------------ */
+
+.cxatlas__tabs { display: none; }
+.cxatlas__radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;   /* visually hidden, still focusable + checkable */
+}
+
+@media (max-width: 700px) {
+  .cxatlas__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0 0 0.7rem;
+  }
+  .cxatlas__tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;   /* match the column-header dot/label spacing (clears the halo) */
+    padding: 0.4rem 0.75rem;
+    cursor: pointer;
+    border: 1px solid var(--coxg-line);
+    font-size: 0.86em;
+    font-weight: 600;
+    color: var(--coxg-muted);
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  }
+  .cxatlas__tab .coxg-taxon__dot { width: 9px; height: 9px; }
+  .cxatlas__radio:checked + .cxatlas__tab {
+    color: var(--k);
+    border-color: var(--k);
+    background: color-mix(in srgb, var(--k) 12%, transparent);
+  }
+  .cxatlas__radio:focus-visible + .cxatlas__tab {
+    outline: 2px solid var(--coxg-accent);
+    outline-offset: 2px;
+  }
+
+  /* collapse the matrix to rowhead + the one selected kind column */
+  .cxatlas__grid {
+    grid-template-columns: minmax(3rem, auto) 1fr;
+    min-width: 0;
+  }
+  .cxatlas__colhead,
+  .cxatlas__cell { display: none; }
+  .cicy-gallery:has(.cxatlas__radio[data-kind="finite"]:checked)     .cxatlas__cell[data-kind="finite"],
+  .cicy-gallery:has(.cxatlas__radio[data-kind="finite"]:checked)     .cxatlas__colhead[data-kind="finite"],
+  .cicy-gallery:has(.cxatlas__radio[data-kind="affine"]:checked)     .cxatlas__cell[data-kind="affine"],
+  .cicy-gallery:has(.cxatlas__radio[data-kind="affine"]:checked)     .cxatlas__colhead[data-kind="affine"],
+  .cicy-gallery:has(.cxatlas__radio[data-kind="indefinite"]:checked) .cxatlas__cell[data-kind="indefinite"],
+  .cicy-gallery:has(.cxatlas__radio[data-kind="indefinite"]:checked) .cxatlas__colhead[data-kind="indefinite"] {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cxatlas__chip { transition: none; }
+}

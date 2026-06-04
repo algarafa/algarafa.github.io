@@ -1,0 +1,28 @@
+{{ define "main" }}
+  {{- /* The gallery SVGs below use KaTeX_Main for their edge labels, which
+         requires the KaTeX stylesheet loaded by head.html. Opt in explicitly
+         since this list template itself doesn't use the matrix shortcode. */ -}}
+  {{- .Page.Store.Set "hasMath" true -}}
+  <div class="post {{ with .Site.Params.doNotLoadAnimations }}{{ else }}animated fadeInDown{{ end }}">
+    <div class="post__content">
+      <h1>{{ .Title }}</h1>
+
+      {{ partial "cicy-sections/intro/panel.html" . }}
+
+      {{ .Content }}
+
+      {{ partial "cicy-sections/downloads/panel.html" . }}
+
+      {{ partial "cicy-sections/charts/charts.html" . }}
+
+      {{ with .Site.Data.cicy_coxeter.diagram_gallery }}
+        {{ partial "cicy-gallery/gallery.html" . }}
+      {{ end }}
+
+      {{ partial "cicy-sections/explorer/explorer.html" . }}
+
+    </div>
+  </div>
+
+  {{ partial "cicy-landing-assets.html" . }}
+{{ end }}

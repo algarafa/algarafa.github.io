@@ -1,0 +1,6 @@
+{{ define "main" }}
+  <div class="post {{ with .Site.Params.doNotLoadAnimations }}{{ else }}animated fadeInDown{{ end }}">
+    {{ partial "cicy-page/entry.html" . }}
+  </div>
+  {{ partial "cicy-entry-assets.html" . }}
+{{ end }}
