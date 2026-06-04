@@ -49,6 +49,11 @@ PAGE_META_OUT = ROOT / "data" / "cicy_coxeter" / "page_meta.json"
 PAGE_RENDER_OUT = ROOT / "data" / "cicy_coxeter" / "page_render.json"
 SAMPLE_DIR = ROOT / "scripts" / ".sample-runs"
 
+# Per-model page rendering: collapse the (wide) configuration matrix into a
+# <details> when h11 exceeds this, so tall records don't dominate the page.
+# Consumed by compute_page_render (the "conf_collapsed" flag entry.html reads).
+CONFIG_COLLAPSE_H11_THRESHOLD = 6
+
 EXPECTED_KEYS = (
     "Num",
     "H11",
@@ -747,8 +752,8 @@ def _svg_coord(v: float) -> str:
 # Coxeter-diagram rendering
 # ---------------------------------------------------------------------------
 #
-# Layouts mirror the paper *Kaleidoscopes, Waves and the Prepotential*
-# (`draft/figures/Coxeter-diagrams.tex`). We canonicalise each input Coxeter
+# Layouts mirror the figures in the companion paper *Kaleidoscopes, Waves
+# and the Prepotential* (§3). We canonicalise each input Coxeter
 # matrix to an abstract-graph key (invariant under node relabeling), look up a
 # hand-tuned layout for the 22 shapes enumerated in paper §3 (21 rank-\u22652
 # shapes + the rank-1 dot for W=Z_2), then render. Typography uses KaTeX's
@@ -1205,10 +1210,10 @@ def coxeter_diagram_svg(mat: list[list[str]], num: int) -> str:
     pts_px: list[tuple[float, float]] = [
         (x * _EDGE_PX, y * _EDGE_PX) for x, y in layout.nodes
     ]
-    min_x = min(p[0] for p in pts_px)
-    max_x = max(p[0] for p in pts_px)
-    min_y = min(p[1] for p in pts_px)
-    max_y = max(p[1] for p in pts_px)
+    min_x = min(p[0] for p in pts_px) - _NODE_R
+    max_x = max(p[0] for p in pts_px) + _NODE_R
+    min_y = min(p[1] for p in pts_px) - _NODE_R
+    max_y = max(p[1] for p in pts_px) + _NODE_R
 
     label_anchors: list[tuple[tuple[float, float], str]] = []
     for si, sj, hint in layout.edges:
@@ -1221,8 +1226,8 @@ def coxeter_diagram_svg(mat: list[list[str]], num: int) -> str:
         label_anchors.append(((ax_px, ay_px), m))
         min_x = min(min_x, ax_px - _LABEL_FONT_PX)
         max_x = max(max_x, ax_px + _LABEL_FONT_PX)
-        min_y = min(min_y, ay_px - _LABEL_FONT_PX * 0.75)
-        max_y = max(max_y, ay_px + _LABEL_FONT_PX * 0.75)
+        min_y = min(min_y, ay_px - _LABEL_FONT_PX * 0.5)
+        max_y = max(max_y, ay_px + _LABEL_FONT_PX * 0.5)
 
     ox = -min_x + _MARGIN_PX
     oy = -min_y + _MARGIN_PX
@@ -1246,7 +1251,7 @@ def coxeter_diagram_svg(mat: list[list[str]], num: int) -> str:
         # CSS distinguish ordinary (m=3), finite-labelled (m>=4) and
         # infinite (P/H) edges without re-parsing the geometry. Entry pages
         # ship CSS that ignores these classes, so their appearance is
-        # unchanged; the landing-page gallery variants hook them.
+        # unchanged; the landing-page gallery hooks them.
         edge_cls = "cox-edge"
         if m in ("P", "H"):
             edge_cls += " cox-edge--inf"
@@ -1350,44 +1355,6 @@ def _mma_list(value: Any) -> str:
     return str(value)
 
 
-def _matrix_shortcode(
-    latex: str,
-    *,
-    fold: str = "",
-    summary: str = "",
-    summary_math: str = "",
-    extra_class: str = "",
-) -> list[str]:
-    """Wrap LaTeX in the {{< matrix >}} shortcode.
-
-    `fold` controls collapsing:
-      ""        no wrapper (default)
-      "open"    wrapped in <details open>   — collapsible but starts expanded
-      "closed"  wrapped in <details>        — collapsed by default
-    `summary` is the visible <summary> text when folded.
-    `summary_math` is an optional inline-LaTeX fragment rendered through the
-      same KaTeX pipeline as the matrix body and prepended to `summary`, so the
-      symbol (e.g. "M_1") matches the matrix typography rather than the UI font.
-    `extra_class` adds an extra CSS class on the <details>, used to target a
-      subset of collapsibles with bulk controls (e.g. the "expand all
-      generators" button only toggles generator matrices, not the config one).
-    """
-    opener = "{{< matrix >}}"
-    if fold:
-        # Keep shortcode attributes on the same line for deterministic output.
-        attrs = [f'fold="{fold}"', f'summary="{summary}"']
-        if summary_math:
-            attrs.append(f'summaryMath="{summary_math}"')
-        if extra_class:
-            attrs.append(f'class="{extra_class}"')
-        opener = "{{< matrix " + " ".join(attrs) + " >}}"
-    return [opener, latex, "{{< /matrix >}}", ""]
-
-
-CONFIG_COLLAPSE_H11_THRESHOLD = 6   # collapse config matrix when h11 > this
-GENERATOR_COLLAPSE_RANK_THRESHOLD = 2  # collapse each generator when rank > this
-
-
 def _mma_assoc(r: "Record") -> str:
     """Re-serialise a record as a Mathematica association literal (as used in
     the .m download), matching the flat-line format the paper uses."""
@@ -1431,88 +1398,6 @@ def _record_json(r: "Record") -> str:
     return json.dumps(obj, ensure_ascii=False)
 
 
-def _iso_flop_reflections_section(r: Record) -> list[str]:
-    rank = len(r.KahlerRefGens)
-    # Always wrap every generator in <details>; rank ≤ threshold starts open,
-    # higher ranks start closed so a rank-5 page doesn't overwhelm the reader.
-    # Summary typography matches the matrix body via KaTeX-rendered `M_k`.
-    fold = "open" if rank <= GENERATOR_COLLAPSE_RANK_THRESHOLD else "closed"
-    # "Expand/collapse all" toggle renders inside the same flex row as the h2
-    # via `cicy-entry__section-head`, so the button adds zero vertical space
-    # and the heading-to-matrices spacing matches the other sections. Scoped
-    # to the iso-flop generators only (class `is-generator`) so the config
-    # matrix's own collapsing state is unaffected.
-    starts_expanded = fold == "open"
-    initial_label = "Collapse all" if starts_expanded else "Expand all"
-    aria = "true" if starts_expanded else "false"
-    lines: list[str] = [
-        (
-            '<div class="cicy-entry__section-head">'
-            '<h2 id="iso-flop-reflections">Iso-flop reflections</h2>'
-            f'<button type="button" class="cicy-entry__toggle-all" '
-            f'data-role="cicy-toggle-generators" aria-expanded="{aria}">'
-            f'{initial_label}</button>'
-            '</div>'
-        ),
-        "",
-    ]
-    for idx, (mat, iso) in enumerate(zip(r.KahlerRefGens, r.IsoFlopRows), start=1):
-        summary = f" — iso-flop row {iso['row']}, {iso['type']}"
-        lines.extend(
-            _matrix_shortcode(
-                f"\\hat{{M}}_{idx} = {latex_pmatrix(mat)}",
-                fold=fold,
-                summary=summary,
-                summary_math=f"\\hat{{M}}_{idx}",
-                extra_class="is-generator",
-            )
-        )
-    return lines
-
-
-def _coxeter_diagram_section(r: Record, meta: dict) -> list[str]:
-    svg = coxeter_diagram_svg(r.CoxeterMat, r.Num)
-    type_display = meta.get("type_display") or ""
-    type_label = meta.get("type_label") or ""
-    kind = meta.get("coxeter_kind") or ""
-    caption_bits: list[str] = []
-    if type_display:
-        caption_bits.append(f"<strong>{type_display}</strong>")
-    if kind:
-        caption_bits.append(f"<em>{kind}</em>")
-    if type_label:
-        caption_bits.append(
-            f'<a href="/cicy-coxeter/#shape-{type_label}">see in gallery</a>'
-        )
-    caption = (
-        f'<p class="cicy-entry__diagram-caption">{" &middot; ".join(caption_bits)}</p>'
-        if caption_bits
-        else ""
-    )
-    lines = [
-        "## Coxeter diagram",
-        "",
-        f'<div class="cicy-entry__diagram-wrap">{svg}</div>',
-    ]
-    if caption:
-        lines.append(caption)
-    lines.append("")
-    return lines
-
-
-def _coxeter_matrix_section(r: Record) -> list[str]:
-    lines: list[str] = ["## Coxeter matrix", ""]
-    lines.extend(_matrix_shortcode(latex_coxeter_matrix(r.CoxeterMat)))
-    flat = [v for row in r.CoxeterMat for v in row]
-    if "P" in flat or "H" in flat:
-        lines.append(
-            "Entries `P` and `H` both denote order \u221e; the distinction is "
-            "parabolic vs hyperbolic (see \u00a74.1 of the paper)."
-        )
-        lines.append("")
-    return lines
-
-
 def render_markdown_stub(r: Record, meta: dict | None = None) -> str:
     lines: list[str] = []
     lines.append("+++")
@@ -1524,91 +1409,6 @@ def render_markdown_stub(r: Record, meta: dict | None = None) -> str:
         desc = meta["description"].replace('\\', '\\\\').replace('"', '\\"')
         lines.append(f'description = "{desc}"')
     lines.append("+++")
-    lines.append("")
-
-    lines.append("## Second Chern class")
-    lines.append("")
-    lines.append("Intersections \\\\(c_2(X)\\cdot D_i\\\\) in the favorable divisor basis:")
-    lines.append("")
-    lines.extend(_matrix_shortcode(
-        f"c_2(X)\\cdot D_i = {latex_row_vector(r.C2)}"
-    ))
-
-    lines.append("## Configuration matrix")
-    lines.append("")
-    lines.append(
-        "Rows are ordered as in the source database (the i-th ambient factor "
-        "\\\\(\\mathbb{P}^{n_i}\\\\) has \\\\(n_i = \\sum_j q_{ij} - 1\\\\)). "
-        "Top-right superscript is \\\\((h^{1,1}, h^{2,1})\\\\); "
-        "bottom-right subscript is the Euler characteristic "
-        "\\\\(\\chi = 2(h^{1,1} - h^{2,1})\\\\)."
-    )
-    lines.append("")
-    rows = len(r.Conf)
-    cols = len(r.Conf[0]) if r.Conf else 0
-    if r.H11 > CONFIG_COLLAPSE_H11_THRESHOLD:
-        conf_fold = "closed"
-        conf_summary = f"Configuration matrix ({rows}×{cols}, h¹¹={r.H11})"
-    else:
-        conf_fold = ""
-        conf_summary = ""
-    lines.extend(_matrix_shortcode(
-        latex_configuration_matrix(r.Conf, r.H11, r.H21, r.Num),
-        fold=conf_fold,
-        summary=conf_summary,
-    ))
-
-    if r.KahlerPos:
-        if r.KahlerRefGens:
-            lines.extend(_iso_flop_reflections_section(r))
-        else:
-            lines.append("## Iso-flop reflections")
-            lines.append("")
-            lines.append("_No iso-flop walls; the Coxeter group is trivial._")
-            lines.append("")
-
-        if r.CoxeterMat:
-            lines.extend(_coxeter_diagram_section(r, meta or {}))
-            lines.extend(_coxeter_matrix_section(r))
-
-    lines.append("## Database record")
-    lines.append("")
-    lines.append(
-        "Three equivalent serialisations of this entry. Use the <em>Copy</em> "
-        "button on each block to grab the text verbatim."
-    )
-    lines.append("")
-
-    plain_text_lines = [
-        f"Num           : {r.Num}",
-        f"H11           : {r.H11}",
-        f"H21           : {r.H21}",
-        f"C2            : {serialise_field('C2', r.C2)}",
-        f"Conf          : {serialise_field('Conf', r.Conf)}",
-        f"Favour        : {serialise_field('Favour', r.Favour)}",
-        f"KahlerPos     : {serialise_field('KahlerPos', r.KahlerPos)}",
-        f"IsProduct     : {serialise_field('IsProduct', r.IsProduct)}",
-        f"IsoFlopRows   : {serialise_field('IsoFlopRows', r.IsoFlopRows)}",
-        f"KahlerRefGens : {serialise_field('KahlerRefGens', r.KahlerRefGens)}",
-        f"CoxeterMat    : {serialise_field('CoxeterMat', r.CoxeterMat)}",
-    ]
-    lines.append(
-        '{{< copyable label="Plain text (.txt source format)" lang="text" >}}'
-    )
-    lines.extend(plain_text_lines)
-    lines.append("{{< /copyable >}}")
-    lines.append("")
-
-    lines.append(
-        '{{< copyable label="Mathematica association" lang="mathematica" >}}'
-    )
-    lines.append(_mma_assoc(r))
-    lines.append("{{< /copyable >}}")
-    lines.append("")
-
-    lines.append('{{< copyable label="JSON (one-row)" lang="json" >}}')
-    lines.append(_record_json(r))
-    lines.append("{{< /copyable >}}")
     lines.append("")
 
     return "\n".join(lines)
@@ -1755,11 +1555,11 @@ def _plain_text_record(r: Record) -> str:
 
 
 def compute_page_render(records: list[Record], meta_map: dict) -> dict:
-    """Per-model render payload for data-driven page layouts (the Page-Style
-    showcase). Carries BOTH the structured numeric data (so a layout can render
-    e.g. the configuration matrix as an HTML table with P^{n_i} row labels) AND
-    the pre-built LaTeX strings + diagram SVG + the three record serialisations
-    (so any layout reproduces the canonical Style-0 math/markup verbatim).
+    """Per-model render payload for the data-driven per-model page. Carries BOTH
+    the structured numeric data (so the layout can render e.g. the configuration
+    matrix as an HTML table with P^{n_i} row labels) AND the pre-built LaTeX
+    strings + diagram SVG + the three record serialisations (so the page
+    reproduces the math / markup verbatim).
 
     Keyed by stringified Num, mirroring page_meta.json. A pure function of the
     records; repeated runs are byte-identical."""
