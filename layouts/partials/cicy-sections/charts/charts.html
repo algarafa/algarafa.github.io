@@ -1,0 +1,25 @@
+{{- /* Production charts section — Charts 2.4 ("Converged"), square cells.
+       Overlay heatmap: teal = the full Kähler-favorable landscape, gold = the
+       superimposed infinite-order subset (theme-aware, see cicy-charts.js).
+       The chart-data JSON is emitted ONCE here for cicy-charts.js. */ -}}
+{{- with site.Data.cicy_coxeter.chart_data }}
+<section class="cicy-charts" id="charts" aria-labelledby="charts-heading">
+  {{ partial "cicy-sections/_section-head.html" (dict "id" "charts" "title" "Plots" "lede" `Distribution of iso-flop Coxeter symmetries across group rank and model Hodge number \(h^{1,1}\). Click on a cell to filter the Explorer below.`) }}
+  <script id="cicy-chart-data" type="application/json">{{ . | jsonify (dict "indent" "") | safeJS }}</script>
+  <div class="cxch2c cxch2c--square" data-cicy-chart-group>
+    <div class="cxch2c__head">
+      <div class="cxch2c__toggle" role="group" aria-label="Group set">
+        <button type="button" data-cicy-chart-mode="all" class="is-active" aria-pressed="true">
+          <span class="cxch2c__toggle-label">All groups</span><span class="cxch2c__toggle-n">{{ .totals.with_coxeter }}</span>
+        </button>
+        <button type="button" data-cicy-chart-mode="infinite" aria-pressed="false">
+          <span class="cxch2c__toggle-label">Infinite groups</span><span class="cxch2c__toggle-n">{{ .totals.infinite_order }}</span>
+        </button>
+      </div>
+    </div>
+    <div class="cxch2c__frame">
+      <div class="cxch2c__chart" data-cicy-chart="rank-h11" data-cicy-chart-toggle data-cicy-chart-style="overlay" data-cicy-chart-scheme="gruvbox" data-cicy-chart-legend="responsive" data-cicy-chart-cell="50"></div>
+    </div>
+  </div>
+</section>
+{{- end }}

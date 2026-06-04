@@ -1,0 +1,65 @@
+{{- /* Production gallery: an Atlas (rank × group-type
+       matrix) with the "standard node" sizing (one uniform node size in equal,
+       full-width cells) and a CSS-only kind-column switcher on narrow screens.
+
+       Carries the canonical anchors the rest of the site depends on:
+         • `#gallery` on the section root  (landing jump-nav + Explorer scroll)
+         • `#shape-<name>` on each chip    (per-model "Gallery →" deep links;
+           the Explorer active-shape highlight targets these)
+       Each chip also carries `data-shape` so cicy-explorer.js intercepts clicks
+       into a client-side Explorer filter (`?shape=<name>`).
+
+       Context: the diagram_gallery data dict (.groups, each with .shapes). */ -}}
+{{- $all := slice -}}
+{{- range .groups }}{{ range .shapes }}{{ $all = $all | append . }}{{ end }}{{ end -}}
+{{- $kinds := slice
+      (dict "key" "finite" "label" "Finite")
+      (dict "key" "affine" "label" "Affine")
+      (dict "key" "indefinite" "label" "Indefinite") -}}
+<section class="cicy-gallery cxatlas" id="gallery" aria-labelledby="gallery-heading">
+  {{ partial "cicy-sections/_section-head.html" (dict "id" "gallery" "title" "Atlas" "lede" `All 22 iso-flop Coxeter symmetries, arranged by rank and group type.`) }}
+
+  {{- /* Narrow-screen column switcher (CSS-only): radios drive `:has()` to
+         reveal one kind column at a time. cicy-explorer.js syncs the checked
+         radio to an inbound `#shape-<key>` deep link so the right column shows. */ -}}
+  <div class="cxatlas__tabs" role="radiogroup" aria-label="Show one group type">
+    {{- range $i, $k := $kinds }}
+    <input class="cxatlas__radio" type="radio" data-kind="{{ $k.key }}"
+           name="gallery-col" id="gallery-col-{{ $k.key }}"{{ if eq $i 0 }} checked{{ end }}>
+    <label class="cxatlas__tab" for="gallery-col-{{ $k.key }}" data-kind="{{ $k.key }}">
+      <span class="coxg-taxon__dot" aria-hidden="true"></span>{{ $k.label }}
+    </label>
+    {{- end }}
+  </div>
+
+  <div class="cxatlas__scroll">
+    <div class="cxatlas__grid" aria-label="Shapes by rank and group type">
+      <div class="cxatlas__corner" aria-hidden="true"></div>
+      {{- range $kinds }}
+      <div class="cxatlas__colhead" data-kind="{{ .key }}">
+        <span class="coxg-taxon__dot" aria-hidden="true"></span>{{ .label }}
+      </div>
+      {{- end }}
+      {{- range $r := (slice 1 2 3 4 5) }}
+      <div class="cxatlas__rowhead">Rank {{ $r }}</div>
+        {{- range $kind := $kinds }}
+          {{- $cell := where (where $all "rank" $r) "kind" $kind.key }}
+      <div class="cxatlas__cell{{ if not $cell }} is-empty{{ end }}" data-kind="{{ $kind.key }}">
+          {{- range $cell }}
+        <a class="cxatlas__chip" id="shape-{{ .name }}" href="?shape={{ .name }}#explorer" data-shape="{{ .name }}"
+           aria-label="Filter Explorer to the {{ with .display }}{{ . }}{{ else }}rank-{{ .rank }}{{ end }} shape ({{ .count }} model{{ if gt .count 1 }}s{{ end }})">
+          <span class="cxatlas__diagram">{{ .svg | safeHTML }}</span>
+          <span class="cxatlas__meta">
+            <span class="cxatlas__name">{{ .display }}</span>
+            <span class="cxatlas__count">{{ .count }}</span>
+          </span>
+        </a>
+          {{- else }}
+        <span class="cxatlas__empty" aria-hidden="true">—</span>
+          {{- end }}
+      </div>
+        {{- end }}
+      {{- end }}
+    </div>
+  </div>
+</section>

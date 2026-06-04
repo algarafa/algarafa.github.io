@@ -1,0 +1,64 @@
+{{- /* Shared inner body of an Explorer instance (loading, facets, result
+       count, results table, noscript). Included by explorer.html, which emits
+       the heading / intro / schema / shape-map once around it. */ -}}
+<div class="cicy-explorer__loading" role="status" aria-live="polite">
+  <ol class="cicy-loading-stages" data-stage="duckdb">
+    <li data-stage="duckdb"><span class="cicy-loading-dot"></span>Initializing DuckDB-WASM</li>
+    <li data-stage="parquet"><span class="cicy-loading-dot"></span>Downloading database (~180 kB)</li>
+    <li data-stage="view"><span class="cicy-loading-dot"></span>Building view</li>
+  </ol>
+  <p class="cicy-explorer__loading-error" hidden></p>
+</div>
+
+<form class="cicy-explorer__facets" autocomplete="off" aria-label="Filter the database">
+  <div class="cicy-explorer__search">
+    <label class="cicy-explorer__search-label">
+      <span class="cicy-explorer__label">Look up by number</span>
+      <input type="number" name="num" min="1" max="7890" step="1" placeholder="e.g. 6771">
+    </label>
+    <p class="cicy-explorer__hint">When set, all other filters are ignored.</p>
+  </div>
+
+  <div class="cicy-explorer__facets-grid">
+    {{ partial "cicy-sections/explorer/_facet-fields-live.html" . }}
+  </div>
+
+  <div class="cicy-explorer__actions">
+    <button type="button" class="cicy-explorer__filters-pill" data-role="filters-pill" hidden aria-live="polite" title="Clear all filters">
+      <span class="cicy-explorer__filters-pill-count">0 filters</span>
+    </button>
+    <button type="reset" class="cicy-explorer__reset">Reset</button>
+    <button type="button" class="cicy-explorer__export" data-action="export-csv" disabled>Download CSV</button>
+  </div>
+</form>
+
+<div class="cicy-explorer__summary" role="status" aria-live="polite"></div>
+
+<div class="cicy-explorer__table-frame">
+  <div class="cicy-explorer__table-wrap">
+    <table class="cicy-explorer__table">
+      <thead>
+        <tr>
+          <th scope="col" aria-sort="none"><button type="button" class="cicy-sort-btn" data-col="Num">CICY<span class="cicy-sort-arrow"></span></button></th>
+          <th scope="col" aria-sort="none"><button type="button" class="cicy-sort-btn" data-col="H11">\(h^{1,1}\)<span class="cicy-sort-arrow"></span></button></th>
+          <th scope="col" aria-sort="none"><button type="button" class="cicy-sort-btn" data-col="H21">\(h^{2,1}\)<span class="cicy-sort-arrow"></span></button></th>
+          <th scope="col" aria-sort="none"><button type="button" class="cicy-sort-btn" data-col="Chi">\(\chi\)<span class="cicy-sort-arrow"></span></button></th>
+          <th scope="col" aria-sort="none"><button type="button" class="cicy-sort-btn" data-col="KahlerPos">Kähler-fav<span class="cicy-sort-arrow"></span></button></th>
+          <th scope="col" aria-sort="none"><button type="button" class="cicy-sort-btn" data-col="IsoFlopRank">Rank<span class="cicy-sort-arrow"></span></button></th>
+          <th scope="col" aria-sort="none"><button type="button" class="cicy-sort-btn" data-col="CoxeterKind">Type<span class="cicy-sort-arrow"></span></button></th>
+          <th scope="col" class="cicy-col--group">Group</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="cicy-explorer__scroll-fade" data-role="scroll-fade" aria-hidden="true"></div>
+</div>
+
+<noscript>
+  <p class="cicy-explorer__noscript">
+    The interactive explorer requires JavaScript. You can still download the raw
+    database from the links above, or browse entries at
+    <code>/cicy-coxeter/&lt;Num&gt;/</code>.
+  </p>
+</noscript>

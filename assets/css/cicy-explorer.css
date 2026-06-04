@@ -1,6 +1,6 @@
 :root {
   --cicy-chart-grid: rgba(128, 128, 128, 0.25);
-  --cicy-chart-accent: #4a7bd6;
+  --cicy-chart-accent: #458588;
   --cicy-chart-bg: transparent;
   /* Single spacing token between top-level landing-page sections
      (Downloads → Charts → Gallery → Explorer). Apply via margin-top on
@@ -13,100 +13,27 @@
 .cicy-gallery,
 .cicy-explorer {
   margin-top: var(--cicy-section-gap);
+  /* Breathing room when the hero jump-nav scrolls a section to the top. */
+  scroll-margin-top: 1.5rem;
 }
 
-/* --- Landing-page intro: stats strip, featured callout, jump nav ------- */
-
-.cicy-stats {
-  list-style: none;
-  margin: 1.5rem 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0.75rem;
-}
-
-.cicy-stats li {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.15rem;
-  padding: 0.9rem 0.5rem;
-  border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-radius: 6px;
-  text-align: center;
-}
-
-.cicy-stats strong {
-  font-size: 1.6em;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.1;
-}
-
-.cicy-stats span {
-  opacity: 0.75;
-  font-size: 0.95em;
-  line-height: 1.25;
-}
-
-@media (max-width: 640px) {
-  .cicy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-.cicy-featured {
-  margin: 1.25rem 0 1rem;
-  padding: 0.7rem 1rem;
-  border-left: 3px solid var(--cicy-chart-accent, #4a7bd6);
-  background: rgba(74, 123, 214, 0.06);
-  border-radius: 4px;
-}
-
-.cicy-featured p { margin: 0; }
-
-.cicy-jumpnav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1rem 0 2rem;
-  padding: 0.5rem 0.75rem;
-  border-top: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-bottom: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-}
-
-.cicy-jumpnav a {
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  text-decoration: none;
-  opacity: 0.85;
-}
-
-.cicy-jumpnav a:hover,
-.cicy-jumpnav a:focus-visible {
-  opacity: 1;
-  border-color: var(--border-color, rgba(128, 128, 128, 0.35));
-  background: rgba(128, 128, 128, 0.08);
-}
-
-/* --- Citation block --------------------------------------------------- */
-
-.cicy-cite__plain {
-  margin: 0.5rem 0 0.75rem;
-}
-
-details.cicy-cite__bibtex {
-  margin: 0.5rem 0 1.5rem;
-}
-
-details.cicy-cite__bibtex > summary {
-  cursor: pointer;
-  font-weight: 600;
-  padding: 0.25rem 0;
-}
-
-details.cicy-cite__bibtex pre {
-  margin-top: 0.5rem;
+/* Uniform section header — one <h2> + a single tight lede line, shared by the
+   Downloads, Charts, Gallery and Explorer sections via the partial
+   layouts/partials/cicy-sections/_section-head.html. The lede adopts the
+   gallery's former styling (muted, 0.96em, a 64ch measure) as the landing-wide
+   standard. `--cx-muted` is supplied by each section root's palette (defined in
+   cicy-sections.css, which also lists .cicy-gallery). */
+.cx-sec-head { margin: 0 0 1.4rem; }
+.cx-sec-head h2 { margin: 0 0 0.4rem; line-height: 1.15; }
+.cx-sec-head__lede {
+  margin: 0;
+  /* 60ch (~480px) sits just below the width of the Plots lede's
+     "…model Hodge" prefix (507px), so "Hodge" wraps to line 2, while the
+     Atlas (439px) and Explorer (431px) ledes still fit on one line. */
+  max-width: 60ch;
+  color: var(--cx-muted);
+  font-size: 0.96em;
+  line-height: 1.5;
 }
 
 /* --- Section anchors (account for sticky headers down the road) ------- */
@@ -116,48 +43,9 @@ details.cicy-cite__bibtex pre {
 }
 
 /* --- Charts section --------------------------------------------------- */
-
-.cicy-charts {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.cicy-charts h2 {
-  margin-bottom: 0.5rem;
-}
-
-.cicy-charts__grid {
-  display: grid;
-  /* 280px (not 320) so the column still fits on a 375px viewport
-     after .post's 30px side margins (effective width ~315px). */
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
-}
-
-.cicy-charts figure {
-  margin: 0;
-  padding: 0.75rem;
-  border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.cicy-charts figure > div {
-  width: 100%;
-  min-height: 240px;
-}
-
-.cicy-charts figcaption {
-  opacity: 0.85;
-  line-height: 1.35;
-}
-
-.cicy-charts .nowrap {
-  white-space: nowrap;
-}
+/* Block flow — the shared .cx-sec-head supplies the header→content gap
+   (1.4rem), matching the other sections. (Was a flex column whose gap
+   double-counted once the header became one self-spacing unit.) */
 
 .cicy-chart-fallback {
   display: flex;
@@ -197,24 +85,20 @@ details.cicy-cite__bibtex pre {
 }
 
 /* --- Explorer section ------------------------------------------------- */
+/* Block flow — the shared .cx-sec-head supplies the header→content gap
+   (1.4rem), matching the other sections. (Was a flex column whose 1.25rem
+   gap double-counted once the header became one self-spacing unit.) */
 
-.cicy-explorer {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.cicy-explorer__intro {
-  margin: 0;
-  opacity: 0.9;
-}
+/* The Diagram-shape facet groups options by rank via <optgroup label="Rank N">;
+   browsers render optgroup labels in italic by default — normalise it. */
+.cicy-explorer__field optgroup { font-style: normal; }
 
 /* --- Loading stages -------------------------------------------------- */
 
 .cicy-explorer__loading {
   padding: 0.75rem 1rem;
   border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-radius: 6px;
+  border-radius: 0;
   background: rgba(128, 128, 128, 0.04);
 }
 
@@ -289,7 +173,7 @@ details.cicy-cite__bibtex pre {
   gap: 1rem;
   padding: 1rem;
   border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 .cicy-explorer__search {
@@ -317,7 +201,7 @@ details.cicy-cite__bibtex pre {
   padding: 0.45rem 0.6rem;
   font-size: 1.05em;
   border: 1px solid var(--border-color, rgba(128, 128, 128, 0.45));
-  border-radius: 4px;
+  border-radius: 0;
   background: transparent;
   color: inherit;
   width: 100%;
@@ -337,10 +221,10 @@ details.cicy-cite__bibtex pre {
   align-items: center;
   gap: 0.3rem;
   padding: 0.35rem 0.85rem;
-  border: 1px solid var(--cicy-chart-accent, #4a7bd6);
-  border-radius: 999px;
+  border: 1px solid var(--cicy-chart-accent, #458588);
+  border-radius: 0;
   background: rgba(74, 123, 214, 0.1);
-  color: var(--cicy-chart-accent, #4a7bd6);
+  color: var(--cicy-chart-accent, #458588);
   font: inherit;
   font-size: 0.9em;
   cursor: pointer;
@@ -351,10 +235,6 @@ details.cicy-cite__bibtex pre {
 .cicy-explorer__filters-pill:focus-visible {
   background: rgba(74, 123, 214, 0.2);
   outline: none;
-}
-
-.cicy-explorer__filters-pill-reset {
-  text-decoration: underline;
 }
 
 .cicy-explorer__filters-pill[hidden] { display: none; }
@@ -395,7 +275,7 @@ details.cicy-cite__bibtex pre {
   padding: 0.3rem 0.4rem;
   font: inherit;
   border: 1px solid var(--border-color, rgba(128, 128, 128, 0.45));
-  border-radius: 4px;
+  border-radius: 0;
   background: transparent;
   color: inherit;
   min-width: 0;
@@ -418,14 +298,14 @@ details.cicy-cite__bibtex pre {
   padding: 0.4rem 0.9rem;
   font: inherit;
   border: 1px solid var(--border-color, rgba(128, 128, 128, 0.45));
-  border-radius: 4px;
+  border-radius: 0;
   background: transparent;
   color: inherit;
   cursor: pointer;
 }
 
 .cicy-explorer__actions button:hover:not(:disabled) {
-  background: rgba(128, 128, 128, 0.1);
+  background: color-mix(in srgb, var(--cx-link) 12%, transparent);
 }
 
 .cicy-explorer__actions button:disabled {
@@ -449,7 +329,7 @@ details.cicy-cite__bibtex pre {
   overflow: auto;
   max-height: 75vh;
   border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 /* Narrow-viewport-only affordance: a "scroll horizontally" hint and a small
@@ -541,7 +421,7 @@ details.cicy-cite__bibtex pre {
    :has() so keyboard users see which row the focused link belongs to. */
 .cicy-explorer__table tbody tr:has(a:focus-visible) {
   background: rgba(74, 123, 214, 0.08);
-  outline: 2px solid var(--cicy-chart-accent, #4a7bd6);
+  outline: 2px solid var(--cicy-chart-accent, #458588);
   outline-offset: -2px;
 }
 
@@ -598,195 +478,25 @@ details.cicy-cite__bibtex pre {
 
 .cicy-sort-btn.is-sort-asc,
 .cicy-sort-btn.is-sort-desc {
-  color: var(--cicy-chart-accent, #4a7bd6);
+  color: var(--cicy-chart-accent, #458588);
 }
 
 .cicy-explorer__noscript {
   padding: 1rem;
   border: 1px solid #c0392b;
-  border-radius: 4px;
+  border-radius: 0;
 }
 
-/* --- Schema disclosure (above the results table) --------------------- */
-
-details.cicy-explorer__schema {
-  border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-radius: 6px;
-  padding: 0.4rem 0.85rem;
-}
-
-details.cicy-explorer__schema > summary {
-  cursor: pointer;
-  font-weight: 600;
-  padding: 0.25rem 0;
-  list-style: revert;
-}
-
-.cicy-explorer__schema-body {
-  padding-top: 0.65rem;
-  /* The schema-table's first column holds <code> tokens that don't wrap;
-     fall back to horizontal scroll on narrow viewports rather than letting
-     the table push the page width. */
-  overflow-x: auto;
-}
-
-table.cicy-explorer__schema-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 0.75rem;
-}
-
-table.cicy-explorer__schema-table th,
-table.cicy-explorer__schema-table td {
-  padding: 0.35rem 0.6rem;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.15);
-}
-
-table.cicy-explorer__schema-table th {
-  font-weight: 600;
-  background: rgba(128, 128, 128, 0.06);
-}
-
-table.cicy-explorer__schema-table tbody tr:last-child td {
-  border-bottom: 0;
-}
-
-table.cicy-explorer__schema-table td:nth-child(2) {
-  white-space: nowrap;
-  opacity: 0.75;
-}
-
-table.cicy-explorer__schema-table code {
-  font-size: 0.92em;
-}
-
-.cicy-explorer__schema-conventions,
-.cicy-explorer__schema-footnote {
-  margin: 0.5rem 0 0;
-  line-height: 1.4;
-}
-
-.cicy-explorer__schema-footnote {
-  opacity: 0.75;
-  font-size: 0.92em;
-}
-
-/* --- Gallery section -------------------------------------------------- */
-
-.cicy-gallery__intro {
-  margin: 0.25rem 0 1rem;
-  opacity: 0.9;
-}
-
-.cicy-gallery h3 {
-  margin-top: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.cicy-gallery__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.85rem;
-}
-
-.cicy-gallery__tile {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid var(--border-color, rgba(128, 128, 128, 0.25));
-  border-radius: 6px;
-  background: transparent;
-  overflow: hidden;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
-  scroll-margin-top: 4rem;
-}
-
-.cicy-gallery__link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.75rem 0.5rem 0.5rem;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* Override the theme's `.post__content a { color: … }` so tile links inherit
-   normal text color. Scoped to tiles (not the gallery intro) so real prose
-   links like the Coxeter-notation reference keep the theme link color.
-   Selector matches the theme's specificity (0,2,1); this file loads after
-   the theme CSS, so source order tiebreaks in our favor. */
-.post__content .cicy-gallery__tile a { color: inherit; }
-
-.cicy-gallery__link:hover {
-  background: rgba(74, 123, 214, 0.08);
-  outline: none;
-}
-
-.cicy-gallery__link:focus-visible {
-  background: rgba(74, 123, 214, 0.08);
-  outline: 2px solid var(--cicy-chart-accent, #4a7bd6);
-  outline-offset: 1px;
-}
-
-.cicy-gallery__tile:hover,
-.cicy-gallery__tile:focus-within {
-  border-color: var(--cicy-chart-accent, #4a7bd6);
-  box-shadow: 0 1px 6px rgba(74, 123, 214, 0.15);
-}
-
-.cicy-gallery__diagram {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 72px;
-}
-
-.cicy-gallery__diagram svg {
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  color: inherit;
-}
-
-.cicy-gallery__link figcaption {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
-
-.cicy-gallery__name {
-  font-weight: 600;
-  font-size: 1.05em;
-}
-
-.cicy-gallery__count {
-  opacity: 0.7;
-  font-size: 0.9em;
-}
-
-.cicy-gallery__example {
-  margin: 0;
-  padding: 0.35rem 0.5rem 0.5rem;
-  text-align: center;
-  font-size: 0.85em;
-  opacity: 0.75;
-  border-top: 1px dashed rgba(128, 128, 128, 0.2);
-}
-
-.cicy-gallery__example a { color: inherit; }
-
-.cicy-gallery__tile:target {
+/* --- Deep-link highlight: the gallery chip (:target / .is-active-shape)
+   and the matching Explorer table row pulse, for inbound #shape / row
+   deep links. -------------------------------------------------------- */
+.cxatlas__chip:target {
   outline: 2px solid rgba(200, 150, 40, 0.7);
   outline-offset: 3px;
   animation: cicy-tile-pulse 2.5s ease-out 1;
 }
 
-.cicy-gallery__tile.is-active-shape {
+.cxatlas__chip.is-active-shape {
   border-color: rgba(200, 150, 40, 0.9);
   box-shadow: 0 0 0 2px rgba(200, 150, 40, 0.35);
 }
@@ -808,7 +518,7 @@ table.cicy-explorer__schema-table code {
 
 @media (prefers-reduced-motion: reduce) {
   .cicy-loading-dot,
-  .cicy-gallery__tile:target,
+  .cxatlas__chip:target,
   .cicy-explorer__table tbody tr.is-highlighted {
     animation: none !important;
   }
@@ -817,30 +527,309 @@ table.cicy-explorer__schema-table code {
 /* Vega-Lite draws `<text>` labels on top of each heatmap rect (the cell's
    model count). These text nodes otherwise intercept pointer events when the
    user clicks the centre of a cell, preventing the chart-click handler from
-   firing. Passing clicks through to the rect below fixes the issue.  */
-.cicy-charts svg g.mark-text > text {
+   firing. Passing clicks through to the rect below fixes the issue. Scoped to
+   the consolidated charts section (.cxch2c). */
+.cxch2c__chart svg g.mark-text > text {
   pointer-events: none;
 }
 
-/* --- Active-shape-filter notice above the results table --------------- */
+/* ====================================================================
+   Explorer — the live DuckDB instance, brought into the gruvbox --cx-* card
+   system. Scoped to .cicy-explorer--refined (#explorer).
+   ==================================================================== */
+/* Block flow + the standard section margin-top — the shared .cx-sec-head
+   supplies the 1.4rem header→content gap, matching the other sections. */
 
-.cicy-explorer__shape-notice {
-  padding: 0.5rem 0.75rem;
-  background: rgba(200, 150, 40, 0.12);
-  border-left: 3px solid rgba(200, 150, 40, 0.9);
-  border-radius: 4px;
-  font-size: 0.95em;
+/* Facet card */
+.cicy-explorer--refined .cicy-explorer__facets {
+  gap: 1.1rem;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface);
+  box-shadow: var(--cx-shadow);
+}
+.cicy-explorer--refined .cicy-explorer__search {
+  border-bottom: 1px solid var(--cx-line);
+}
+.cicy-explorer--refined .cicy-explorer__label {
+  color: var(--cx-muted);
+  opacity: 1;
+  font-size: 0.92em;
+}
+.cicy-explorer--refined .cicy-explorer__field legend {
+  color: var(--cx-ink);
+}
+.cicy-explorer--refined .cicy-explorer__search input[type="number"],
+.cicy-explorer--refined .cicy-explorer__field input[type="number"],
+.cicy-explorer--refined .cicy-explorer__field select {
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface-2);
+  color: var(--cx-ink);
+}
+.cicy-explorer--refined .cicy-explorer__search input[type="number"]:focus-visible,
+.cicy-explorer--refined .cicy-explorer__field input:focus-visible,
+.cicy-explorer--refined .cicy-explorer__field select:focus-visible {
+  outline: 2px solid var(--cx-accent);
+  outline-offset: 1px;
+  border-color: var(--cx-accent);
+}
+.cicy-explorer--refined .cicy-explorer__hint { color: var(--cx-muted); }
+
+/* Filters pill */
+/* Scoped through .cicy-explorer__actions so these win over the generic
+   `.cicy-explorer__actions button` reset (which otherwise forces the pill to
+   neutral ink/line) — the pill is a link-type control, so it reads link blue. */
+.cicy-explorer--refined .cicy-explorer__actions .cicy-explorer__filters-pill {
+  border-color: color-mix(in srgb, var(--cx-link) 45%, var(--cx-line));
+  background: color-mix(in srgb, var(--cx-link) 8%, transparent);
+  color: var(--cx-link);
+}
+.cicy-explorer--refined .cicy-explorer__actions .cicy-explorer__filters-pill:hover,
+.cicy-explorer--refined .cicy-explorer__actions .cicy-explorer__filters-pill:focus-visible {
+  background: color-mix(in srgb, var(--cx-link) 12%, transparent);
 }
 
-.cicy-explorer__shape-notice button {
-  margin-left: 0.5rem;
-  padding: 0.15rem 0.55rem;
+/* Actions */
+.cicy-explorer--refined .cicy-explorer__actions button {
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface);
+  color: var(--cx-ink);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+/* Link-type actions (the filters pill and Download CSV) use the site link
+   blue; Reset is neutral but shares this hover tint so the row reads as one. */
+.cicy-explorer--refined .cicy-explorer__actions button:hover:not(:disabled) {
+  border-color: var(--cx-link);
+  background: color-mix(in srgb, var(--cx-link) 12%, transparent);
+}
+.cicy-explorer--refined .cicy-explorer__export:not(:disabled) {
+  border-color: color-mix(in srgb, var(--cx-link) 50%, var(--cx-line));
+  color: var(--cx-link);
+  font-weight: 600;
+}
+
+/* Promoted result count */
+.cicy-explorer--refined .cicy-explorer__summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0;
+  opacity: 1;
+}
+.cicy-explorer__count-n {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cx-ink);
+  font-variant-numeric: tabular-nums;
+}
+.cicy-explorer__count-lbl { color: var(--cx-muted); }
+.cicy-explorer__count-empty { color: var(--cx-muted); font-style: italic; }
+
+/* Table card */
+.cicy-explorer--refined .cicy-explorer__table-wrap {
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface);
+  box-shadow: var(--cx-shadow);
+}
+.cicy-explorer--refined .cicy-explorer__table th {
+  background: var(--cx-surface-2);
+  color: var(--cx-ink);
+  box-shadow: inset 0 -1px 0 var(--cx-line);
+}
+.cicy-explorer--refined .cicy-explorer__table th,
+.cicy-explorer--refined .cicy-explorer__table td {
+  border-bottom: 1px solid var(--cx-line);
+}
+.cicy-explorer--refined .cicy-explorer__table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--cx-ink) 3.5%, transparent);
+}
+.cicy-explorer--refined .cicy-explorer__table tbody tr:hover,
+.cicy-explorer--refined .cicy-explorer__table tbody tr:has(a:focus-visible) {
+  background: color-mix(in srgb, var(--cx-accent) 10%, transparent);
+  outline-color: var(--cx-accent);
+}
+.cicy-explorer--refined .cicy-sort-btn:hover {
+  background: color-mix(in srgb, var(--cx-accent) 8%, transparent);
+}
+.cicy-explorer--refined .cicy-sort-btn.is-sort-asc,
+.cicy-explorer--refined .cicy-sort-btn.is-sort-desc { color: var(--cx-accent); }
+.cicy-explorer--refined .cicy-explorer__scroll-fade {
+  background: linear-gradient(to right, transparent, var(--cx-surface) 85%);
+}
+
+/* Kind colour-key (gruvbox finite/affine/indefinite); muted dash otherwise.
+   LIGHT theme uses darkened on-white variants so the small bold label clears
+   WCAG AA (the bright --cx-* tokens are ~2.5–4.2:1 on white); DARK theme keeps
+   the bright tokens (already 6–9:1). Same colours drive the v3 pill text. */
+.cicy-explorer--refined .cicy-kind { font-weight: 600; }
+.cicy-explorer--refined .cicy-kind[data-kind="finite"] { color: #066678; }
+.cicy-explorer--refined .cicy-kind[data-kind="affine"] { color: #3f7a52; }
+.cicy-explorer--refined .cicy-kind[data-kind="indefinite"] { color: #8a5f12; }
+.theme--dark .cicy-explorer--refined .cicy-kind[data-kind="finite"],
+[data-theme="dark"] .cicy-explorer--refined .cicy-kind[data-kind="finite"] { color: var(--cx-finite); }
+.theme--dark .cicy-explorer--refined .cicy-kind[data-kind="affine"],
+[data-theme="dark"] .cicy-explorer--refined .cicy-kind[data-kind="affine"] { color: var(--cx-affine); }
+.theme--dark .cicy-explorer--refined .cicy-kind[data-kind="indefinite"],
+[data-theme="dark"] .cicy-explorer--refined .cicy-kind[data-kind="indefinite"] { color: var(--cx-indef); }
+.cicy-explorer--refined .cicy-cell--muted { color: var(--cx-muted); }
+.cicy-explorer--refined .cicy-cell--group { color: var(--cx-ink); }
+.cicy-explorer--refined .cicy-group-rep { color: var(--cx-muted); }
+
+/* --- Kind rendered as PILLS (--pills) — independent of row density ----- */
+.cicy-explorer--pills .cicy-kind[data-kind] {
+  display: inline-block;
+  padding: 0.12rem 0.5rem;
+  line-height: 1.3;
+  font-size: 0.85em;
+  font-weight: 600;
+  border: 1px solid currentColor;
+}
+.cicy-explorer--pills .cicy-kind[data-kind="finite"] { background: color-mix(in srgb, var(--cx-finite) 14%, transparent); }
+.cicy-explorer--pills .cicy-kind[data-kind="affine"] { background: color-mix(in srgb, var(--cx-affine) 14%, transparent); }
+.cicy-explorer--pills .cicy-kind[data-kind="indefinite"] { background: color-mix(in srgb, var(--cx-indef) 16%, transparent); }
+
+/* The production Explorer keeps the base ("comfortable", Explorer-2) row
+   density — no density modifier. */
+
+/* The number lookup is a 4-digit field; don't let it stretch the card width. */
+.cicy-explorer--refined .cicy-explorer__search input[type="number"] {
+  max-width: 16rem;
+}
+
+/* KaTeX-rendered math headers (h^{1,1}, h^{2,1}, χ) — match the header text
+   size (KaTeX defaults to 1.21em) so the proper superscripts/χ read cleanly. */
+.cicy-explorer--refined .cicy-explorer__table th .katex { font-size: 1em; }
+
+/* --- Column sizing + header/data alignment (critique fixes) ----------- */
+/* The numeric & flag columns hold 1–3 characters; shrink-wrap them so the
+   high-information Kind / Group columns claim the width, and so the digits
+   stop floating in a wide empty trough away from their header. */
+.cicy-explorer--refined .cicy-explorer__table .cicy-cell--num,
+.cicy-explorer--refined .cicy-explorer__table .cicy-cell--numeric,
+.cicy-explorer--refined .cicy-explorer__table .cicy-cell--bool {
+  width: 1%;
+  white-space: nowrap;
+}
+/* Right-align the numeric headers so the label sits directly over the
+   right-aligned digits; centre the K-fav flag header over its ✓. */
+.cicy-explorer--refined .cicy-sort-btn[data-col="H11"],
+.cicy-explorer--refined .cicy-sort-btn[data-col="H21"],
+.cicy-explorer--refined .cicy-sort-btn[data-col="Chi"],
+.cicy-explorer--refined .cicy-sort-btn[data-col="IsoFlopRank"] {
+  justify-content: flex-end;
+}
+.cicy-explorer--refined .cicy-sort-btn[data-col="KahlerPos"] {
+  justify-content: center;
+}
+
+/* Hairline divider between the numeric block and the categorical (Kind/
+   Group) block — anchors the table like the framed chart cards. */
+.cicy-explorer--refined .cicy-explorer__table td.cicy-cell--kind,
+.cicy-explorer--refined .cicy-explorer__table th:has(.cicy-sort-btn[data-col="CoxeterKind"]) {
+  border-left: 1px solid var(--cx-line);
+}
+
+/* Group header: match the sort-button headers' padding/weight so the row
+   reads uniform even though Group is unsortable. */
+.cicy-explorer--refined .cicy-col--group {
+  padding: 0.45rem 0.65rem;
+  font-weight: 600;
+  color: var(--cx-ink);
+}
+
+/* Search is single-column now that the filter pill moved to the actions row. */
+.cicy-explorer--refined .cicy-explorer__search {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Filter-count pill now sits with the filters it counts (left of the
+   actions), no longer beside the exclusive number search. */
+.cicy-explorer--refined .cicy-explorer__actions { align-items: center; }
+.cicy-explorer--refined .cicy-explorer__filters-pill { margin-right: auto; }
+
+/* Keep the primary action identifiable (accent) even while disabled during
+   the brief DuckDB load, so it doesn't read as a grey twin of Reset. */
+.cicy-explorer--refined .cicy-explorer__export:disabled {
+  border-color: color-mix(in srgb, var(--cx-link) 30%, var(--cx-line));
+  color: var(--cx-link);
+}
+
+/* "first N of M" footer row */
+.cicy-explorer--refined .cicy-explorer__more-row td {
+  padding: 0.55rem;
+  text-align: center;
+  background: var(--cx-surface-2);
+  cursor: default;
+}
+.cicy-explorer--refined .cicy-explorer__more-row { cursor: default; }
+.cicy-explorer__more-btn {
   font: inherit;
   font-size: 0.9em;
-  border: 1px solid rgba(128, 128, 128, 0.45);
-  border-radius: 3px;
-  background: transparent;
-  color: inherit;
+  padding: 0.3rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--cx-link) 45%, var(--cx-line));
+  background: color-mix(in srgb, var(--cx-link) 8%, transparent);
+  color: var(--cx-link);
   cursor: pointer;
+  transition: background 0.15s ease;
+}
+.cicy-explorer__more-btn:hover,
+.cicy-explorer__more-btn:focus-visible {
+  background: color-mix(in srgb, var(--cx-link) 12%, transparent);
+  outline: none;
+}
+
+/* --- Facet spacing: comfortable space between fields, and MORE air after
+   each bold legend (legend gap > inter-field gap). ---------------------- */
+.cicy-explorer--refined .cicy-explorer__field { gap: 0.6rem; }
+.cicy-explorer--refined .cicy-explorer__field legend { margin-bottom: 1.1rem; }
+
+/* When the facet groups stack into a single column (mobile), the grid
+   row-gap becomes the ONLY separator above each bold group legend. Widen it
+   so a title ("Coxeter structure", "Flags") isn't cramped against the
+   previous group's last input box. */
+@media (max-width: 600px) {
+  .cicy-explorer--refined .cicy-explorer__facets-grid { row-gap: 2.4rem; }
+}
+
+/* KaTeX-rendered Hodge labels in the facet form — match the label text size. */
+.cicy-explorer--refined .cicy-explorer__label .katex { font-size: 1em; }
+
+/* Unify column-header weight: KaTeX math headers render at normal math
+   weight, so render the text headers at normal weight too (the surface tint +
+   bottom rule carry the header emphasis). */
+.cicy-explorer--refined .cicy-explorer__table th,
+.cicy-explorer--refined .cicy-sort-btn,
+.cicy-explorer--refined .cicy-col--group {
+  font-weight: 400;
+}
+
+/* ====================================================================
+   The production Explorer is ONE card: facets, count and table live in a
+   single bordered surface, separated by hairlines (no inner sub-cards).
+   ==================================================================== */
+.cicy-explorer__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface);
+  box-shadow: var(--cx-shadow);
+  padding: 1.2rem 1.25rem;
+}
+.cicy-explorer__card .cicy-explorer__facets {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: 0 0 1.1rem;
+  border-bottom: 1px solid var(--cx-line);
+}
+.cicy-explorer__card .cicy-explorer__table-wrap {
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.cicy-explorer__card .cicy-explorer__scroll-fade {
+  background: linear-gradient(to right, transparent, var(--cx-surface) 85%);
 }
 

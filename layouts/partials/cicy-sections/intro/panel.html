@@ -1,0 +1,36 @@
+{{- /* Intro — the production hero (consolidated from design study 4.2): a
+       two-column composed panel (prose + 2×2 stat block) with the section
+       jump-nav and a companion-paper button as a full-width footer. The panel
+       is flex-wrap, so the stat block reflows below the prose on a narrow
+       panel. Rendered at the TOP of the landing page by list.html. The
+       `.cicy-intro` root carries the gruvbox `--cx-*` palette (since it no
+       longer sits inside a `.cxshow` wrapper). Totals come from site data. */ -}}
+{{- $t := site.Data.cicy_coxeter.chart_data.totals -}}
+{{- $paperURL := "/publications/kaleidoscopes-waves-prepotential/" -}}
+{{- $paperTitle := "Kaleidoscopes, Waves and the Prepotential" -}}
+<div class="cicy-intro cxhero4 cxhero4--polished">
+  <div class="cxhero4__panel">
+    <div class="cxhero4__prose">
+      <p class="cxhero4__lede">Companion database to <em>{{ $paperTitle }}</em> (Álvarez-García &amp; Ruehle). It extends the favorable CICY list of <a href="https://arxiv.org/abs/1708.07907">Anderson–Gao–Gray–Lee (2017)</a>, built on the original CICYs of <a href="https://doi.org/10.1016/0550-3213(88)90352-5">Candelas–Dale–Lütken–Schimmrigk (1988)</a>, with data pertaining to the Coxeter symmetries that isomorphic flops induce on the Kähler moduli space.</p>
+      <p class="cxhero4__featured"><strong>Examples:</strong> <a href="/cicy-coxeter/6771/">CICY 6771</a> \([\mathrm{I}_2(\infty)\,(H)]\), <a href="/cicy-coxeter/6971/">CICY 6971</a> \([\mathrm{I}_2(\infty)\,(P)]\), <a href="/cicy-coxeter/5528/">CICY 5528</a> \([\mathrm{I}_2(4)]\).</p>
+    </div>
+
+    {{- with $t }}
+    <dl class="cxhero4__spec" aria-label="Database at a glance">
+      <div class="cxhero4__spec-cell"><dt>{{ .total }}</dt><dd>CICYs total</dd></div>
+      <div class="cxhero4__spec-cell"><dt>{{ .kahler_favorable }}</dt><dd>Kähler-favorable</dd></div>
+      <div class="cxhero4__spec-cell"><dt>{{ .with_coxeter }}</dt><dd>Coxeter symmetry</dd></div>
+      <div class="cxhero4__spec-cell"><dt>{{ .infinite_order }}</dt><dd>Infinite Coxeter group</dd></div>
+    </dl>
+    {{- end }}
+
+    <nav class="cxhero4__nav" aria-label="On this page">
+      <span class="cxhero4__nav-lead">On this page</span>
+      <a href="#downloads">Downloads</a>
+      <a href="#charts">Plots</a>
+      <a href="#gallery">Atlas</a>
+      <a href="#explorer">Explorer</a>
+      <a class="cxhero4__paper-btn" href="{{ $paperURL }}">Read the paper&nbsp;<span aria-hidden="true">→</span></a>
+    </nav>
+  </div>
+</div>

@@ -1,0 +1,513 @@
+/* ====================================================================
+   CICY Coxeter landing page — section styles
+   --------------------------------------------------------------------
+   Production styles for the landing-page sections below the title: the
+   Intro panel (.cxhero4), the Downloads panel (.cxdl3 + the .cx-bibtex
+   copy button) and the Charts component (.cxch2c). The section roots
+   (.cicy-intro / .cicy-downloads / .cicy-charts / .cicy-gallery /
+   .cicy-explorer) share the gruvbox palette defined below.
+
+   The live Explorer (loading states, results table) is styled in
+   cicy-explorer.css; the gallery Atlas in cicy-gallery.css. Group-type
+   hues: finite = blue, affine = aqua, indefinite = yellow.
+   ==================================================================== */
+
+.cicy-intro,
+.cicy-downloads,
+.cicy-charts,
+.cicy-gallery,
+.cicy-explorer {
+  /* group-type hues — shared with the gallery palette */
+  --cx-finite:   #458588;
+  --cx-affine:   #689d6a;
+  --cx-indef:    #d79921;
+  --cx-accent:   var(--cicy-chart-accent, #458588);
+  /* link-type controls (Download CSV, chart toggle, …) use the SITE's standard
+     link blue ($info = #6086b4 in the Anatole theme) rather than the gruvbox
+     accent, so every clickable link-like element reads uniformly across the
+     site. Same value in light and dark (the theme uses one link colour). */
+  --cx-link:     #6086b4;
+  /* stat accent — gruvbox purple, deliberately OUTSIDE the group-type
+     palette (blue/aqua/yellow) so the stat tiles can't be misread as
+     finite/affine/indefinite categories */
+  --cx-stat:     #b16286;
+  /* copy-button feedback (success / failure), shared by .cxdl3__copy and the
+     per-model .cxpg-copy — the subtler affine-family green + a matching red,
+     both rendered as a soft bg tint + border + text. */
+  --cx-copy-ok:  #689d6a;
+  --cx-copy-no:  #b5564e;
+  --cx-ink:      #2b3036;
+  --cx-muted:    #6a727b;
+  --cx-line:     rgba(22, 30, 40, 0.12);
+  --cx-line-2:   rgba(22, 30, 40, 0.06);
+  --cx-surface:  #ffffff;
+  --cx-surface-2:#f5f7f9;
+  --cx-paper:    #f6f2e9;
+  --cx-paper-ink:#3a3326;
+  --cx-paper-line: rgba(120, 100, 60, 0.26);
+  --cx-shadow:   0 1px 2px rgba(16, 24, 40, 0.05), 0 10px 22px -14px rgba(16, 24, 40, 0.22);
+  --cx-shadow-hi:0 2px 6px rgba(16, 24, 40, 0.08), 0 18px 30px -16px rgba(16, 24, 40, 0.30);
+  /* distinctive display + mono faces, with graceful system fallbacks */
+  --cx-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  --cx-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  margin-top: var(--cicy-section-gap);
+}
+
+.theme--dark .cicy-intro,
+[data-theme="dark"] .cicy-intro,
+.theme--dark .cicy-downloads,
+[data-theme="dark"] .cicy-downloads,
+.theme--dark .cicy-charts,
+[data-theme="dark"] .cicy-charts,
+.theme--dark .cicy-gallery,
+[data-theme="dark"] .cicy-gallery,
+.theme--dark .cicy-explorer,
+[data-theme="dark"] .cicy-explorer {
+  --cx-finite:   #83a598;
+  --cx-affine:   #8ec07c;
+  --cx-indef:    #fabd2f;
+  --cx-ink:      #e6ecf2;
+  --cx-muted:    #9aa6b2;
+  --cx-line:     rgba(255, 255, 255, 0.14);
+  --cx-line-2:   rgba(255, 255, 255, 0.07);
+  --cx-surface:  #18242e;
+  --cx-surface-2:#1f2d38;
+  --cx-stat:     #d3869b;
+  --cx-copy-ok:  #8ec07c;
+  --cx-copy-no:  #d98a80;
+  --cx-paper:    #272016;
+  --cx-paper-ink:#e9dec5;
+  --cx-paper-line: rgba(233, 222, 197, 0.16);
+  --cx-shadow:   0 1px 2px rgba(0, 0, 0, 0.35), 0 12px 26px -16px rgba(0, 0, 0, 0.65);
+  --cx-shadow-hi:0 2px 8px rgba(0, 0, 0, 0.45), 0 22px 40px -18px rgba(0, 0, 0, 0.8);
+}
+
+/* Production intro hero (consolidated panel) sits at the top of the page,
+   directly under the <h1> — a tighter gap than the inter-section spacing. */
+.cicy-intro { margin-top: 1.5rem; }
+
+/* --- Intro panel · composed (prose + stat tiles + nav) ------------- */
+
+.cxhero4__panel {
+  display: flex;
+  flex-wrap: wrap;       /* prose + stats side by side; the stats reflow BELOW the
+                            prose when the panel itself gets narrow — sized on the
+                            panel's real width, not a viewport guess (the content
+                            column is non-monotonic with viewport once the theme
+                            sidebar drops) */
+  gap: 1.6rem 2rem;
+  padding: 1.7rem 1.8rem;
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  background: var(--cx-surface-2);
+  box-shadow: var(--cx-shadow);
+}
+/* prose keeps a ~36rem floor; once prose(36rem)+stats(21rem)+gap can't fit
+   (~<590px panel) the stats wrap onto their own full-width line beneath it.
+   (rem is 10px on this theme, so 36rem ≈ 360px.) */
+.cxhero4__prose { flex: 1.55 1 36rem; min-width: 0; }
+.cxhero4__lede {
+  font-size: 1.1em;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  color: var(--cx-ink);
+}
+.cxhero4__featured {
+  margin: 0;
+  font-size: 0.95em;
+  line-height: 1.55;
+  color: var(--cx-muted);
+}
+/* KaTeX renders inline math at ~1.21em by default, which made the bracketed
+   group labels read larger than the "CICY NNNN" text beside them — normalise. */
+.cxhero4__featured .katex { font-size: 1em; }
+
+.cxhero4__spec {
+  flex: 1 1 21rem;
+  align-self: flex-start;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin: 0;
+}
+.cxhero4__spec-cell {
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--cx-line);
+  border-top: 3px solid var(--k, var(--cx-muted));
+  border-radius: 0;
+  background: var(--cx-surface);
+}
+.cxhero4__spec-cell dt {
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--cx-ink);
+}
+.cxhero4__spec-cell dd {
+  margin: 0.3rem 0 0;
+  font-size: 0.84em;
+  line-height: 1.3;
+  color: color-mix(in srgb, var(--cx-ink) 78%, transparent);
+}
+
+.cxhero4__nav {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.85rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--cx-line);
+}
+.cxhero4__nav-lead {
+  font-size: 0.74em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cx-muted);
+}
+.post__content .cxhero4__nav a {
+  /* no colour override → inherits the site's standard link colour (uniformity) */
+  text-decoration: none;
+  font-size: 0.95em;
+  padding: 0.15rem 0.5rem;
+  transition: background 0.15s ease;
+}
+/* The section jump-links read as nav buttons: hover/focus draws a subtle accent
+   rectangle behind the label rather than underlining it (these were the only
+   underline-on-hover links on the site). The paper button keeps its own style. */
+.post__content .cxhero4__nav a:not(.cxhero4__paper-btn):hover,
+.post__content .cxhero4__nav a:not(.cxhero4__paper-btn):focus-visible {
+  /* Unified link-blue 12% hover tint shared with the Download button. */
+  background: color-mix(in srgb, var(--cx-link) 12%, transparent);
+  text-decoration: none;
+  outline: none;
+}
+
+/* --- Intro panel · polished (purple stat-tile funnel, button nav) -- */
+
+/* Stat tiles: a single non-group-type hue (gruvbox purple) deepening across
+   the nested funnel total ⊇ Kähler-favorable ⊇ Coxeter symmetry ⊇ infinite,
+   so the colour reads as magnitude, never as a finite/affine/indefinite code. */
+.cxhero4--polished .cxhero4__spec-cell:nth-child(1) { border-top-color: color-mix(in srgb, var(--cx-stat) 50%, var(--cx-surface)); }
+.cxhero4--polished .cxhero4__spec-cell:nth-child(2) { border-top-color: color-mix(in srgb, var(--cx-stat) 67%, var(--cx-surface)); }
+.cxhero4--polished .cxhero4__spec-cell:nth-child(3) { border-top-color: color-mix(in srgb, var(--cx-stat) 83%, var(--cx-surface)); }
+.cxhero4--polished .cxhero4__spec-cell:nth-child(4) { border-top-color: var(--cx-stat); }
+
+/* #3 — "On this page" in sentence case (was uppercased) */
+.cxhero4--polished .cxhero4__nav-lead {
+  text-transform: none;
+  letter-spacing: 0.01em;
+  font-size: 0.82em;
+}
+
+/* prose / featured links inherit the site's standard link colour (no CICY
+   override) — full site link uniformity, per the design decision */
+
+/* #4 — companion-paper link: a bordered button at the right of the nav. Uses
+   the site's standard link colour (inherited → currentColor) for uniformity. */
+.cxhero4__nav a.cxhero4__paper-btn { margin-left: auto; }
+.post__content .cxhero4__nav a.cxhero4__paper-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.28rem 0.7rem;
+  border: 1px solid currentColor;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+.post__content .cxhero4__nav a.cxhero4__paper-btn span { transition: transform 0.15s ease; }
+.post__content .cxhero4__nav a.cxhero4__paper-btn:hover {
+  background: color-mix(in srgb, var(--cx-link) 12%, transparent);
+  text-decoration: none;
+}
+.post__content .cxhero4__nav a.cxhero4__paper-btn:hover span { transform: translateX(3px); }
+
+/* ====================================================================
+   DOWNLOADS — production acquisition panel (.cicy-downloads .cxdl3)
+   A "Get the data" files panel beside a citation card carrying an inline,
+   copyable BibTeX block. Format badges are palette-neutral; download links
+   inherit the site link colour and the copy button stays neutral.
+   ==================================================================== */
+
+/* Citation BibTeX — a bordered monospace <pre>. This is the one deliberately
+   code-like element in the section (see the Cite card discussion). */
+.cx-bibtex .highlight { margin: 0; }
+.cx-bibtex pre {
+  margin: 0;
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  background: var(--cx-surface-2);
+  font-family: var(--cx-mono);
+  font-size: 0.82em;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+/* Copy-BibTeX button — neutral at rest, ink on hover, green when copied. */
+.cxdl3__copy {
+  font: inherit;
+  font-size: 0.82em;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--cx-line);
+  border-radius: 0;
+  background: var(--cx-surface);
+  color: var(--cx-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.cxdl3__copy:hover,
+.cxdl3__copy:focus-visible {
+  color: var(--cx-ink);
+  border-color: var(--cx-muted);
+  outline: none;
+}
+.cxdl3__copy.is-copied,
+.cxdl3__copy.is-failed {
+  /* Identical to the per-model copy button (.cxpg-copy): a soft bg tint +
+     border + text — green on success, red on failure. */
+  background: color-mix(in srgb, var(--cx-copy) 22%, var(--cx-surface));
+  border-color: color-mix(in srgb, var(--cx-copy) 55%, var(--cx-line));
+  color: var(--cx-copy);
+}
+.cxdl3__copy.is-copied { --cx-copy: var(--cx-copy-ok); }
+.cxdl3__copy.is-failed { --cx-copy: var(--cx-copy-no); }
+
+/* Copy-button row: keeps the copy button at the right end of the citation card. */
+.cxdl3__copy-row { display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem; }
+
+/* Two cards — files panel + citation — that wrap to a single column on a
+   narrow page (the citation drops below the files via flex-wrap). */
+
+/* The card is a query CONTAINER, so the two columns switch between stacked and
+   side-by-side — and the divider between them flips between a horizontal rule
+   and a vertical hairline — based on the card's OWN width, never the viewport.
+   Layout and divider therefore always agree, side-by-side only happens when
+   there's room for both columns to breathe (no cramped overlap), and the only
+   transition is the available width genuinely crossing the threshold (e.g. when
+   the sidebar reappears and squeezes the content column). */
+.cxdl3 { container-type: inline-size; }
+
+/* ONE unified card holds both columns; the taller citation sets its height and
+   the shorter files column simply has room beneath it. Default = stacked, with
+   a horizontal rule above the citation. */
+.cxdl3__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface-2);
+  padding: 1.4rem 1.6rem;
+}
+.cxdl3__panel,
+.cxdl3__cite { min-width: 0; }
+.cxdl3__cite {
+  border-top: 1px solid var(--cx-line);
+  padding-top: 1.4rem;
+}
+
+/* Side-by-side once the card is wide enough; the divider becomes a full-height
+   vertical hairline. */
+@container (min-width: 600px) {
+  .cxdl3__grid { flex-direction: row; align-items: stretch; gap: 0; }
+  .cxdl3__panel { flex: 1.6 1 0; padding-right: 1.8rem; }
+  .cxdl3__cite {
+    flex: 1 1 0;
+    border-top: 0;
+    padding-top: 0;
+    border-left: 1px solid var(--cx-line);
+    padding-left: 1.8rem;
+  }
+}
+.cxdl3__head h3,
+.cxdl3__cite h3 { margin: 0 0 0.4rem; }
+.cxdl3__head p {
+  margin: 0 0 1rem;
+  font-size: 0.9em;
+  color: var(--cx-muted);
+  line-height: 1.45;
+}
+
+/* File rows: badge · name+use (grows) · action (size + download). */
+.cxdl3__list { list-style: none; margin: 0; padding: 0; }
+.cxdl3__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+}
+.cxdl3__item + .cxdl3__item { border-top: 1px solid var(--cx-line); }
+.cxdl3__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 0;
+  /* gruvbox purple (--cx-stat) — the site's non-group-type accent, so the
+     format letters M / T can't be misread as finite/affine/indefinite. */
+  background: color-mix(in srgb, var(--cx-stat) 16%, transparent);
+  color: var(--cx-stat);
+  font-family: var(--cx-mono);
+  font-weight: 700;
+  font-size: 1em;
+}
+.cxdl3__meta { display: flex; flex-direction: column; gap: 0.1rem; min-width: 0; }
+.cxdl3__name { font-weight: 700; }
+.cxdl3__use { font-size: 0.84em; color: var(--cx-muted); line-height: 1.35; }
+.cxdl3__action { display: flex; align-items: center; gap: 0.8rem; }
+.cxdl3__size {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85em;
+  color: var(--cx-muted);
+  white-space: nowrap;
+}
+
+/* Download link — outlined in the inherited site link colour (uniformity). */
+.post__content a.cxdl3__dl {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid currentColor;
+  font-size: 0.88em;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.post__content a.cxdl3__dl:hover {
+  background: color-mix(in srgb, var(--cx-link) 12%, transparent);
+  text-decoration: none;
+}
+.post__content a.cxdl3__dl:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Citation card text + inline BibTeX. */
+.cxdl3__ref { margin: 0 0 0.85rem; font-size: 0.95em; line-height: 1.5; color: var(--cx-ink); }
+.cxdl3__bibtex { margin: 0 0 0.6rem; }
+/* wrap at whitespace, break ONLY the unbreakable URL (not short tokens) so the
+   BibTeX stays copy-faithful in the narrow column instead of clipping. */
+.cxdl3__bibtex pre {
+  font-size: 0.8em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* ====================================================================
+   CHARTS (.cxch2c) — the rank(W) × h¹¹ heatmap card with an All / Infinite
+   toggle. The square-cell aspect study reuses the same block, differing only
+   in the chart container's size attributes.
+   ==================================================================== */
+/* Centre the whole component on one column so the header rule, the chart
+   card and the footnote share a tidy measure. */
+.cxch2c {
+  max-width: 720px;
+  margin-inline: auto;
+}
+/* The square-cell chart centres within the measure; its SVG scales fluidly
+   (cicy-charts.js gives it a viewBox), so the card no longer needs to
+   shrink-wrap a fixed-size chart — and a clean block lets the chart container
+   report the true available width that drives the responsive legend. */
+.cxch2c--square { max-width: 100%; }
+.cxch2c--square .cxch2c__chart { width: 100%; }
+
+/* Control bar above the chart — now holds only the All/Infinite toggle, kept
+   right-aligned (the section header + lede carry the title and the click hint). */
+.cxch2c__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.25rem;
+  margin-bottom: 1.05rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--cx-line);
+}
+
+/* Segmented control — a clear track with an unmistakable active segment
+   (raised surface, accent label, accent under-rule). */
+.cxch2c__toggle {
+  display: inline-flex;
+  flex: none;
+  padding: 0.22rem;
+  gap: 0.18rem;
+  border: 1px solid var(--cx-line);
+  background: var(--cx-surface-2);
+}
+.cxch2c__toggle button {
+  font: inherit;
+  font-size: 0.86em;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--cx-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.cxch2c__toggle button:hover { color: var(--cx-ink); }
+.cxch2c__toggle button:focus-visible {
+  outline: 2px solid var(--btn-accent);
+  outline-offset: 1px;
+}
+/* Each toggle button carries its heatmap's colour — teal for All groups,
+   gold for Infinite groups — so the active button matches the plot it shows. */
+.cxch2c__toggle button[data-cicy-chart-mode="all"]      { --btn-accent: var(--cx-finite); }
+.cxch2c__toggle button[data-cicy-chart-mode="infinite"] { --btn-accent: var(--cx-indef); }
+.cxch2c__toggle button.is-active {
+  background: color-mix(in srgb, var(--btn-accent) 14%, var(--cx-surface));
+  color: var(--btn-accent);
+  font-weight: 600;
+  border-color: color-mix(in srgb, var(--btn-accent) 55%, var(--cx-line));
+  box-shadow: var(--cx-shadow), inset 0 -2px 0 var(--btn-accent);
+}
+.cxch2c__toggle-n {
+  font-variant-numeric: tabular-nums;
+  font-size: 0.86em;
+  opacity: 0.7;
+}
+.cxch2c__toggle button.is-active .cxch2c__toggle-n { opacity: 0.95; }
+
+/* Seated chart card. */
+.cxch2c__frame {
+  background: var(--cx-surface);
+  border: 1px solid var(--cx-line);
+  box-shadow: var(--cx-shadow);
+  padding: 1.1rem 1.2rem 0.9rem;
+}
+/* The descendant selector raises specificity above vega-embed's injected
+   `.vega-embed { display: inline-block }`; `text-align: center` then centres a
+   fixed-width (square-cell) chart within the card. */
+.cicy-charts .cxch2c__chart {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+/* Let the embedded SVG be fluid: the wrapper fills the card and the SVG
+   (given a viewBox + width:100% in cicy-charts.js) scales down on narrow
+   cards instead of overflowing. Overrides vega-embed's inline-block. */
+.cicy-charts .cxch2c__chart .vega-embed {
+  display: block;
+  width: 100%;
+}
+.cxch2c__chart svg {
+  color: inherit;
+  max-width: 100%;
+  height: auto;
+  /* fresh SVG on every (re)render → fade re-plays on toggle */
+  animation: cxchFade 0.24s ease both;
+}
+@keyframes cxchFade {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: none; }
+}

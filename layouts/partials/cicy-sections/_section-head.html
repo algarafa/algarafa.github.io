@@ -1,0 +1,10 @@
+{{- /* Shared landing-page section header: a uniform <h2> plus one tight,
+       functional lede line. Used by the Downloads, Charts, Gallery and Explorer
+       sections so every section announces itself identically. Context: a dict
+       with `id` (the section root's anchor; the heading id is `<id>-heading`,
+       referenced by the section's aria-labelledby), `title`, and `lede` (a
+       single sentence; may carry inline KaTeX `\(...\)`, rendered client-side). */ -}}
+<header class="cx-sec-head">
+  <h2 id="{{ .id }}-heading">{{ .title }}</h2>
+  <p class="cx-sec-head__lede">{{ .lede | safeHTML }}</p>
+</header>

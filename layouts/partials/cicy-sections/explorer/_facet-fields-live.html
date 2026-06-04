@@ -1,0 +1,87 @@
+{{- /* The three facet fieldsets (Hodge / Coxeter / Flags) with the SAME field
+       `name`s the live cicy-explorer.js reads. Field names must stay in sync
+       with FILTER_KEYS. */ -}}
+<fieldset class="cicy-explorer__field">
+  <legend>Hodge numbers</legend>
+  <label>
+    <span class="cicy-explorer__label">\(h^{1,1}\) min</span>
+    <input type="number" name="h11_min" min="1" max="19" step="1">
+  </label>
+  <label>
+    <span class="cicy-explorer__label">\(h^{1,1}\) max</span>
+    <input type="number" name="h11_max" min="1" max="19" step="1">
+  </label>
+  <label>
+    <span class="cicy-explorer__label">\(h^{2,1}\) min</span>
+    <input type="number" name="h21_min" min="0" max="101" step="1">
+  </label>
+  <label>
+    <span class="cicy-explorer__label">\(h^{2,1}\) max</span>
+    <input type="number" name="h21_max" min="0" max="101" step="1">
+  </label>
+</fieldset>
+
+<fieldset class="cicy-explorer__field">
+  <legend>Coxeter symmetry</legend>
+  <label>
+    <span class="cicy-explorer__label">Rank</span>
+    <select name="coxeter_rank">
+      <option value="">Any</option>
+      <option value="0">0 (no iso-flops)</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </label>
+  <label>
+    <span class="cicy-explorer__label">Type</span>
+    <select name="coxeter_kind">
+      <option value="">Any</option>
+      <option value="finite">Finite</option>
+      <option value="affine">Affine</option>
+      <option value="indefinite">Indefinite</option>
+      <option value="infinite">Infinite (affine + indefinite)</option>
+      <option value="none">None (no Coxeter symmetry)</option>
+    </select>
+  </label>
+  <label>
+    <span class="cicy-explorer__label">Coxeter diagram</span>
+    <select name="shape">
+      <option value="">Any</option>
+      {{ with site.Data.cicy_coxeter.chart_data.shape_options }}
+        {{ $lastRank := 0 }}
+        {{ range . }}
+          {{ if ne .rank $lastRank }}
+            {{ if gt $lastRank 0 }}</optgroup>{{ end }}
+            <optgroup label="Rank {{ .rank }}">
+            {{ $lastRank = .rank }}
+          {{ end }}
+          <option value="{{ .key }}">{{ .display }} &middot; {{ .count }}</option>
+        {{ end }}
+        {{ if gt $lastRank 0 }}</optgroup>{{ end }}
+      {{ end }}
+    </select>
+  </label>
+</fieldset>
+
+<fieldset class="cicy-explorer__field">
+  <legend>Properties</legend>
+  <label>
+    <span class="cicy-explorer__label">Kähler-favorable</span>
+    <select name="kahler_pos">
+      <option value="">Any</option>
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+  </label>
+  <label>
+    <span class="cicy-explorer__label">Direct product</span>
+    <select name="is_product">
+      <option value="">Any</option>
+      <option value="true">True</option>
+      <option value="false">False</option>
+    </select>
+  </label>
+</fieldset>

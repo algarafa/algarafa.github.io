@@ -1,0 +1,56 @@
+{{- /* Downloads — the production acquisition panel. A "Get the data" panel
+       lists the database artefacts (neutral format badge · name + use · size ·
+       download) beside a compact citation card with an inline BibTeX block and a
+       copy button. The grid is flex-wrap, so the citation reflows below the files
+       on a narrow page. Download links use the site link colour; format badges
+       are palette-neutral (file formats aren't finite/affine/indefinite group
+       types). The `.cicy-downloads` root carries the gruvbox `--cx-*` palette so
+       the section is self-sufficient. */ -}}
+{{- $mSize := partial "cicy-sections/_filesize.html" "static/cicy-coxeter/CICY-Coxeter-Database.m" -}}
+{{- $tSize := partial "cicy-sections/_filesize.html" "static/cicy-coxeter/CICY-Coxeter-Database.txt" -}}
+<section id="downloads" class="cicy-downloads cxdl3" aria-labelledby="downloads-heading">
+  {{ partial "cicy-sections/_section-head.html" (dict "id" "downloads" "title" "Downloads" "lede" `The complete database in two formats.`) }}
+  <div class="cxdl3__grid">
+    <section class="cxdl3__panel" aria-label="Database files">
+      <header class="cxdl3__head">
+        <h3>Database files</h3>
+        <p>All 7890 entries. The 4874 Kähler-favorable ones carry full iso-flop Coxeter symmetry data.</p>
+      </header>
+      <ul class="cxdl3__list">
+        <li class="cxdl3__item">
+          <span class="cxdl3__badge" aria-hidden="true">M</span>
+          <span class="cxdl3__meta">
+            <span class="cxdl3__name">Mathematica</span>
+            <span class="cxdl3__use">Association list ready for use in Mathematica</span>
+          </span>
+          <span class="cxdl3__action">
+            <span class="cxdl3__size">{{ $mSize }}</span>
+            <a class="cxdl3__dl" href="CICY-Coxeter-Database.m" aria-label="Download the Mathematica file ({{ $mSize }})">Download</a>
+          </span>
+        </li>
+        <li class="cxdl3__item">
+          <span class="cxdl3__badge" aria-hidden="true">T</span>
+          <span class="cxdl3__meta">
+            <span class="cxdl3__name">Plain text</span>
+            <span class="cxdl3__use">One record per block, <code>Key : Value</code> lines</span>
+          </span>
+          <span class="cxdl3__action">
+            <span class="cxdl3__size">{{ $tSize }}</span>
+            <a class="cxdl3__dl" href="CICY-Coxeter-Database.txt" aria-label="Download the plain-text file ({{ $tSize }})">Download</a>
+          </span>
+        </li>
+      </ul>
+    </section>
+
+    <section class="cxdl3__cite" data-cx-cite aria-label="How to cite">
+      <h3>Citation</h3>
+      <p class="cxdl3__ref">R. Álvarez-García and F. Ruehle, <em>Kaleidoscopes, Waves and the Prepotential</em>, 2026 (arXiv:&nbsp;<code>TBA</code>).</p>
+      <div class="cx-bibtex cxdl3__bibtex">{{ partial "cicy-sections/_bibtex.html" . }}</div>
+      <div class="cxdl3__copy-row">
+        <button type="button" class="cxdl3__copy" data-cx-copy=".cx-bibtex">
+          <span data-cx-copy-label>Copy BibTeX</span>
+        </button>
+      </div>
+    </section>
+  </div>
+</section>

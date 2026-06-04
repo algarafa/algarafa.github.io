@@ -1,0 +1,12 @@
+{{- /* Human-readable size for a project-root path (e.g.
+       "static/cicy-coxeter/cicy-coxeter.parquet"). Mirrors the filesize
+       shortcode so the Downloads section stays single-sourced with the files. */ -}}
+{{- $stat := os.Stat . -}}
+{{- $size := $stat.Size -}}
+{{- if lt $size 1024 -}}
+  {{- printf "%d B" $size -}}
+{{- else if lt $size 1048576 -}}
+  {{- printf "%.0f kB" (div (float $size) 1024.0) -}}
+{{- else -}}
+  {{- printf "%.1f MB" (div (float $size) 1048576.0) -}}
+{{- end -}}
