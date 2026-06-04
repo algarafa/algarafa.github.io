@@ -75,13 +75,10 @@
   {{- /* ---- body: two-column "title | data" ledger ---- */ -}}
   <dl class="cxpg-sheet__table">
 
-    {{- /* nudge the (h¹¹,h²¹) superscript and χ subscript off the bracket's
-           right edge with a thin space. The χ subscript value is wrapped in a
-           group ({…}) so its leading minus stays UNARY (otherwise the space
-           makes KaTeX treat it as a binary minus and add a gap before 64). */ -}}
-    {{- $confTex := replace $r.latex_conf "\\right]^{" "\\right]^{\\," -}}
-    {{- $confTex = replace $confTex "}_{" "}_{\\,{" -}}
-    {{- $confTex = printf "%s}" $confTex -}}
+    {{- /* render the configuration matrix exactly as emitted; KaTeX's natural
+           gap between the bracket and the Hodge superscript / Euler subscript
+           reads well, so no manual kern is added. */ -}}
+    {{- $confTex := $r.latex_conf -}}
     <div class="cxpg-sheet__row">
       <dt class="cxpg-sheet__rowhead"><span class="cxpg-sheet__rowtitle">Configuration matrix</span></dt>
       <dd class="cxpg-sheet__rowdata">
