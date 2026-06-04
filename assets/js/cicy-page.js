@@ -15,6 +15,7 @@
   async function copyText(text) {
     try {
       await navigator.clipboard.writeText(text);
+      return true;
     } catch (_err) {
       const ta = document.createElement('textarea');
       ta.value = text;
@@ -23,8 +24,10 @@
       ta.style.left = '-9999px';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); } catch (_e) { /* swallow */ }
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (_e) { ok = false; }
       document.body.removeChild(ta);
+      return ok;
     }
   }
 
@@ -35,13 +38,13 @@
     const rec = btn.closest('[data-cxpg-record]');
     const code = rec && rec.querySelector('pre code, pre');
     if (!code) return;
-    await copyText(code.textContent);
+    const ok = await copyText(code.textContent);
     const label = btn.getAttribute('data-label') || 'Copy';
-    btn.textContent = 'Copied';
-    btn.classList.add('is-copied');
+    btn.textContent = ok ? 'Copied' : 'Copy failed';
+    btn.classList.add(ok ? 'is-copied' : 'is-failed');
     setTimeout(() => {
       btn.textContent = label;
-      btn.classList.remove('is-copied');
+      btn.classList.remove('is-copied', 'is-failed');
     }, 1200);
   });
 

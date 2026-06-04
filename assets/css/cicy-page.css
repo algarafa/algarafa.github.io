@@ -24,7 +24,7 @@
    ==================================================================== */
 
 .cxpg {
-  /* group-type hues — identical to the gallery / sections showcases */
+  /* group-type hues — shared with the gallery and section palettes */
   --cx-finite:   #458588;
   --cx-affine:   #689d6a;
   --cx-indef:    #d79921;
@@ -35,7 +35,10 @@
   --cx-line-2:   rgba(22, 30, 40, 0.06);
   --cx-surface:  #ffffff;
   --cx-surface-2:#f5f7f9;
-  --cx-yes:      #2a7a3a;
+  /* copy-button feedback (success / failure) — shared with the landing's
+     .cxdl3__copy; subtle bg-tint treatment below. */
+  --cx-copy-ok:  #689d6a;
+  --cx-copy-no:  #b5564e;
   --cx-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
   /* the page text font: the site's own body stack (theme partials/_base.scss),
      so the math pairs with the same sans used across the rest of the site. */
@@ -56,7 +59,8 @@
   --cx-line-2:   rgba(255, 255, 255, 0.07);
   --cx-surface:  #18242e;
   --cx-surface-2:#1f2d38;
-  --cx-yes:      #7ed08b;
+  --cx-copy-ok:  #8ec07c;
+  --cx-copy-no:  #d98a80;
 }
 
 /* kind -> single page accent. Sentinel/trivial deliberately keep --k = muted
@@ -124,11 +128,14 @@
   border-color: color-mix(in srgb, var(--cx-accent) 45%, var(--cx-line));
 }
 
-.cxpg-copy.is-copied {
-  background: color-mix(in srgb, var(--cx-yes) 22%, var(--cx-surface));
-  border-color: color-mix(in srgb, var(--cx-yes) 55%, var(--cx-line));
-  color: var(--cx-yes);
+.cxpg-copy.is-copied,
+.cxpg-copy.is-failed {
+  background: color-mix(in srgb, var(--cx-copy) 22%, var(--cx-surface));
+  border-color: color-mix(in srgb, var(--cx-copy) 55%, var(--cx-line));
+  color: var(--cx-copy);
 }
+.cxpg-copy.is-copied { --cx-copy: var(--cx-copy-ok); }
+.cxpg-copy.is-failed { --cx-copy: var(--cx-copy-no); }
 
 .cxpg-record pre {
   margin: 0;
@@ -420,6 +427,12 @@
   border-bottom: 1px solid var(--cx-line);
   align-items: start;
 }
+
+/* The Coxeter-diagram row centres its SVG vertically between the row rules
+   rather than top-aligning it — a short diagram (e.g. the rank-1 single dot)
+   would otherwise sit against the top rule. The SVG already centres the full
+   diagram (nodes + edge labels) internally. */
+.cxpg-sheet__row:has(.cxpg-sheet__diagram-wrap) { align-items: center; }
 
 /* Ledger: titles left-aligned in the first column, a central hairline, data right. */
 .cxpg-sheet__rowhead {

@@ -234,7 +234,14 @@
 
   <!-- KaTeX-->
   {{ $noop := .WordCount }}
-  {{ if or (.Page.Store.Get "hasMath") .IsHome }}
+  {{/* Every CICY Coxeter page needs KaTeX: the per-model pages render their
+       configuration matrix / Chern class / Coxeter data server-side via
+       transform.ToMath, and the section landing's intro carries inline
+       \(...\) examples. Neither path sets the in-content `hasMath` flag that
+       head can see (it is set in the templates' `main` block, which runs after
+       head), so load KaTeX for the whole section explicitly. */}}
+  {{ $cicySection := eq .Section "cicy-coxeter" }}
+  {{ if or (.Page.Store.Get "hasMath") .IsHome $cicySection }}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"

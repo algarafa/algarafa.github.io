@@ -130,7 +130,7 @@
     <div class="cxpg-sheet__row">
       <dt class="cxpg-sheet__rowhead">
         <span class="cxpg-sheet__rowtitle">Coxeter matrix</span>
-        {{- if $r.coxeter_has_inf }}<span class="cxpg-sheet__rowmeta">P, H = ∞</span>{{ end }}
+        {{- if $r.coxeter_has_inf }}<span class="cxpg-sheet__rowmeta">{{ transform.ToMath "\\text{P, H} = \\infty" (dict "displayMode" false "output" "htmlAndMathml") }}</span>{{ end }}
       </dt>
       <dd class="cxpg-sheet__rowdata">
         <div class="cxpg-matrix cxpg-sheet__math cxpg-sheet__math--scroll">{{ transform.ToMath $r.latex_coxeter (dict "displayMode" true "output" "htmlAndMathml") }}</div>
