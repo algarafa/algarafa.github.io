@@ -17,6 +17,15 @@
   url = "/es/talks/"
 
   [[main]]
+  # The DB is mounted into the Spanish tree (module.toml), so /es/cicy-coxeter/
+  # exists with the (still-English) content; the Spanish menu points there and
+  # the EN/ES switcher toggles it with /cicy-coxeter/.
+  name = "CICY Coxeter DB"
+  weight = 350
+  identifier = "cicy-coxeter"
+  url = "/es/cicy-coxeter/"
+
+  [[main]]
   name = "Sobre mí"
   weight = 400
   identifier = "about"

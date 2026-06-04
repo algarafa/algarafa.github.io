@@ -17,3 +17,12 @@
   target = "content/publications"
   lang = "es"
   excludeFiles = "_index.md"
+
+# Same idea for the CICY–Coxeter DB: share the English pages into the Spanish
+# content tree so /es/cicy-coxeter/ exists (the still-English content, not yet
+# translated) and the EN/ES language switcher toggles between the two URLs like
+# every other section. _index.md is INCLUDED (there is no Spanish section index).
+[[mounts]]
+  source = "content/english/cicy-coxeter"
+  target = "content/cicy-coxeter"
+  lang = "es"
