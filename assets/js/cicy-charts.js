@@ -23,6 +23,16 @@ let THEME = null;
 let EMBED = null;
 let EMBED_OPTS = null;
 
+// Safari/WebKit mis-paints HTML inside an SVG <foreignObject> when a transform
+// sits in its ancestor chain (WebKit bug 23113), which breaks the math axis
+// titles. Detect genuine WebKit (Safari desktop + every iOS browser) while
+// excluding the Blink browsers that also carry "AppleWebKit" in their UA, so
+// only Safari takes the workaround and Chrome/Edge/Firefox keep the proven path.
+const IS_WEBKIT =
+  typeof navigator !== "undefined" &&
+  /AppleWebKit/.test(navigator.userAgent) &&
+  !/Chrome|Chromium|Edg|OPR/.test(navigator.userAgent);
+
 function katexTitle(latex) {
   return `__KATEX:${latex}__`;
 }
@@ -275,7 +285,14 @@ function injectKatexTitles(container) {
   if (!svg) return;
   const xhtmlNs = "http://www.w3.org/1999/xhtml";
   const svgNs = "http://www.w3.org/2000/svg";
+
+  // Tear down any WebKit overlay (and its resize observer) left by a prior render.
+  if (container.__cicyOverlayRO) { container.__cicyOverlayRO.disconnect(); container.__cicyOverlayRO = null; }
+  const staleOverlay = container.querySelector(".cicy-katex-overlay");
+  if (staleOverlay) staleOverlay.remove();
+
   const titles = svg.querySelectorAll("text");
+  const webkitSpecs = [];
   titles.forEach(textEl => {
     const txt = textEl.textContent || "";
     const match = /^__KATEX:(.+)__$/.exec(txt);
@@ -291,31 +308,104 @@ function injectKatexTitles(container) {
       textEl.textContent = match[1]; // fallback to raw LaTeX
       return;
     }
-    let bbox;
-    try { bbox = textEl.getBBox(); } catch (_) { bbox = { x: 0, y: 0, width: 60, height: 16 }; }
-    const transform = textEl.getAttribute("transform") || "";
-    // Generous padding so the rendered KaTeX HTML fits without clipping.
-    const w = Math.max(bbox.width * 1.6 + 24, 80);
-    const h = Math.max(bbox.height * 1.6 + 8, 22);
-    const fo = document.createElementNS(svgNs, "foreignObject");
-    fo.setAttribute("x", String(bbox.x - 12));
-    fo.setAttribute("y", String(bbox.y - 4));
-    fo.setAttribute("width", String(w));
-    fo.setAttribute("height", String(h));
-    if (transform) fo.setAttribute("transform", transform);
-    fo.style.overflow = "visible";
-    const div = document.createElementNS(xhtmlNs, "div");
-    div.setAttribute("xmlns", xhtmlNs);
-    div.style.fontSize = "16px";
-    div.style.color = "currentColor";
-    div.style.lineHeight = "1";
-    div.style.textAlign = "center";
-    div.innerHTML = html;
-    fo.appendChild(div);
-    textEl.parentNode.appendChild(fo);
-    textEl.style.display = "none";
-    textEl.setAttribute("aria-hidden", "true");
+    if (IS_WEBKIT) {
+      // WebKit titles are drawn together as one HTML overlay (see below).
+      webkitSpecs.push({ textEl, html });
+    } else {
+      // Every other engine keeps the proven in-SVG path, byte-for-byte unchanged.
+      injectKatexTitleSvg(textEl, html, svgNs, xhtmlNs);
+      textEl.style.display = "none";
+      textEl.setAttribute("aria-hidden", "true");
+    }
   });
+
+  if (IS_WEBKIT && webkitSpecs.length) injectKatexTitlesWebkit(container, svg, webkitSpecs);
+}
+
+// Blink/Gecko placement (the proven path): a <foreignObject> appended next to
+// the Vega title <text>, carrying that text's own `transform` so it lands
+// exactly where Vega positioned the title.
+function injectKatexTitleSvg(textEl, html, svgNs, xhtmlNs) {
+  let bbox;
+  try { bbox = textEl.getBBox(); } catch (_) { bbox = { x: 0, y: 0, width: 60, height: 16 }; }
+  const transform = textEl.getAttribute("transform") || "";
+  // Generous padding so the rendered KaTeX HTML fits without clipping.
+  const w = Math.max(bbox.width * 1.6 + 24, 80);
+  const h = Math.max(bbox.height * 1.6 + 8, 22);
+  const fo = document.createElementNS(svgNs, "foreignObject");
+  fo.setAttribute("x", String(bbox.x - 12));
+  fo.setAttribute("y", String(bbox.y - 4));
+  fo.setAttribute("width", String(w));
+  fo.setAttribute("height", String(h));
+  if (transform) fo.setAttribute("transform", transform);
+  fo.style.overflow = "visible";
+  const div = document.createElementNS(xhtmlNs, "div");
+  div.setAttribute("xmlns", xhtmlNs);
+  div.style.fontSize = "16px";
+  div.style.color = "currentColor";
+  div.style.lineHeight = "1";
+  div.style.textAlign = "center";
+  div.innerHTML = html;
+  fo.appendChild(div);
+  textEl.parentNode.appendChild(fo);
+}
+
+// WebKit/Safari renders HTML inside an SVG <foreignObject> unreliably: once the
+// SVG is CSS-scaled (which makeChartFluid does for responsiveness) it can fail to
+// paint the content, or mis-paint it to the SVG origin (WebKit bug 23113). That
+// is what made the math axis titles collapse / vanish on Safari. So WebKit draws
+// the KaTeX titles as an absolutely-positioned HTML overlay ON TOP of the chart —
+// ordinary HTML, which always paints — instead of inside the SVG. Each title
+// tracks its Vega placeholder <text>: getScreenCTM gives the anchor, rotation and
+// the chart's live scale, so the title sits exactly where the in-SVG title would
+// and scales with the chart through every resize, matching the other engines'
+// continuous behaviour. A ResizeObserver re-places the overlay on each resize
+// (cheap: read CTMs + set styles, no chart re-render).
+function injectKatexTitlesWebkit(container, svg, specs) {
+  if (getComputedStyle(container).position === "static") container.style.position = "relative";
+  const overlay = document.createElement("div");
+  overlay.className = "cicy-katex-overlay";
+  overlay.style.cssText = "position:absolute;inset:0;pointer-events:none;overflow:visible;";
+  container.appendChild(overlay);
+
+  specs.forEach(spec => {
+    const node = document.createElement("div");
+    node.style.cssText =
+      "position:absolute;transform-origin:center center;white-space:nowrap;" +
+      "color:currentColor;line-height:1;";
+    node.innerHTML = spec.html;
+    overlay.appendChild(node);
+    spec.node = node;
+    // Keep the Vega placeholder <text> for geometry (getScreenCTM) but make it
+    // invisible and unannounced — do NOT display:none it, that nulls the CTM.
+    spec.textEl.style.fill = "transparent";
+    spec.textEl.setAttribute("aria-hidden", "true");
+  });
+
+  const place = () => {
+    const cr = container.getBoundingClientRect();
+    specs.forEach(spec => {
+      const m = spec.textEl.getScreenCTM();
+      if (!m) return;
+      const scale = Math.hypot(m.a, m.b) || 1;
+      const angle = Math.atan2(m.b, m.a) * 180 / Math.PI; // 0 x-title, -90 y-title
+      const s = spec.node.style;
+      s.left = (m.e - cr.x) + "px";      // the title anchor, in container space
+      s.top = (m.f - cr.y) + "px";
+      s.fontSize = (16 * scale) + "px";  // 16px user-space, scaled like the in-SVG path
+      s.transform = "translate(-50%,-50%) rotate(" + angle + "deg)";
+    });
+  };
+
+  place();
+  // makeChartFluid() runs right after injectKatexTitles and CSS-scales the SVG;
+  // re-place next frame to pick that up, then track every later resize.
+  requestAnimationFrame(place);
+  if (typeof ResizeObserver === "function") {
+    const ro = new ResizeObserver(() => place());
+    ro.observe(svg);
+    container.__cicyOverlayRO = ro;
+  }
 }
 
 function readThemeConfig() {
