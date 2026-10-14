@@ -50,7 +50,7 @@
     <span class="cicy-explorer__label">Coxeter diagram</span>
     <select name="shape">
       <option value="">Any</option>
-      {{ with site.Data.cicy_coxeter.chart_data.shape_options }}
+      {{ with hugo.Data.cicy_coxeter.chart_data.shape_options }}
         {{ $lastRank := 0 }}
         {{ range . }}
           {{ if ne .rank $lastRank }}

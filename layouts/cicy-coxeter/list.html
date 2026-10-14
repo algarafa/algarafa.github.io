@@ -15,7 +15,7 @@
 
       {{ partial "cicy-sections/charts/charts.html" . }}
 
-      {{ with .Site.Data.cicy_coxeter.diagram_gallery }}
+      {{ with hugo.Data.cicy_coxeter.diagram_gallery }}
         {{ partial "cicy-gallery/gallery.html" . }}
       {{ end }}
 

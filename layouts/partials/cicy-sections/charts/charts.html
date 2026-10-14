@@ -2,7 +2,7 @@
        Overlay heatmap: teal = the full Kähler-favorable landscape, gold = the
        superimposed infinite-order subset (theme-aware, see cicy-charts.js).
        The chart-data JSON is emitted ONCE here for cicy-charts.js. */ -}}
-{{- with site.Data.cicy_coxeter.chart_data }}
+{{- with hugo.Data.cicy_coxeter.chart_data }}
 <section class="cicy-charts" id="charts" aria-labelledby="charts-heading">
   {{ partial "cicy-sections/_section-head.html" (dict "id" "charts" "title" "Plots" "lede" `Distribution of iso-flop Coxeter symmetries across group rank and model Hodge number \(h^{1,1}\). Click on a cell to filter the Explorer below.`) }}
   <script id="cicy-chart-data" type="application/json">{{ . | jsonify (dict "indent" "") | safeJS }}</script>

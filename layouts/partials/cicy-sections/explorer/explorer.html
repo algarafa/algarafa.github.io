@@ -7,7 +7,7 @@
          data-cicy-explorer data-cols="refined-chi" aria-labelledby="explorer-heading">
   {{ partial "cicy-sections/_section-head.html" (dict "id" "explorer" "title" "Explorer" "lede" `Filter and search all 7890 entries. Every row links to its model page.`) }}
 
-  <script type="application/json" id="cicy-shape-display">{{ site.Data.cicy_coxeter.chart_data.shape_options | jsonify (dict "indent" "") | safeJS }}</script>
+  <script type="application/json" id="cicy-shape-display">{{ hugo.Data.cicy_coxeter.chart_data.shape_options | jsonify (dict "indent" "") | safeJS }}</script>
 
   <div class="cicy-explorer__card">
     {{ partial "cicy-sections/explorer/_explorer-body.html" . }}

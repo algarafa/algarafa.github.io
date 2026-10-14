@@ -1,5 +1,5 @@
 baseURL = "https://www.algarafa.com"
-languageCode = "en"
+locale = "en"
 DefaultContentLanguage = "en"
 title = "Website of Rafael Álvarez García"
 theme = "anatole-mod"

@@ -15,8 +15,8 @@
        (.render.rank): sentinel / trivial / rank-1 / rank>=2-full. */ -}}
 {{- $num := .Params.num -}}
 {{- $key := printf "%d" $num -}}
-{{- $meta := index site.Data.cicy_coxeter.page_meta $key -}}
-{{- $render := index site.Data.cicy_coxeter.page_render $key -}}
+{{- $meta := index hugo.Data.cicy_coxeter.page_meta $key -}}
+{{- $render := index hugo.Data.cicy_coxeter.page_render $key -}}
 {{- $h11 := .Params.h11 -}}
 {{- $h21 := .Params.h21 -}}
 {{- return (dict

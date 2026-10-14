@@ -4,3 +4,4 @@ static/cicy-coxeter/*.txt -text
 static/cicy-coxeter/*.parquet -text
 static/cicy-coxeter/*.schema.json text eol=lf
 content/english/cicy-coxeter/*.md text eol=lf
+data/cicy_coxeter/*.json text eol=lf

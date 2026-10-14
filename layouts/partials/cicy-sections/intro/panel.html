@@ -1,11 +1,10 @@
-{{- /* Intro — the production hero (consolidated from design study 4.2): a
-       two-column composed panel (prose + 2×2 stat block) with the section
-       jump-nav and a companion-paper button as a full-width footer. The panel
-       is flex-wrap, so the stat block reflows below the prose on a narrow
-       panel. Rendered at the TOP of the landing page by list.html. The
-       `.cicy-intro` root carries the gruvbox `--cx-*` palette (since it no
-       longer sits inside a `.cxshow` wrapper). Totals come from site data. */ -}}
-{{- $t := site.Data.cicy_coxeter.chart_data.totals -}}
+{{- /* Intro — the production hero: a two-column composed panel (prose + 2×2
+       stat block) with the section jump-nav and a companion-paper button as a
+       full-width footer. The panel is flex-wrap, so the stat block reflows
+       below the prose on a narrow panel. Rendered at the TOP of the landing
+       page by list.html. The `.cicy-intro` root carries the gruvbox `--cx-*`
+       palette. Totals come from site data. */ -}}
+{{- $t := hugo.Data.cicy_coxeter.chart_data.totals -}}
 {{- $paperURL := "/publications/kaleidoscopes-waves-prepotential/" -}}
 {{- $paperTitle := "Kaleidoscopes, Waves and the Prepotential" -}}
 <div class="cicy-intro cxhero4 cxhero4--polished">

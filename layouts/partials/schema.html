@@ -38,7 +38,7 @@
           "Kähler cone"
           "mathematical physics")
       "identifier" (printf "%scicy-coxeter/" .Site.BaseURL)
-      "inLanguage" (.Site.LanguageCode | default "en")
+      "inLanguage" (.Site.Language.Locale | default "en")
       "dateModified" (cond (.Lastmod.IsZero) (now.Format "2006-01-02") (.Lastmod.Format "2006-01-02"))
       "distribution" (slice
           (dict "@type" "DataDownload"
@@ -68,7 +68,7 @@
           "@id" $cicyAbs
           "name" "CICY Coxeter Database"
           "url" $cicyAbs)
-      "inLanguage" (.Site.LanguageCode | default "en")
+      "inLanguage" (.Site.Language.Locale | default "en")
       "license" "https://creativecommons.org/licenses/by/4.0/"
   -}}
   <script type="application/ld+json">
@@ -107,7 +107,7 @@
         {{- $copyright := replace . "{{ YEAR }}" (now.Format "2006") }}
         "copyrightYear": "{{ index (findRE `^\d{4}` $copyright 1) 0 }}",
       {{- end }}
-      "inLanguage": "{{ .Site.LanguageCode | default "en-us" }}",
+      "inLanguage": "{{ .Site.Language.Locale | default "en-us" }}",
       "isFamilyFriendly": "true",
       "mainEntityOfPage": { "@type": "WebPage", "@id": "{{ .Permalink }}" },
       "author":           { "@type": "Person",  "name": "{{ $author }}" },

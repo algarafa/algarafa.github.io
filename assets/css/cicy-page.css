@@ -13,7 +13,7 @@
         ledger, the full database record, and the footer.
 
    Everything is scoped under `.cxpg` so it never collides with the
-   landing `.cxshow` blocks or the live Explorer. The page text is the
+   landing-page sections or the live Explorer. The page text is the
    site's own body sans, so KaTeX math pairs with it exactly as it does
    everywhere else on the site.
    ==================================================================== */
