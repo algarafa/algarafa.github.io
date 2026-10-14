@@ -5,13 +5,13 @@
        page by list.html. The `.cicy-intro` root carries the gruvbox `--cx-*`
        palette. Totals come from site data. */ -}}
 {{- $t := hugo.Data.cicy_coxeter.chart_data.totals -}}
-{{- $paperURL := "/publications/kaleidoscopes-waves-prepotential/" -}}
+{{- $paperURL := "publications/kaleidoscopes-waves-prepotential/" | relLangURL -}}
 {{- $paperTitle := "Kaleidoscopes, Waves and the Prepotential" -}}
 <div class="cicy-intro cxhero4 cxhero4--polished">
   <div class="cxhero4__panel">
     <div class="cxhero4__prose">
       <p class="cxhero4__lede">Companion database to <em>{{ $paperTitle }}</em> (Álvarez-García &amp; Ruehle). It extends the favorable CICY list of <a href="https://arxiv.org/abs/1708.07907">Anderson–Gao–Gray–Lee (2017)</a>, built on the original CICYs of <a href="https://doi.org/10.1016/0550-3213(88)90352-5">Candelas–Dale–Lütken–Schimmrigk (1988)</a>, with data pertaining to the Coxeter symmetries that isomorphic flops induce on the Kähler moduli space.</p>
-      <p class="cxhero4__featured"><strong>Examples:</strong> <a href="/cicy-coxeter/6771/">CICY 6771</a> \([\mathrm{I}_2(\infty)\,(H)]\), <a href="/cicy-coxeter/6971/">CICY 6971</a> \([\mathrm{I}_2(\infty)\,(P)]\), <a href="/cicy-coxeter/5528/">CICY 5528</a> \([\mathrm{I}_2(4)]\).</p>
+      <p class="cxhero4__featured"><strong>Examples:</strong> <a href="{{ "cicy-coxeter/6771/" | relLangURL }}">CICY 6771</a> \([\mathrm{I}_2(\infty)\,(H)]\), <a href="{{ "cicy-coxeter/6971/" | relLangURL }}">CICY 6971</a> \([\mathrm{I}_2(\infty)\,(P)]\), <a href="{{ "cicy-coxeter/5528/" | relLangURL }}">CICY 5528</a> \([\mathrm{I}_2(4)]\).</p>
     </div>
 
     {{- with $t }}

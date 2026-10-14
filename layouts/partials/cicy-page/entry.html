@@ -15,11 +15,11 @@
 
   {{- /* ---- sticky utility bar: breadcrumb + keyboard-navigable stepper ---- */ -}}
   <div class="cxpg-sheet__util">
-    <a class="cxpg-sheet__crumb" href="{{ "/cicy-coxeter/" | relURL }}">CICY Coxeter DB <span class="cxpg-sheet__crumb-sep">|</span> <b>{{ $num }}</b></a>
+    <a class="cxpg-sheet__crumb" href="{{ "cicy-coxeter/" | relLangURL }}">CICY Coxeter DB <span class="cxpg-sheet__crumb-sep">|</span> <b>{{ $num }}</b></a>
     <nav class="cxpg-sheet__step" aria-label="Neighbour models">
-      <a class="cxpg-sheet__step-cell" data-role="cicy-nav-prev" href="{{ printf "/cicy-coxeter/%d/" (int $m.prev) | relURL }}" rel="prev" aria-label="Previous, model {{ $m.prev }}"><kbd class="cxpg-sheet__kbd" aria-hidden="true">←</kbd> <span class="cxpg-sheet__step-n">{{ $m.prev }}</span></a>
-      <a class="cxpg-sheet__step-cell cxpg-sheet__step-cell--r" data-role="cicy-random" href="{{ "/cicy-coxeter/" | relURL }}" aria-label="Random model" title="Random model">random <kbd class="cxpg-sheet__kbd" aria-hidden="true">r</kbd></a>
-      <a class="cxpg-sheet__step-cell" data-role="cicy-nav-next" href="{{ printf "/cicy-coxeter/%d/" (int $m.next) | relURL }}" rel="next" aria-label="Next, model {{ $m.next }}"><span class="cxpg-sheet__step-n">{{ $m.next }}</span> <kbd class="cxpg-sheet__kbd" aria-hidden="true">→</kbd></a>
+      <a class="cxpg-sheet__step-cell" data-role="cicy-nav-prev" href="{{ printf "cicy-coxeter/%d/" (int $m.prev) | relLangURL }}" rel="prev" aria-label="Previous, model {{ $m.prev }}"><kbd class="cxpg-sheet__kbd" aria-hidden="true">←</kbd> <span class="cxpg-sheet__step-n">{{ $m.prev }}</span></a>
+      <a class="cxpg-sheet__step-cell cxpg-sheet__step-cell--r" data-role="cicy-random" href="{{ "cicy-coxeter/" | relLangURL }}" aria-label="Random model" title="Random model">random <kbd class="cxpg-sheet__kbd" aria-hidden="true">r</kbd></a>
+      <a class="cxpg-sheet__step-cell" data-role="cicy-nav-next" href="{{ printf "cicy-coxeter/%d/" (int $m.next) | relLangURL }}" rel="next" aria-label="Next, model {{ $m.next }}"><span class="cxpg-sheet__step-n">{{ $m.next }}</span> <kbd class="cxpg-sheet__kbd" aria-hidden="true">→</kbd></a>
     </nav>
   </div>
 
@@ -113,7 +113,7 @@
     <div class="cxpg-sheet__row">
       <dt class="cxpg-sheet__rowhead">
         <span class="cxpg-sheet__rowtitle">Coxeter diagram</span>
-        <span class="cxpg-sheet__rowmeta"><a href="{{ printf "/cicy-coxeter/#shape-%s" $r.type_label | relURL }}">Gallery →</a></span>
+        <span class="cxpg-sheet__rowmeta"><a href="{{ printf "cicy-coxeter/#shape-%s" $r.type_label | relLangURL }}">Gallery →</a></span>
       </dt>
       <dd class="cxpg-sheet__rowdata">
         <div class="cxpg-sheet__diagram-wrap">
@@ -182,15 +182,15 @@
     {{- if and $m.siblings (gt (len $m.siblings) 0) }}
     {{- $total := len $m.siblings }}
     <section class="cxpg-sheet__siblings">
-      <span class="cxpg-sheet__sib-title">{{ $total }} sibling model{{ if ne $total 1 }}s{{ end }} share the Coxeter group{{ with $r.type_display }} {{ . }}{{ end }}{{ with $r.type_label }} · <a class="cxpg-sheet__sib-link" href="{{ printf "/cicy-coxeter/?shape=%s#explorer" . | relURL }}">filter Explorer</a>{{ end }} · <a class="cxpg-sheet__sib-link" data-role="cicy-random-sibling" data-siblings="{{ delimit $m.siblings "," }}" href="{{ "/cicy-coxeter/" | relURL }}">random sibling <kbd class="cxpg-sheet__kbd" aria-hidden="true">s</kbd></a></span>
+      <span class="cxpg-sheet__sib-title">{{ $total }} sibling model{{ if ne $total 1 }}s{{ end }} share the Coxeter group{{ with $r.type_display }} {{ . }}{{ end }}{{ with $r.type_label }} · <a class="cxpg-sheet__sib-link" href="{{ printf "cicy-coxeter/?shape=%s#explorer" . | relLangURL }}">filter Explorer</a>{{ end }} · <a class="cxpg-sheet__sib-link" data-role="cicy-random-sibling" data-siblings="{{ delimit $m.siblings "," }}" href="{{ "cicy-coxeter/" | relLangURL }}">random sibling <kbd class="cxpg-sheet__kbd" aria-hidden="true">s</kbd></a></span>
       <span class="cxpg-sheet__sib-list">
-        {{- range $m.siblings }}<a data-kind="{{ $c.kind }}" href="{{ printf "/cicy-coxeter/%d/" (int .) | relURL }}">{{ . }}</a>{{ end }}
+        {{- range $m.siblings }}<a data-kind="{{ $c.kind }}" href="{{ printf "cicy-coxeter/%d/" (int .) | relLangURL }}">{{ . }}</a>{{ end }}
       </span>
     </section>
     {{- end }}
 
     {{ partial "cicy-glossary.html" $c.page }}
 
-    <p class="cxpg-sheet__back"><a href="{{ printf "/cicy-coxeter/?num=%d#explorer" $num | relURL }}">‹ Back to the explorer</a></p>
+    <p class="cxpg-sheet__back"><a href="{{ printf "cicy-coxeter/?num=%d#explorer" $num | relLangURL }}">‹ Back to the explorer</a></p>
   </footer>
 </article>

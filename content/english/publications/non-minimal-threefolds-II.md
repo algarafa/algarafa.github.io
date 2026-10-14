@@ -18,19 +18,23 @@ We interpret infinite-distance limits in the complex structure moduli space of F
 <ul class="fa-ul">
   <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-arxiv ai-2x"></i></span><a href="https://arxiv.org/abs/2312.11611">arXiv:2312.11611</a>
   <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-inspire ai-2x"></i></span><a href="https://inspirehep.net/literature/2738694">INSPIRE</a>
+  <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-springer ai-2x"></i></span><a href="https://link.springer.com/article/10.1007/JHEP01(2025)058">Journal of High Energy Physics</a>
 </ul>
 
 #### BibTex Citation
 
 ```
 @article{Alvarez-Garcia:2023qqj,
-    author = "\'Alvarez-Garc\'\i{}a, Rafael and Lee, Seung-Joo and Weigand, Timo",
-    title = "{Non-minimal Elliptic Threefolds at Infinite Distance II: Asymptotic Physics}",
+    author = "{\'A}lvarez-Garc{\'\i}a, Rafael and Lee, Seung-Joo and Weigand, Timo",
+    title = "{Non-minimal elliptic threefolds at infinite distance II: asymptotic physics}",
     eprint = "2312.11611",
     archivePrefix = "arXiv",
     primaryClass = "hep-th",
     reportNumber = "CTPU-PTC-23-54, ZMP-HH/23-22",
-    month = "12",
-    year = "2023"
+    doi = "10.1007/JHEP01(2025)058",
+    journal = "JHEP",
+    volume = "01",
+    pages = "058",
+    year = "2025"
 }
 ```

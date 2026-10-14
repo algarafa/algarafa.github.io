@@ -2,9 +2,11 @@
        one-card enclosure. The single live DuckDB-WASM instance; #explorer owns
        URL / deep-link / chart-filter state and the section anchor. The facets,
        result count and table share one bordered card (.cicy-explorer__card),
-       separated by hairlines. Emits the ShapeKey→display map once. */ -}}
+       separated by hairlines. Emits the ShapeKey→display map once.
+       data-model-base is the current language's model-page root, so row links
+       keep /es/ readers on the Spanish site. */ -}}
 <section id="explorer" class="cicy-explorer cicy-explorer--refined cicy-explorer--pills"
-         data-cicy-explorer data-cols="refined-chi" aria-labelledby="explorer-heading">
+         data-cicy-explorer data-cols="refined-chi" data-model-base="{{ "cicy-coxeter/" | relLangURL }}" aria-labelledby="explorer-heading">
   {{ partial "cicy-sections/_section-head.html" (dict "id" "explorer" "title" "Explorer" "lede" `Filter and search all 7890 entries. Every row links to its model page.`) }}
 
   <script type="application/json" id="cicy-shape-display">{{ hugo.Data.cicy_coxeter.chart_data.shape_options | jsonify (dict "indent" "") | safeJS }}</script>

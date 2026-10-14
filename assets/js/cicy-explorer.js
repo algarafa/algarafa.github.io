@@ -6,6 +6,18 @@ const DUCKDB_ESM = "https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm
 
 const PARQUET_URL = "/cicy-coxeter/cicy-coxeter.parquet";
 
+// Model pages live under the current language's root (/cicy-coxeter/ or
+// /es/cicy-coxeter/), which the template passes as data-model-base. Read lazily
+// so it doesn't depend on when this module runs relative to the markup.
+let modelBase = null;
+function modelURL(num) {
+  if (modelBase === null) {
+    const root = document.querySelector("[data-cicy-explorer]");
+    modelBase = (root && root.dataset.modelBase) || "/cicy-coxeter/";
+  }
+  return `${modelBase}${num}/`;
+}
+
 // Query-string keys we read/write. Field names match the form input `name`s.
 const FILTER_KEYS = [
   "num", "h11_min", "h11_max", "h21_min", "h21_max",
@@ -339,7 +351,7 @@ function wireUI(section, conn, total, primary) {
       if (ev.target && ev.target.tagName === "A") return;
       const tr = ev.target && ev.target.closest("tr[data-num]");
       if (!tr) return;
-      window.location.href = `/cicy-coxeter/${tr.dataset.num}/`;
+      window.location.href = modelURL(tr.dataset.num);
     });
   }
   // Click-to-sort on column headers.
@@ -645,7 +657,7 @@ function numCell(num) {
   const td = document.createElement("td");
   td.className = "cicy-cell--num";
   const a = document.createElement("a");
-  a.href = `/cicy-coxeter/${num}/`;
+  a.href = modelURL(num);
   a.textContent = String(num);
   td.appendChild(a);
   return td;

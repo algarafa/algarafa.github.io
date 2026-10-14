@@ -18,19 +18,23 @@ We study infinite-distance limits in the complex structure moduli space of ellip
 <ul class="fa-ul">
   <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-arxiv ai-2x"></i></span><a href="https://arxiv.org/abs/2310.07761">arXiv:2310.07761</a>
   <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-inspire ai-2x"></i></span><a href="https://inspirehep.net/literature/2709909">INSPIRE</a>
+  <li style="padding-left:.5em"><span class="fa-li"><i class="ai ai-springer ai-2x"></i></span><a href="https://link.springer.com/article/10.1007/JHEP08(2024)240">Journal of High Energy Physics</a>
 </ul>
 
 #### BibTex Citation
 
 ```
 @article{Alvarez-Garcia:2023gdd,
-    author = "\'Alvarez-Garc\'\i{}a, Rafael and Lee, Seung-Joo and Weigand, Timo",
-    title = "{Non-minimal Elliptic Threefolds at Infinite Distance I: Log Calabi-Yau Resolutions}",
+    author = "{\'A}lvarez-Garc{\'\i}a, Rafael and Lee, Seung-Joo and Weigand, Timo",
+    title = "{Non-minimal elliptic threefolds at infinite distance. Part I. Log Calabi-Yau resolutions}",
     eprint = "2310.07761",
     archivePrefix = "arXiv",
     primaryClass = "hep-th",
     reportNumber = "CTPU-PTC-23-44, ZMP-HH/23-14",
-    month = "10",
-    year = "2023"
+    doi = "10.1007/JHEP08(2024)240",
+    journal = "JHEP",
+    volume = "08",
+    pages = "240",
+    year = "2024"
 }
 ```

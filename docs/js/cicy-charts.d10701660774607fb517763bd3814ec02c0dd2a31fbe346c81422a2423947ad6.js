@@ -56,8 +56,8 @@ function showFallback(el, key) {
   note.className = "cicy-chart-fallback__note";
   note.innerHTML =
     "Chart rendering unavailable in this browser. Download the full dataset as " +
-    '<a href="CICY-Coxeter-Database.m">Mathematica</a> or ' +
-    '<a href="CICY-Coxeter-Database.txt">plain text</a>.';
+    '<a href="/cicy-coxeter/CICY-Coxeter-Database.m">Mathematica</a> or ' +
+    '<a href="/cicy-coxeter/CICY-Coxeter-Database.txt">plain text</a>.';
   wrap.appendChild(summary);
   wrap.appendChild(note);
   el.appendChild(wrap);
