@@ -2,26 +2,37 @@
 title = "Sobre mí"
 description = "Sobre mí"
 date = "2021-09-12"
+lastmod = "2026-11-20"
 aliases = ["about-us", "about", "contact"]
 author = "Rafael Álvarez García"
 +++
 
-Soy estudiante de doctorado en física teórica en el [Cluster of Excellence Quantum Universe](https://www.qu.uni-hamburg.de/), un proyecto conjunto de la [Universität Hamburg](https://www.uni-hamburg.de/en.html) y el [DESY](https://www.desy.de/index_eng.html). Trabajo bajo la supervisión de el [Prof. Dr. Timo Weigand](https://unith.desy.de/research/strings/weigand) en temas comprendidos dentro de la fenomenología de cuerdas. Mis inquietudes investigadoras se centran en aprender sobre las propiedades generales que una teoría cuántica de la gravedad consistente ha de tener a través del estudio de la teoría de cuerdas, el ejemplo mejor comprendido de una teoría de este tipo. Además, creo que este estudio sistemático de las teorías de la gravedad cuántica nos llevará a una comprensión más profunda de la teoría de cuerdas en sí misma.
+Soy físico teórico y ocupo un puesto postdoctoral conjunto con [Cumrun Vafa](https://www.physics.harvard.edu/people/facpages/vafa) en la Harvard University y con [Fabian Ruehle](https://cos.northeastern.edu/people/fabian-ruehle/) en la Northeastern University. Utilizo la teoría de cuerdas como laboratorio para explorar la frontera entre las teorías de campos efectivas que pueden surgir de la gravedad cuántica y las que, aun pareciendo consistentes a bajas energías, no admiten tal compleción. En mi trabajo me apoyo en las conexiones entre la teoría de cuerdas y la geometría, y abordo también las cuestiones matemáticas que dichas conexiones suscitan.
 
-Mi proyecto de *master thesis* fue llevado a cabo bajo la supervisión del [Priv.-Doz.  Dr.  Ralph Blumenhagen](https://wwwth.mpp.mpg.de/members/blumenha/) en el [Max-Planck-Institut für Physik (Werner-Heisenberg-Institut)](https://www.mpp.mpg.de/) en Múnich. El proyecto se centraba en calcular periodos cerca de singularidades conifold en el espacio de móduli de la estructura compleja y en posteriormente explotar estos resultados para construir vacíos con un superpotencial pequeño tal y como requiere KKLT. Se puede hallar más información en [el paper resultante]({{<ref "/publications/small-flux-superpotentials-conifold">}}).
+## Investigación
 
-Como estudiante de grado tuve la oportunidad de participar en el [DESY Summer Student Programme](https://summerstudents.desy.de/), donde trabajé bajo la supervisión de el [Dr. Anatoli Fedynitch](https://afedynitch.netlify.app/) escribiendo código para calcular la pérdida de energía de los muones en medios densos, a ser usado posteriormente en la reconstrucción de cascadas atmosféricas en el paquete [MCEq](https://github.com/afedynitch/MCEq).
+- **Degeneraciones geométricas.** Estudio cuándo las dimensiones adicionales crecen o cuándo emergen cuerdas débilmente acopladas, señal de que la teoría de campos efectiva original deja de ser válida, y cómo los efectos cuánticos pueden contradecir lo que predice la geometría clásica.
 
-#### Educación
+- **Simetrías de Coxeter.** En ciertos modelos de cuerdas, empleo [simetrías de reflexión que actúan como un caleidoscopio]({{<ref "/cicy-coxeter">}} "Base de datos CICY–Coxeter") sobre el espacio de geometrías para explicar patrones que se repiten en las correcciones cuánticas y para descomponer sus sumas en modos de onda de ese espacio.
 
-- 2018 - 2021, [Elite Master Course Theoretical and Mathematical Physics](https://www.theorie.physik.uni-muenchen.de/TMP/), [LMU](https://www.lmu.de/en/) & [TUM](https://www.tum.de/en)
-- 2013 - 2018, Doble Grado con Premio Extraordinario, [Universidad de Oviedo](https://www.uniovi.es/en/inicio)
-  - Grado en Física
-  - Grado en Matemáticas
+- **Geometría cuántica.** Exploro cómo los efectos cuánticos transforman los espacios de parámetros de los modelos de cuerdas, calculando distancias entre teorías y preguntándome qué parte de cada espacio admite una descripción geométrica clásica.
 
-#### Personal
+- **Vacíos y cosmología.** Me planteo qué estados de vacío permite la teoría de cuerdas y si la energía de esos vacíos podría impulsar la expansión acelerada del universo en un régimen en el que la descripción de bajas energías sigue siendo fiable.
 
-Provengo de Asturias, una pequeña región situada en el noroeste de España. Más abajo encontrarás una colección de fotografías que te darán una idea de cómo es Asturias. ¡Espero que te guste y que puedas visitarla algún día!
+## Formación
+
+Me doctoré en la Universität Hamburg bajo la dirección de [Timo Weigand](https://www.physik.uni-hamburg.de/en/th2/ag-weigand/personen/weigand-timo.html), con la calificación de *summa cum laude*. En Múnich realicé mi tesis de máster con [Ralph Blumenhagen](https://wwwth.mpp.mpg.de/members/blumenha/) en el Max-Planck-Institut für Physik, como parte del [Elite Master Course Theoretical and Mathematical Physics](https://www.theorie.physik.uni-muenchen.de/TMP/), impartido conjuntamente por la LMU y la TUM. Obtuve el doble grado en Física y Matemáticas por la Universidad de Oviedo, junto con el Premio Extraordinario de la universidad al mejor expediente académico. Por el grado en Matemáticas recibí más tarde el Premio Nacional de Fin de Carrera de Educación Universitaria.
+
+## Comunidad
+
+- **Seminarios.** Coorganizo el Swampland Seminar y las Swampland Lunch Discussions de Harvard. Anteriormente desempeñé la misma función en el High Energy Theory Seminar de Northeastern.
+- **Mentoría.** Ejerzo de manera informal como mentor de doctorandos.
+- **Congresos.** Fui organizador local tanto de String Phenomenology 2025 en Northeastern como de Strings and Geometry 2024 en Hamburgo.
+- **Revisión por pares.** Reviso artículos para *SciPost Physics* y *Advances in Theoretical and Mathematical Physics*.
+
+## Personal
+
+Soy de Asturias, una pequeña región en el noroeste de España. Aquí tienes algunas estampas de mi tierra. ¡Espero que puedas visitarla algún día!
 
 {{< gallery >}}
   {{< figure src="/asturias/asturcones.jpg" caption="Asturcones | Getty Images">}}
