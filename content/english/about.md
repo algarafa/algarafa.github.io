@@ -2,26 +2,37 @@
 title = "About"
 description = "About"
 date = "2021-09-12"
+lastmod = "2026-11-19"
 aliases = ["about-us", "about", "contact"]
 author = "Rafael Álvarez García"
 +++
 
-I am PhD student in theoretical physics at the [Cluster of Excellence Quantum Universe](https://www.qu.uni-hamburg.de/), a joint project of [Universität Hamburg](https://www.uni-hamburg.de/en.html) and [DESY](https://www.desy.de/index_eng.html). I work under the supervision of [Prof. Dr. Timo Weigand](https://unith.desy.de/research/strings/weigand) on topics pertaining to string phenomenology. My research interests are focused on learning about the general properties a consistent theory of quantum gravity must have through the study of string theory, our best understood example of a theory of this kind. Furthermore, I believe that this systematic study of quantum gravity theories will guide us to a deeper understanding of string theory itself.
+I am a theoretical physicist in a joint postdoctoral position with [Cumrun Vafa](https://www.physics.harvard.edu/people/facpages/vafa) at Harvard University and [Fabian Ruehle](https://cos.northeastern.edu/people/fabian-ruehle/) at Northeastern University. Using string theory as a laboratory, I probe the boundary between the effective field theories that can arise from quantum gravity and those that appear consistent at low energies but admit no such completion. In my work, I draw on connections between string theory and geometry, and I also pursue the mathematical questions those connections raise.
 
-My master thesis project was carried out under the supervision of [Priv.-Doz.  Dr.  Ralph Blumenhagen](https://wwwth.mpp.mpg.de/members/blumenha/) at the [Max-Planck-Institut für Physik (Werner-Heisenberg-Institut)](https://www.mpp.mpg.de/) in Munich. The focus of the project was on computing periods near conifold singularities in complex structure moduli space and later exploiting these results to construct vacua with a small superpotential as required by KKLT. More information can be found in [the resulting paper]({{<ref "/publications/small-flux-superpotentials-conifold">}}).
+## Research
 
-As an undergraduate I had the chance to take part in the [DESY Summer Student Programme](https://summerstudents.desy.de/), where I worked under the supervison of [Dr. Anatoli Fedynitch](https://afedynitch.netlify.app/) writing code to compute the energy loss of muons in dense media, to be later used in reconstructions of cascade showers in the atmosphere in the [MCEq](https://github.com/afedynitch/MCEq) package.
+- **Geometric degenerations.** I study when extra dimensions grow large or weakly coupled strings emerge, signaling the breakdown of the original effective field theory, and how quantum effects can overturn what the classical geometry predicts.
 
-#### Education
+- **Coxeter symmetries.** In certain string models, I use [kaleidoscope-like reflection symmetries]({{<ref "/cicy-coxeter">}} "CICY–Coxeter database") in the space of geometries to explain repeating patterns in quantum corrections and to decompose their sums into wave modes on that space.
 
-- 2018 - 2021, [Elite Master Course Theoretical and Mathematical Physics](https://www.theorie.physik.uni-muenchen.de/TMP/), [LMU](https://www.lmu.de/en/) & [TUM](https://www.tum.de/en)
-- 2013 - 2018, Double Degree with an Extraordinary Award, [Universidad de Oviedo](https://www.uniovi.es/en/inicio)
-  - BSc in Physics
-  - BSc in Mathematics
+- **Quantum geometry.** I explore how quantum effects reshape the parameter spaces of string models, calculating distances between theories and asking how much of each space admits a classical geometric description.
 
-#### Personal
+- **Vacua and cosmology.** I ask which vacuum states string theory allows and whether their energy could drive cosmic acceleration in a regime where the low-energy description remains reliable.
 
-I come from Asturias, a small region situated in the northwest of Spain. Below you can find a collection of photographs that give you a taste of what Asturias is like. I hope that you like it and that you can visit some day!
+## Education
+
+I completed my PhD at Universität Hamburg under [Timo Weigand](https://www.physik.uni-hamburg.de/en/th2/ag-weigand/personen/weigand-timo.html), graduating *summa cum laude*. In Munich, I wrote my master’s thesis with [Ralph Blumenhagen](https://wwwth.mpp.mpg.de/members/blumenha/) at the Max-Planck-Institut für Physik as part of the [Elite Master Course Theoretical and Mathematical Physics](https://www.theorie.physik.uni-muenchen.de/TMP/), run jointly by LMU and TUM. I earned a bachelor’s degree in physics and a bachelor’s degree in mathematics at Universidad de Oviedo, along with the university’s Extraordinary Award for the top academic record in the program. For my undergraduate studies in mathematics, I later received a Spanish national award for academic excellence (*Premio Nacional de Fin de Carrera de Educación Universitaria*).
+
+## Community
+
+- **Seminars.** I co-organize Harvard's Swampland Seminar and Swampland Lunch Discussions. I previously held the same role for Northeastern's High Energy Theory Seminar.
+- **Mentoring.** I serve as an informal mentor to PhD students.
+- **Conferences.** I was a local organizer for both String Phenomenology 2025 at Northeastern and Strings and Geometry 2024 in Hamburg.
+- **Refereeing.** I review papers for *SciPost Physics* and *Advances in Theoretical and Mathematical Physics*.
+
+## Personal
+
+I come from Asturias, a small region in northwestern Spain. Here are a few glimpses of home. I hope you get to visit someday!
 
 {{< gallery >}}
   {{< figure src="/asturias/asturcones.jpg" caption="Asturcones | Getty Images">}}
