@@ -1,0 +1,15 @@
+{{- $cased := title . -}}
+{{- if findRE `[-‐‑]` . 1 -}}
+  {{- /* For each compound, keep Hugo's title-cased first part and the author's spelling after the hyphen. */ -}}
+  {{- $tokens := `([\pL\pM\pN]+)(([-‐‑][\pL\pM\pN]+)*)|[^\pL\pM\pN]+` -}}
+  {{- $original := findRESubmatch $tokens . -}}
+  {{- range $i, $token := findRESubmatch $tokens $cased -}}
+    {{- with index (index $original $i) 2 -}}
+      {{- print (index $token 1) . -}}
+    {{- else -}}
+      {{- index $token 0 -}}
+    {{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- $cased -}}
+{{- end -}}
