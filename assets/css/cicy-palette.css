@@ -1,0 +1,59 @@
+/* ====================================================================
+   CICY Coxeter palette — the single definition of the shared tokens.
+   --------------------------------------------------------------------
+   Bundled ahead of cicy-page.css (per-model pages) and cicy-sections.css
+   (landing page), so the per-model root (.cxpg) and every landing section
+   root read the same gruvbox values. Group-type hues: finite = blue,
+   affine = aqua, indefinite = yellow. Tokens used by only one page type
+   (accent, link, stat, paper, shadows, display/body faces) stay in that
+   page's own sheet.
+   ==================================================================== */
+
+.cxpg,
+.cicy-intro,
+.cicy-downloads,
+.cicy-charts,
+.cicy-gallery,
+.cicy-explorer {
+  /* group-type hues */
+  --cx-finite:   #458588;
+  --cx-affine:   #689d6a;
+  --cx-indef:    #d79921;
+  --cx-ink:      #2b3036;
+  --cx-muted:    #6a727b;
+  --cx-line:     rgba(22, 30, 40, 0.12);
+  --cx-line-2:   rgba(22, 30, 40, 0.06);
+  --cx-surface:  #ffffff;
+  --cx-surface-2:#f5f7f9;
+  /* copy-button feedback (success / failure), shared by the landing's
+     .cxdl3__copy and the per-model .cxpg-copy — the subtler affine-family
+     green + a matching red, rendered as a soft bg tint + border + text. */
+  --cx-copy-ok:  #689d6a;
+  --cx-copy-no:  #b5564e;
+  --cx-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+}
+
+.theme--dark .cxpg,
+[data-theme="dark"] .cxpg,
+.theme--dark .cicy-intro,
+[data-theme="dark"] .cicy-intro,
+.theme--dark .cicy-downloads,
+[data-theme="dark"] .cicy-downloads,
+.theme--dark .cicy-charts,
+[data-theme="dark"] .cicy-charts,
+.theme--dark .cicy-gallery,
+[data-theme="dark"] .cicy-gallery,
+.theme--dark .cicy-explorer,
+[data-theme="dark"] .cicy-explorer {
+  --cx-finite:   #83a598;
+  --cx-affine:   #8ec07c;
+  --cx-indef:    #fabd2f;
+  --cx-ink:      #e6ecf2;
+  --cx-muted:    #9aa6b2;
+  --cx-line:     rgba(255, 255, 255, 0.14);
+  --cx-line-2:   rgba(255, 255, 255, 0.07);
+  --cx-surface:  #18242e;
+  --cx-surface-2:#1f2d38;
+  --cx-copy-ok:  #8ec07c;
+  --cx-copy-no:  #d98a80;
+}

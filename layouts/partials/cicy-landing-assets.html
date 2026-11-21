@@ -15,7 +15,7 @@
   integrity="{{ $galleryCss.Data.Integrity }}"
   crossorigin="anonymous"
 />
-{{- $sectionsCss := resources.Get "css/cicy-sections.css" | resources.Minify | resources.Fingerprint -}}
+{{- $sectionsCss := slice (resources.Get "css/cicy-palette.css") (resources.Get "css/cicy-sections.css") | resources.Concat "css/cicy-sections.css" | resources.Minify | resources.Fingerprint -}}
 <link
   rel="stylesheet"
   href="{{ $sectionsCss.RelPermalink }}"

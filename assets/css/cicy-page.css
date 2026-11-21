@@ -3,10 +3,11 @@
    --------------------------------------------------------------------
    One sheet in two sections:
 
-     1. Tokens & primitives — the `--cx-*` palette (light + dark) that
-        mirrors the landing page so the whole site reads as one design
-        language, the kind -> --k accent mapping, and the shared
-        primitives (matrix wrapper, record/copy block, diagram colour).
+     1. Tokens & primitives — the page's own `--cx-*` tokens (the shared
+        palette, light + dark, comes from cicy-palette.css so the whole
+        site reads as one design language), the kind -> --k accent
+        mapping, and the shared primitives (matrix wrapper, record/copy
+        block, diagram colour).
 
      2. Page layout (prefixed .cxpg-sheet) — the datasheet masthead (serial =
         page <h1>, ribbon, invariants, LEDs), the two-column "title | data"
@@ -24,22 +25,10 @@
    ==================================================================== */
 
 .cxpg {
-  /* group-type hues — shared with the gallery and section palettes */
-  --cx-finite:   #458588;
-  --cx-affine:   #689d6a;
-  --cx-indef:    #d79921;
+  /* The shared palette (group-type hues, ink, lines, surfaces, copy
+     feedback, mono face) is defined once in cicy-palette.css, bundled
+     ahead of this sheet; only the page's own tokens live here. */
   --cx-accent:   #458588;
-  --cx-ink:      #2b3036;
-  --cx-muted:    #6a727b;
-  --cx-line:     rgba(22, 30, 40, 0.12);
-  --cx-line-2:   rgba(22, 30, 40, 0.06);
-  --cx-surface:  #ffffff;
-  --cx-surface-2:#f5f7f9;
-  /* copy-button feedback (success / failure) — shared with the landing's
-     .cxdl3__copy; subtle bg-tint treatment below. */
-  --cx-copy-ok:  #689d6a;
-  --cx-copy-no:  #b5564e;
-  --cx-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
   /* the page text font: the site's own body stack (theme partials/_base.scss),
      so the math pairs with the same sans used across the rest of the site. */
   --cx-sans: "PingHei", "PingFang SC", "Helvetica Neue", "Work Sans", "Hiragino Sans GB", sans-serif;
@@ -49,18 +38,7 @@
 
 .theme--dark .cxpg,
 [data-theme="dark"] .cxpg {
-  --cx-finite:   #83a598;
-  --cx-affine:   #8ec07c;
-  --cx-indef:    #fabd2f;
   --cx-accent:   #83a598;
-  --cx-ink:      #e6ecf2;
-  --cx-muted:    #9aa6b2;
-  --cx-line:     rgba(255, 255, 255, 0.14);
-  --cx-line-2:   rgba(255, 255, 255, 0.07);
-  --cx-surface:  #18242e;
-  --cx-surface-2:#1f2d38;
-  --cx-copy-ok:  #8ec07c;
-  --cx-copy-no:  #d98a80;
 }
 
 /* kind -> single page accent. Sentinel/trivial deliberately keep --k = muted

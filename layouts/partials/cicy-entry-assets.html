@@ -2,7 +2,7 @@
        (token/primitive layer + page layout) is minified and fingerprinted; the
        script carries copy / generator-toggle / random / keyboard-navigation
        behaviour. */ -}}
-{{- $css := resources.Get "css/cicy-page.css" | resources.Minify | resources.Fingerprint -}}
+{{- $css := slice (resources.Get "css/cicy-palette.css") (resources.Get "css/cicy-page.css") | resources.Concat "css/cicy-page.css" | resources.Minify | resources.Fingerprint -}}
 <link
   rel="stylesheet"
   href="{{ $css.RelPermalink }}"

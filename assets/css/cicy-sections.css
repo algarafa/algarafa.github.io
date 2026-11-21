@@ -5,7 +5,8 @@
    Intro panel (.cxhero4), the Downloads panel (.cxdl3 + the .cx-bibtex
    copy button) and the Charts component (.cxch2c). The section roots
    (.cicy-intro / .cicy-downloads / .cicy-charts / .cicy-gallery /
-   .cicy-explorer) share the gruvbox palette defined below.
+   .cicy-explorer) share the gruvbox palette from cicy-palette.css (bundled
+   ahead of this sheet); the landing-only tokens are defined below.
 
    The live Explorer (loading states, results table) is styled in
    cicy-explorer.css; the gallery Atlas in cicy-gallery.css. Group-type
@@ -17,10 +18,9 @@
 .cicy-charts,
 .cicy-gallery,
 .cicy-explorer {
-  /* group-type hues — shared with the gallery palette */
-  --cx-finite:   #458588;
-  --cx-affine:   #689d6a;
-  --cx-indef:    #d79921;
+  /* The shared palette (group-type hues, ink, lines, surfaces, copy
+     feedback, mono face) is defined once in cicy-palette.css, bundled
+     ahead of this sheet; only the landing's own tokens live here. */
   --cx-accent:   var(--cicy-chart-accent, #458588);
   /* link-type controls (Download CSV, chart toggle, …) use the SITE's standard
      link blue ($info = #6086b4 in the Anatole theme) rather than the gruvbox
@@ -31,17 +31,6 @@
      palette (blue/aqua/yellow) so the stat tiles can't be misread as
      finite/affine/indefinite categories */
   --cx-stat:     #b16286;
-  /* copy-button feedback (success / failure), shared by .cxdl3__copy and the
-     per-model .cxpg-copy — the subtler affine-family green + a matching red,
-     both rendered as a soft bg tint + border + text. */
-  --cx-copy-ok:  #689d6a;
-  --cx-copy-no:  #b5564e;
-  --cx-ink:      #2b3036;
-  --cx-muted:    #6a727b;
-  --cx-line:     rgba(22, 30, 40, 0.12);
-  --cx-line-2:   rgba(22, 30, 40, 0.06);
-  --cx-surface:  #ffffff;
-  --cx-surface-2:#f5f7f9;
   --cx-paper:    #f6f2e9;
   --cx-paper-ink:#3a3326;
   --cx-paper-line: rgba(120, 100, 60, 0.26);
@@ -49,7 +38,6 @@
   --cx-shadow-hi:0 2px 6px rgba(16, 24, 40, 0.08), 0 18px 30px -16px rgba(16, 24, 40, 0.30);
   /* distinctive display + mono faces, with graceful system fallbacks */
   --cx-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
-  --cx-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
   margin-top: var(--cicy-section-gap);
 }
 
@@ -63,18 +51,7 @@
 [data-theme="dark"] .cicy-gallery,
 .theme--dark .cicy-explorer,
 [data-theme="dark"] .cicy-explorer {
-  --cx-finite:   #83a598;
-  --cx-affine:   #8ec07c;
-  --cx-indef:    #fabd2f;
-  --cx-ink:      #e6ecf2;
-  --cx-muted:    #9aa6b2;
-  --cx-line:     rgba(255, 255, 255, 0.14);
-  --cx-line-2:   rgba(255, 255, 255, 0.07);
-  --cx-surface:  #18242e;
-  --cx-surface-2:#1f2d38;
   --cx-stat:     #d3869b;
-  --cx-copy-ok:  #8ec07c;
-  --cx-copy-no:  #d98a80;
   --cx-paper:    #272016;
   --cx-paper-ink:#e9dec5;
   --cx-paper-line: rgba(233, 222, 197, 0.16);
