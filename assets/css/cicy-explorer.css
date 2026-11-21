@@ -331,18 +331,9 @@
   border-radius: 0;
 }
 
-/* Narrow-viewport-only affordance: a "scroll horizontally" hint and a small
-   gradient fade on the right edge of the table wrap, telling the reader
-   there are more columns off-screen. Desktop has full-width room, so both
-   cues are hidden above 640 px. */
-.cicy-explorer__scroll-hint {
-  display: none;
-  margin: 0 0 0.35rem;
-  font-size: 0.85em;
-  opacity: 0.7;
-  text-align: center;
-}
-
+/* Narrow-viewport-only affordance: a small gradient fade on the right edge
+   of the table wrap, telling the reader there are more columns off-screen.
+   Desktop has full-width room, so the fade is hidden above 640 px. */
 .cicy-explorer__scroll-fade {
   display: none;
   position: absolute;
@@ -368,7 +359,6 @@
 }
 
 @media (max-width: 640px) {
-  .cicy-explorer__scroll-hint,
   .cicy-explorer__scroll-fade {
     display: block;
   }
