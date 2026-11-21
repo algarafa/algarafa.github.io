@@ -260,10 +260,18 @@ def write_parquet(records: list[Record], out_path: Path) -> None:
         )
         for r in records
     ]
-    con.executemany(
-        "INSERT INTO cicy VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        rows,
-    )
+    # Bulk-load the rows from newline-delimited JSON, typed by the table
+    # above. Don't go back to executemany: it binds every nested value
+    # through DuckDB's Python layer, which retries `import pandas` for each
+    # one when pandas is absent (~20 min for the 7890 rows on Windows,
+    # against well under a second this way).
+    names = con.table("cicy").columns
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        src = Path(tmp_dir) / "cicy.ndjson"
+        with src.open("w", encoding="utf-8", newline="\n") as fh:
+            for row in rows:
+                fh.write(json.dumps(dict(zip(names, row)), ensure_ascii=False) + "\n")
+        con.execute(f"COPY cicy FROM '{src.as_posix()}' (FORMAT JSON)")
     tmp = out_path.with_suffix(out_path.suffix + ".tmp")
     con.execute(
         f"COPY cicy TO '{tmp.as_posix()}' "
