@@ -11,7 +11,7 @@ favicon = "favicons/"
 customCss = ["css/tables.css", "css/custom-overrides.css"]
 disableArchiveTitleStyling = true
 # example ["js/custom.js"]
-customJs = [] 
+customJs = ["js/sidebar-figures.js"]
 #mainSections = ["post"]
 mainSections = ["publications"]
 #images = ["images/site-feature-image.png"]
